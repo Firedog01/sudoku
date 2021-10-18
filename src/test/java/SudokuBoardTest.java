@@ -21,21 +21,21 @@ class SudokuBoardTest {
     }
 
     /**
-     * SudokuBoard.fillBoard() test that checks if the board generated correctly
+     * SudokuBoard.solveGame() test that checks if the board generated correctly
      */
     @Test
-    void testFillBoard() {
-        board.fillBoard();
-        assertEquals(true, board.isValid());
+    void testsolveGame() {
+        board.solveGame();
+        assertTrue(board.isValid());
     }
 
     /**
-     * SudokuBoard test that checks if fillBoard() generates two different boards
+     * SudokuBoard test that checks if solveGame() generates two different boards
      */
     @Test
     void testSudokuBoard() {
-        board.fillBoard();
-        board2.fillBoard();
-        assertEquals(false, isSame(board, board2));
+        board.solveGame();
+        board2.solveGame();
+        assertTrue(isSame(board, board2));
     }
 }
