@@ -9,9 +9,6 @@ sources used when writing:
     http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
  */
 
-
-import de.sfuhrm.sudoku.Creator;
-import de.sfuhrm.sudoku.GameMatrix;
 import java.util.Arrays;
 
 public class SudokuBoard {
@@ -20,6 +17,7 @@ public class SudokuBoard {
      * Before calling method fillBoard() every cell in table is set to zero.
      */
     private int[][] board = new int[9][9];
+    private BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
 
     /**
      * Constructor. Initializes board with zeros
@@ -34,13 +32,8 @@ public class SudokuBoard {
      * Function that generates filled sudoku board with use of sfuhrm.sudoku library.
      * For more info go to <a href="https://javadoc.io/doc/de.sfuhrm/sudoku/latest/index.html>this location</a>.
      */
-    public void fillBoard() {
-        GameMatrix matrix = Creator.createFull();
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                board[i][j] = matrix.get(i, j);
-            }
-        }
+    public void solveGame() {
+        sudokuSolver.solve(this);
     }
 
     /**
@@ -54,6 +47,15 @@ public class SudokuBoard {
     public int get(int x, int y) {
         return board[x][y];
     }
+
+    /**
+     * Sets value of a cell in sudoku board.
+     *
+     * @param x first coordinate
+     * @param y second coordinate
+     * @param value int of range 1-9
+     */
+    public void set(int x, int y, int value) { board[x][y] = value; }
 
     /**
      * Checks if board is valid.
@@ -70,7 +72,7 @@ public class SudokuBoard {
             Arrays.fill(checked, false);
             for (int number : row) {
                 // Has the number repeated and is it in range 1-9?
-                if (!checked[number - 1] || number >= 1 || number <= 9) {
+                if (!checked[number - 1] && number >= 1 && number <= 9) {
                     // Row is valid so far
                     checked[number - 1] = true;
                 } else {
@@ -86,7 +88,7 @@ public class SudokuBoard {
             Arrays.fill(checked, false);
             for (int j = 0; j < 9; j++) {
                 int number = get(j, i);
-                if (!checked[number - 1] || number >= 1 || number <= 9) {
+                if (!checked[number - 1] && number >= 1 && number <= 9) {
                     checked[number - 1] = true;
                 } else {
                     return false;
@@ -102,7 +104,7 @@ public class SudokuBoard {
                 Arrays.fill(checked, false);
                 for (int k = 0; k < 9; k++) {
                     int number = get(n * 3 + k % 3, m * 3 + k / 3);
-                    if (!checked[number - 1] || number >= 1 || number <= 9) {
+                    if (!checked[number - 1] && number >= 1 && number <= 9) {
                         checked[number - 1] = true;
                     } else {
                         return false;

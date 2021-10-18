@@ -1,7 +1,7 @@
 public class Greet {
     public static void main(String[] args) {
         SudokuBoard board = new SudokuBoard();
-        board.fillBoard();
+        board.solveGame();
         if (board.isValid()) {
             System.out.println("Sudoku board is valid");
             System.out.println(displayBoard(board));
