@@ -1,0 +1,72 @@
+GameMatrix matrix = Creator.createFull()
+
+createFull:
+	wypełnia najpierw bloki po przekątnej
+	* 0 0
+	0 * 0
+	0 0 *
+	za pomocą metody fillBlock wypełnia zaznaczone bloki
+	następnie wywołuje metodę backtrack która uzupełnia brakujące bloki
+
+
+fillBlock(x, y):
+	czy x i y pokazują faktycznie na jakąś komórkę
+	x i y pokazują na lewy górny róg bloku do wypełnienia (dla tablicy 9x9 będą to wartości 0, 3 i 6)
+	za pomocą createNumbersToDistribute tworzy potasowaną tablicę zawierającą wartości od 1 do 9
+	na podstawie tej tablicy przepisuje po kolei liczby do każdej z komórek
+
+
+createNumbersToDistribute(random r, multiplicity):
+	zwraca potasowaną tablicę zawierającą liczby od 1 do 9 multiplicity razy (np dla multiplicity 2 będą 2 jedynki, 2 dwójki itd)
+
+
+backtrack(numbersToDistribute, int[2] minimumCell):
+	numbersToDistribute opisuje ile zostało jeszcze komórek do wypełnienia a int[2] jest potrzebne wewnątrz funkcji
+
+	jeśli numbersToDistribute == 0 i tablica !isValid to rzuć wyjątkiem.
+		Jeśli jest poprawna to zwróć tablicę
+	znajdź za pomoną funkcji findLeastFreeCell. Jeśli findLeastFreeCell zwróciło false to zwraca false (tablica wybenerowana z błędem).
+	    zapisuje wartość w minimumCell.
+
+    wyznacza dla minimumCell możliwe do wpisania liczby za pomocą funkcji getFreeMask
+    przechowuje w minimumBits ilość możliwych do wpisania liczb
+
+    następnie w pętli przechodzi po wszystkich możliwych do wpisania liczbach
+        uzyskuje liczbę która teraz jest rozwarzana
+        upewnia się, że uzyskana liczba wchodzi w zakres 1..9
+        ustawia pole o współrzędnych minimumCell na wartość liczby
+        rekurencyjnie wywołuje funkcję backtrack z zdekrementowanym numbersToDistribute
+        jeśli zwrócona wartość backtrack == prawda to zwraca prawdę
+
+    jeśli wyszedł z pętli to znaczy, że nie udało się wygenerować poprawnie tablicy z jakiegoś powodu.
+    usuwa wszystkie wartości z tablicy
+    zwraca fausz
+
+
+GameMatrixImpl::isValid:
+	czy nie ma powtórzonych wartości w wierszach, kolumnach i blokach
+
+
+BitFreeMatrixInterface::findLeastFreeCell(int[2] rowColumnResult):
+	znajduje komórkę która ma najmniej możliwości wstawienia liczby
+		(na podstawie już uzupełnionych wartości można stwierdzić że w danej komórce można wpisać tylko 1 i 5)
+	zwraca boolean: true jeśli udało się znaleźć taką komórkę, false jeśli wszystkie są już wypełnione
+
+
+BitFreeMatrix::getFreeMask(x, y):
+    /** Gets the free mask for the given cell.
+     * @param row the row of the cell to get the free mask for.
+     * @param column the column of the to get the free mask for.
+     * @return bit mask with the bit 1 telling whether the number 1 is free,
+     * the bit 2 telling whether the number 2 is free, and so on. The bit 0
+     * is not used.
+     */
+
+
+Notatka:
+    funkcje o nazwach get...FreeMask zwracają możliwe do wpisania wartości w postaci zapalonych bitów na incie
+    bit 0 jest nieużywany a bity od 1 do 9 odpowiadają kolejnym cyfrom. Dekodowane jest to za pomocą funkcji getSetBitOffset(minimumFree, bit);
+    gdzie minimumFree to maska zawierająca ustawione dostępne liczby a bit to o który zapalony bit chodzi. Jeśli maska jest postaci:
+    0 1 2 3 4 5 6 7 8 9
+    0 0 1 0 0 1 0 0 1 1
+    to bit może przybierać wartości 0..3

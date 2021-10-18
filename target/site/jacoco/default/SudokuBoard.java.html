@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SudokuBoard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProjektBazowy</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">SudokuBoard.java</span></div><h1>SudokuBoard.java</h1><pre class="source lang-java linenums">/*
+sources used when writing:
+    https://www.w3schools.com/java
+    https://www.codegrepper.com/code-examples/java/how+to+fill+a+2d+array+with+0+in+java
+    https://github.com/sfuhrm/sudoku
+    https://javadoc.io/doc/de.sfuhrm/sudoku/latest/index.html
+
+    https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html
+    http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
+ */
+
+
+import de.sfuhrm.sudoku.Creator;
+import de.sfuhrm.sudoku.GameMatrix;
+import java.util.Arrays;
+
+public class SudokuBoard {
+    /**
+     * Array containing sudoku board.
+     * Before calling method fillBoard() every cell in table is set to zero.
+     */
+<span class="nc" id="L22">    private int[][] board = new int[9][9];</span>
+
+    /**
+     * Constructor. Initializes board with zeros
+     */
+<span class="nc" id="L27">    public SudokuBoard() {</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        for (int[] row: board) {</span>
+<span class="nc" id="L29">            Arrays.fill(row, 0);</span>
+        }
+<span class="nc" id="L31">    }</span>
+
+    /**
+     * Function that generates filled sudoku board with use of sfuhrm.sudoku library.
+     * For more info go to &lt;a href=&quot;https://javadoc.io/doc/de.sfuhrm/sudoku/latest/index.html&gt;this location&lt;/a&gt;.
+     */
+    public void fillBoard() {
+<span class="nc" id="L38">        GameMatrix matrix = Creator.createFull();</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">        for (int i = 0; i &lt; 9; i++) {</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            for (int j = 0; j &lt; 9; j++) {</span>
+<span class="nc" id="L41">                board[i][j] = matrix.get(i, j);</span>
+            }
+        }
+<span class="nc" id="L44">    }</span>
+
+    /**
+     * Returns value of a cell in sudoku board.
+     * If function returns 0 means that given cell is empty.
+     *
+     * @param x first coordinate
+     * @param y second coordinate
+     * @return int of range 0-9 representing value in given cell
+     */
+    public int get(int x, int y) {
+<span class="nc" id="L55">        return board[x][y];</span>
+    }
+
+    /**
+     * Checks if board is valid.
+     * If function returns 0 means that board is invalid.
+     *
+     * @return boolean
+     */
+    public boolean isValid() {
+
+        // Check rows
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (int[] row: board) {</span>
+            // Array stores information if a number was already found in row
+<span class="nc" id="L69">            boolean[] checked = new boolean[9];</span>
+<span class="nc" id="L70">            Arrays.fill(checked, false);</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">            for (int number : row) {</span>
+                // Has the number repeated and is it in range 1-9?
+<span class="nc bnc" id="L73" title="All 6 branches missed.">                if (!checked[number - 1] || number &gt;= 1 || number &lt;= 9) {</span>
+                    // Row is valid so far
+<span class="nc" id="L75">                    checked[number - 1] = true;</span>
+                } else {
+                    // Board is invalid
+<span class="nc" id="L78">                    return false;</span>
+                }
+            }
+        }
+
+        //Check columns
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        for (int i = 0; i &lt; 9; i++) {</span>
+<span class="nc" id="L85">            boolean[] checked = new boolean[9];</span>
+<span class="nc" id="L86">            Arrays.fill(checked, false);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">            for (int j = 0; j &lt; 9; j++) {</span>
+<span class="nc" id="L88">                int number = get(j, i);</span>
+<span class="nc bnc" id="L89" title="All 6 branches missed.">                if (!checked[number - 1] || number &gt;= 1 || number &lt;= 9) {</span>
+<span class="nc" id="L90">                    checked[number - 1] = true;</span>
+                } else {
+<span class="nc" id="L92">                    return false;</span>
+                }
+            }
+        }
+
+        //Check blocks
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        for (int n = 0; n &lt; 3; n++) {</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            for (int m = 0; m &lt; 3; m++) {</span>
+                // For each block:
+<span class="nc" id="L101">                boolean[] checked = new boolean[9];</span>
+<span class="nc" id="L102">                Arrays.fill(checked, false);</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">                for (int k = 0; k &lt; 9; k++) {</span>
+<span class="nc" id="L104">                    int number = get(n * 3 + k % 3, m * 3 + k / 3);</span>
+<span class="nc bnc" id="L105" title="All 6 branches missed.">                    if (!checked[number - 1] || number &gt;= 1 || number &lt;= 9) {</span>
+<span class="nc" id="L106">                        checked[number - 1] = true;</span>
+                    } else {
+<span class="nc" id="L108">                        return false;</span>
+                    }
+                }
+            }
+        }
+<span class="nc" id="L113">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
