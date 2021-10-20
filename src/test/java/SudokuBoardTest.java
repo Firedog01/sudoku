@@ -3,8 +3,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoardTest {
-    SudokuBoard board = new SudokuBoard();
-    SudokuBoard board2 = new SudokuBoard();
+    SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+    SudokuBoard board2 = new SudokuBoard(new BacktrackingSudokuSolver());
 
     /**
      * Function check if two SudokuBoards are the same.

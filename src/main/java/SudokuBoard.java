@@ -17,15 +17,16 @@ public class SudokuBoard {
      * Before calling method fillBoard() every cell in table is set to zero.
      */
     private int[][] board = new int[9][9];
-    private BacktrackingSudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+    private SudokuSolver sudokuSolver;
 
     /**
      * Constructor. Initializes board with zeros
      */
-    public SudokuBoard() {
+    public SudokuBoard(SudokuSolver solver) {
         for (int[] row: board) {
             Arrays.fill(row, 0);
         }
+        sudokuSolver = solver;
     }
 
     /**
