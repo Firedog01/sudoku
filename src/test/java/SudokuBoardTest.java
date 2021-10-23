@@ -57,9 +57,10 @@ class SudokuBoardTest {
     @Test
     void isValid_SameRow_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
-        board0.solveGame();
-        for(int i = 0; i < 9; i++) {
-            board0.set(i, 0, 1);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                board0.set(i, j, i+1);
+            }
         }
         assertFalse(board0.isValid());
     }
@@ -70,9 +71,10 @@ class SudokuBoardTest {
     @Test
     void isValid_SameCol_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
-        board0.solveGame();
-        for(int i = 0; i < 9; i++) {
-            board0.set(0, i, 1);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                board0.set(i, j, j+1);
+            }
         }
         assertFalse(board0.isValid());
     }
@@ -83,10 +85,9 @@ class SudokuBoardTest {
     @Test
     void isValid_SameBlock_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
-        board0.solveGame();
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                board0.set(i, j, 1);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                board0.set(i, j, (i + j) % 9 + 1);
             }
         }
         assertFalse(board0.isValid());

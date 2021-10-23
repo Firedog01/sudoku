@@ -68,17 +68,24 @@ public class SudokuBoard {
      * @return boolean
      */
     public boolean isValid() {
+        // Check if out of range
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (get(i, j) < 1 || get(i, j) > 9) {
+                    return false;
+                }
+            }
+        }
+
         // Check rows
         for (int i = 0; i < 9; i++) {
             // Array stores information if a number was already found in row
             boolean[] checked = new boolean[9];
             Arrays.fill(checked, false);
             for (int j = 0; j < 9; j++) {
-                int number = get(j, i);
-                // Return false if out of range
-                if (number < 1 || number > 9) {
-                    return false;
-                } else if (checked[number - 1]) { // Return false if number repeats
+                int number = get(i, j);
+                // Return false if number repeats
+                if (checked[number - 1]) {
                     return false;
                 } else { // It's valid, mark as checked
                     checked[number - 1] = true;
@@ -92,9 +99,7 @@ public class SudokuBoard {
             Arrays.fill(checked, false);
             for (int j = 0; j < 9; j++) {
                 int number = get(j, i);
-                if (number < 1 || number > 9) {
-                    return false;
-                } else if (checked[number - 1]) {
+                if (checked[number - 1]) {
                     return false;
                 } else {
                     checked[number - 1] = true;
@@ -110,9 +115,7 @@ public class SudokuBoard {
                 Arrays.fill(checked, false);
                 for (int k = 0; k < 9; k++) {
                     int number = get(n * 3 + k % 3, m * 3 + k / 3);
-                    if (number < 1 || number > 9) {
-                        return false;
-                    } else if (checked[number - 1]) {
+                    if (checked[number - 1]) {
                         return false;
                     } else {
                         checked[number - 1] = true;
