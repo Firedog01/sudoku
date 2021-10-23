@@ -69,18 +69,23 @@ public class SudokuBoard {
      */
     public boolean isValid() {
         // Check rows
-        for (int[] row: board) {
+        for (int i = 0; i < 9; i++) {
             // Array stores information if a number was already found in row
             boolean[] checked = new boolean[9];
             Arrays.fill(checked, false);
-            for (int number : row) {
-                // Has the number repeated and is it in range 1-9?
-                if (!checked[number - 1] && number >= 1 && number <= 9) {
-                    // Row is valid so far
-                    checked[number - 1] = true;
-                } else {
-                    // Board is invalid
+            for (int j = 0; j < 9; j++) {
+                int number = get(j, i);
+                // Return false if out of range
+                if (number < 1 || number > 9) {
                     return false;
+                }
+                // Return false if number repeats
+                else if(checked[number - 1]) {
+                    return false;
+                }
+                // It's valid, mark as checked
+                else{
+                    checked[number - 1] = true;
                 }
             }
         }
@@ -91,10 +96,14 @@ public class SudokuBoard {
             Arrays.fill(checked, false);
             for (int j = 0; j < 9; j++) {
                 int number = get(j, i);
-                if (!checked[number - 1] && number >= 1 && number <= 9) {
-                    checked[number - 1] = true;
-                } else {
+                if (number < 1 || number > 9) {
                     return false;
+                }
+                else if(checked[number - 1]) {
+                    return false;
+                }
+                else{
+                    checked[number - 1] = true;
                 }
             }
         }
@@ -107,10 +116,14 @@ public class SudokuBoard {
                 Arrays.fill(checked, false);
                 for (int k = 0; k < 9; k++) {
                     int number = get(n * 3 + k % 3, m * 3 + k / 3);
-                    if (!checked[number - 1] && number >= 1 && number <= 9) {
-                        checked[number - 1] = true;
-                    } else {
+                    if (number < 1 || number > 9) {
                         return false;
+                    }
+                    else if(checked[number - 1]) {
+                        return false;
+                    }
+                    else{
+                        checked[number - 1] = true;
                     }
                 }
             }
