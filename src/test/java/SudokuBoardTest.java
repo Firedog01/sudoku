@@ -3,22 +3,20 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoardTest {
-    SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
-    SudokuBoard board2 = new SudokuBoard(new BacktrackingSudokuSolver());
+    private SudokuSolver solver0 = new BacktrackingSudokuSolver();
+    private SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
+    private SudokuBoard board2 = new SudokuBoard(new BacktrackingSudokuSolver());
 
-    /**
-     * Function check if two SudokuBoards are the same.
-     */
-    public boolean isSame(SudokuBoard board, SudokuBoard board2) {
+    @Test
+    void constructorTest() {
+        SudokuBoard board0 = new SudokuBoard(solver0);
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
-                if(board.get(i, j) != board2.get(i, j)) {
-                    return false;
-                }
+                assertEquals(0, board0.get(i, j));
             }
         }
-        return true;
     }
+
 
     /**
      * SudokuBoard.solveGame() test that checks if the board generated correctly
@@ -36,6 +34,6 @@ class SudokuBoardTest {
     void testSudokuBoard() {
         board.solveGame();
         board2.solveGame();
-        assertTrue(isSame(board, board2));
+        assertFalse(board.equals(board2));
     }
 }

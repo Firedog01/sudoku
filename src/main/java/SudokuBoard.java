@@ -21,6 +21,7 @@ public class SudokuBoard {
 
     /**
      * Constructor. Initializes board with zeros
+     * @param solver instance of SudokuSolver
      */
     public SudokuBoard(SudokuSolver solver) {
         for (int[] row: board) {
@@ -56,7 +57,9 @@ public class SudokuBoard {
      * @param y second coordinate
      * @param value int of range 1-9
      */
-    public void set(int x, int y, int value) { board[x][y] = value; }
+    public void set(int x, int y, int value) {
+        board[x][y] = value;
+    }
 
     /**
      * Checks if board is valid.
@@ -65,7 +68,6 @@ public class SudokuBoard {
      * @return boolean
      */
     public boolean isValid() {
-
         // Check rows
         for (int[] row: board) {
             // Array stores information if a number was already found in row
@@ -110,6 +112,17 @@ public class SudokuBoard {
                     } else {
                         return false;
                     }
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean equals(SudokuBoard board) {
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                if(this.get(i, j) != board.get(i, j)) {
+                    return false;
                 }
             }
         }
