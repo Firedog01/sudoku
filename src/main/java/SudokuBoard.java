@@ -68,8 +68,7 @@ public class SudokuBoard {
      * @return boolean
      */
     public boolean isValid() {
-        // Check if out of range
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) { // Check if out of range
             for (int j = 0; j < 9; j++) {
                 if (get(i, j) < 1 || get(i, j) > 9) {
                     return false;
@@ -77,38 +76,24 @@ public class SudokuBoard {
             }
         }
 
-        // Check rows
-        for (int i = 0; i < 9; i++) {
-            // Array stores information if a number was already found in row
-            boolean[] checked = new boolean[9];
-            Arrays.fill(checked, false);
+        for (int i = 0; i < 9; i++) { // Check row and cols
+            boolean[] checkedRow = new boolean[9];
+            boolean[] checkedCol = new boolean[9];
+            Arrays.fill(checkedRow, false);
+            Arrays.fill(checkedCol, false);
             for (int j = 0; j < 9; j++) {
-                int number = get(i, j);
-                // Return false if number repeats
-                if (checked[number - 1]) {
-                    return false;
-                } else { // It's valid, mark as checked
-                    checked[number - 1] = true;
-                }
-            }
-        }
-
-        //Check columns
-        for (int i = 0; i < 9; i++) {
-            boolean[] checked = new boolean[9];
-            Arrays.fill(checked, false);
-            for (int j = 0; j < 9; j++) {
-                int number = get(j, i);
-                if (checked[number - 1]) {
+                int rowNum = get(i, j);
+                int colNum = get(j, i);
+                if (checkedRow[rowNum - 1] || checkedCol[colNum - 1]) {
                     return false;
                 } else {
-                    checked[number - 1] = true;
+                    checkedRow[rowNum - 1] = true;
+                    checkedCol[colNum - 1] = true;
                 }
             }
         }
 
-        //Check blocks
-        for (int n = 0; n < 3; n++) {
+        for (int n = 0; n < 3; n++) { //Check blocks
             for (int m = 0; m < 3; m++) {
                 // For each block:
                 boolean[] checked = new boolean[9];
