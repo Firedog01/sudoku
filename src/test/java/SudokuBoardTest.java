@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuBoardTest {
@@ -63,6 +65,18 @@ class SudokuBoardTest {
     }
 
     @Test
+    void isValid_SameBlock_Test() {
+        SudokuBoard board0 = new SudokuBoard(solver0);
+        board0.solveGame();
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
+                board0.set(i, j, 1);
+            }
+        }
+        assertFalse(board0.isValid());
+    }
+
+    @Test
     void isValid_OutOfRange_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
         board0.solveGame();
@@ -73,15 +87,10 @@ class SudokuBoardTest {
     }
 
     @Test
-    void isValid_SameBlock_Test() {
+    void toStringTest() {
         SudokuBoard board0 = new SudokuBoard(solver0);
         board0.solveGame();
-        for(int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                board0.set(i, j, 1);
-            }
-        }
-        assertFalse(board0.isValid());
+        assertFalse(Objects.equals(board0.toString(), ""));
     }
 
     /**

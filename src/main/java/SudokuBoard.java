@@ -128,4 +128,23 @@ public class SudokuBoard {
         }
         return true;
     }
+
+    public String toString() {
+        String ret = "┌─────────┬─────────┬─────────┐\n";
+        String bar = "├─────────┼─────────┼─────────┤\n";
+        for (int i = 0; i < 9; i++) {
+            if (i % 3 == 0 && i != 0) {
+                ret += bar;
+            }
+            for (int j = 0; j < 9; j++) {
+                if (j % 3 == 0) {
+                    ret += "│";
+                }
+                ret += " " + this.get(i, j) + " ";
+            }
+            ret += "│\n";
+        }
+        ret += "└─────────┴─────────┴─────────┘\n";
+        return ret;
+    }
 }
