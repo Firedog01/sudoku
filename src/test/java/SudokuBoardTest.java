@@ -22,9 +22,13 @@ class SudokuBoardTest {
         }
     }
 
+    /**
+     * Basic setter test
+     */
     @Test
     void setterTest() {
         board.set(0, 0, 5);
+        assertEquals(5, board.get(0, 0));
     }
 
 
@@ -37,6 +41,9 @@ class SudokuBoardTest {
         assertTrue(board.isValid());
     }
 
+    /**
+     * isValid method check, default for correctly generated board
+     */
     @Test
     void isValid_true_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
@@ -44,6 +51,9 @@ class SudokuBoardTest {
         assertTrue(board0.isValid());
     }
 
+    /**
+     * checks if board loses its validity on same values in a row
+     */
     @Test
     void isValid_SameRow_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
@@ -54,6 +64,9 @@ class SudokuBoardTest {
         assertFalse(board0.isValid());
     }
 
+    /**
+     * checks if board loses its validity on same values in a column
+     */
     @Test
     void isValid_SameCol_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
@@ -64,6 +77,9 @@ class SudokuBoardTest {
         assertFalse(board0.isValid());
     }
 
+    /**
+     * checks if board loses its validity on same values in a block
+     */
     @Test
     void isValid_SameBlock_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
@@ -76,6 +92,10 @@ class SudokuBoardTest {
         assertFalse(board0.isValid());
     }
 
+    /**
+     * checks if board loses its validity on inserting number
+     * greater than 9 or lesser than 1
+     */
     @Test
     void isValid_OutOfRange_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
@@ -86,6 +106,9 @@ class SudokuBoardTest {
         assertFalse(board0.isValid());
     }
 
+    /**
+     * basic test if toString returns something
+     */
     @Test
     void toStringTest() {
         SudokuBoard board0 = new SudokuBoard(solver0);
