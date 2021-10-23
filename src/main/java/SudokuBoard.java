@@ -78,13 +78,9 @@ public class SudokuBoard {
                 // Return false if out of range
                 if (number < 1 || number > 9) {
                     return false;
-                }
-                // Return false if number repeats
-                else if(checked[number - 1]) {
+                } else if (checked[number - 1]) { // Return false if number repeats
                     return false;
-                }
-                // It's valid, mark as checked
-                else{
+                } else { // It's valid, mark as checked
                     checked[number - 1] = true;
                 }
             }
@@ -98,11 +94,9 @@ public class SudokuBoard {
                 int number = get(j, i);
                 if (number < 1 || number > 9) {
                     return false;
-                }
-                else if(checked[number - 1]) {
+                } else if (checked[number - 1]) {
                     return false;
-                }
-                else{
+                } else {
                     checked[number - 1] = true;
                 }
             }
@@ -118,11 +112,9 @@ public class SudokuBoard {
                     int number = get(n * 3 + k % 3, m * 3 + k / 3);
                     if (number < 1 || number > 9) {
                         return false;
-                    }
-                    else if(checked[number - 1]) {
+                    } else if (checked[number - 1]) {
                         return false;
-                    }
-                    else{
+                    } else {
                         checked[number - 1] = true;
                     }
                 }
