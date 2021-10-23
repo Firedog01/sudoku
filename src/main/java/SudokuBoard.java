@@ -119,9 +119,9 @@ public class SudokuBoard {
     }
 
     public boolean equals(SudokuBoard board) {
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
-                if(this.get(i, j) != board.get(i, j)) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (this.get(i, j) != board.get(i, j)) {
                     return false;
                 }
             }

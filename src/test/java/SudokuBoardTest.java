@@ -7,6 +7,9 @@ class SudokuBoardTest {
     private SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
     private SudokuBoard board2 = new SudokuBoard(new BacktrackingSudokuSolver());
 
+    /**
+     * checks if board is initialised with zeros
+     */
     @Test
     void constructorTest() {
         SudokuBoard board0 = new SudokuBoard(solver0);
@@ -15,6 +18,11 @@ class SudokuBoardTest {
                 assertEquals(0, board0.get(i, j));
             }
         }
+    }
+
+    @Test
+    void setterTest() {
+        board.set(0, 0, 5);
     }
 
 
@@ -27,13 +35,64 @@ class SudokuBoardTest {
         assertTrue(board.isValid());
     }
 
+    @Test
+    void isValid_true_Test() {
+        SudokuBoard board0 = new SudokuBoard(solver0);
+        board0.solveGame();
+        assertTrue(board0.isValid());
+    }
+
+    @Test
+    void isValid_SameRow_Test() {
+        SudokuBoard board0 = new SudokuBoard(solver0);
+        board0.solveGame();
+        for(int i = 0; i < 9; i++) {
+            board0.set(i, 0, 1);
+        }
+        assertFalse(board0.isValid());
+    }
+
+    @Test
+    void isValid_SameCol_Test() {
+        SudokuBoard board0 = new SudokuBoard(solver0);
+        board0.solveGame();
+        for(int i = 0; i < 9; i++) {
+            board0.set(0, i, 1);
+        }
+        assertFalse(board0.isValid());
+    }
+
+    @Test
+    void isValid_OutOfRange_Test() {
+        SudokuBoard board0 = new SudokuBoard(solver0);
+        board0.solveGame();
+        board0.set(0, 0, 10);
+        assertFalse(board0.isValid());
+        board0.set(0, 0, -1);
+        assertFalse(board0.isValid());
+    }
+
+    @Test
+    void isValid_SameBlock_Test() {
+        SudokuBoard board0 = new SudokuBoard(solver0);
+        board0.solveGame();
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
+                board0.set(i, j, 1);
+            }
+        }
+        assertFalse(board0.isValid());
+    }
+
     /**
-     * SudokuBoard test that checks if solveGame() generates two different boards
+     * checks if equals function works correctly.
+     * Also makes sure that two boards have different values in them
      */
     @Test
-    void testSudokuBoard() {
+    void equalsTest() {
         board.solveGame();
         board2.solveGame();
+        assertTrue(board.equals(board));
         assertFalse(board.equals(board2));
     }
 }
