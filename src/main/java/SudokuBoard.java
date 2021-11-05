@@ -62,7 +62,7 @@ public class SudokuBoard {
      * @return int of range 0-9 representing value in given cell
      */
     public int get(int x, int y) {
-        return board[x][y];
+        return fields[x][y].getFieldValue();
     }
 
     /**
@@ -73,7 +73,7 @@ public class SudokuBoard {
      * @param value int of range 1-9
      */
     public void set(int x, int y, int value) {
-        board[x][y] = value;
+        fields[x][y].setFieldValue(value);
     }
 
     /**
