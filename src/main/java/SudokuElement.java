@@ -4,7 +4,7 @@ abstract public class SudokuElement {
 
     private SudokuField[] fields;
 
-    boolean verify(){
+    public boolean verify(){
         boolean[] checkedFields = new boolean[9];
         Arrays.fill(checkedFields, false);
         for (int j = 0; j < 9; j++) {
@@ -15,6 +15,10 @@ abstract public class SudokuElement {
             }
         }
         return true;
+    }
+
+    public void addField(int index, SudokuField newField){
+        fields[index] = newField;
     }
 
 }
