@@ -19,7 +19,7 @@ public class SudokuBoard {
     private int[][] board = new int[9][9];
     private SudokuSolver sudokuSolver;
 
-    private SudokuField[] fields;
+    private SudokuField[][] fields;
 
     /**
      * Constructor. Initializes board with zeros
@@ -37,10 +37,10 @@ public class SudokuBoard {
 
         for(int i=0; i<9; i++) {
             for(int j=0; j<9; j++) {
-                SudokuField newField = new SudokuField(this, newRows[i], newColumns[j], newBoxes[i / 3 + (j / 3) * 3]);
-                newRows[i].addField(j, newField);
-                newColumns[j].addField(i, newField);
-                newBoxes[i / 3 + (j / 3) * 3].addField(i % 3 + (j % 3) * 3, newField);
+                fields[i][j] = new SudokuField(this, newRows[i], newColumns[j], newBoxes[i / 3 + (j / 3) * 3]);
+                newRows[i].addField(j, fields[i][j]);
+                newColumns[j].addField(i, fields[i][j]);
+                newBoxes[i / 3 + (j / 3) * 3].addField(i % 3 + (j % 3) * 3, fields[i][j]);
             }
         }
     }
@@ -82,6 +82,19 @@ public class SudokuBoard {
      *
      * @return boolean
      */
+
+    public SudokuRow getRow(int y){
+        return fields[y][0].getRow();
+    }
+
+    public SudokuColumn getColumn(int x){
+        return fields[0][x].getColumn();
+    }
+
+    public SudokuBox getBox(int x, int y){
+        return fields[x * 3][y * 3].getBox();
+    }
+
     public boolean isValid() {
         for (int i = 0; i < 9; i++) { // Check if out of range
             for (int j = 0; j < 9; j++) {

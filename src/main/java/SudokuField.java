@@ -13,6 +13,10 @@ public class SudokuField{
         box = newBox;
     }
 
+    public SudokuRow getRow() { return row; }
+    public SudokuColumn getColumn() { return column; }
+    public SudokuBox getBox() { return box; }
+
     public int getFieldValue(){ return value; }
     public void setFieldValue(int value){ this.value = value; }
 }
