@@ -17,9 +17,19 @@ public class SudokuBoard {
      * Before calling method fillBoard() every cell in table is set to zero.
      */
     private int[][] board = new int[9][9];
+
+    /**
+     * SudokuSolver interface, used to fill board with values.
+     */
     private SudokuSolver sudokuSolver;
 
+    /**
+     * Array containing game board.
+     * Stores object instead of just ints.
+     */
     private SudokuField[][] fields;
+
+
 
     /**
      * Constructor. Initializes board with zeros
@@ -47,9 +57,10 @@ public class SudokuBoard {
         }
     }
 
+
+
     /**
-     * Function that generates filled sudoku board with use of sfuhrm.sudoku library.
-     * For more info go to <a href="https://javadoc.io/doc/de.sfuhrm/sudoku/latest/index.html>this location</a>.
+     * Call to sudoku solver. Fills whole board with values
      */
     public void solveGame() {
         sudokuSolver.solve(this);
@@ -109,6 +120,11 @@ public class SudokuBoard {
         return fields[x * 3][y * 3].getBox();
     }
 
+    /**
+     * Verifies if whole board fulfils rules of sudoku game
+     *
+     * @return true if it is valid.
+     */
     public boolean isValid() {
         for (int i = 0; i < 9; i++) { // Check if out of range
             for (int j = 0; j < 9; j++) {
@@ -153,6 +169,12 @@ public class SudokuBoard {
         return true;
     }
 
+    /**
+     * Checks if different board has exactly same values.
+     *
+     * @param board another board to check values against this one
+     * @return true if boards are the same.
+     */
     public boolean equals(SudokuBoard board) {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -164,6 +186,11 @@ public class SudokuBoard {
         return true;
     }
 
+    /**
+     * Used for displaying board in command line. has lots of unnecessary characters.
+     *
+     * @return neatly formatted board
+     */
     public String toString() {
         String ret = "┌─────────┬─────────┬─────────┐\n";
         String bar = "├─────────┼─────────┼─────────┤\n";

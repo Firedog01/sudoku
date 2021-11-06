@@ -2,6 +2,12 @@ import de.sfuhrm.sudoku.Creator;
 import de.sfuhrm.sudoku.GameMatrix;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
+    /**
+     * Function that generates filled SudokuBoard with use of sfuhrm.sudoku library.
+     * For more info go to <a href="https://javadoc.io/doc/de.sfuhrm/sudoku/latest/index.html>this location</a>.
+     *
+     * @param board SudokuBoard to solve
+     */
     public void solve(SudokuBoard board) {
         GameMatrix matrix = Creator.createFull();
         for (int i = 0; i < 9; i++) {
