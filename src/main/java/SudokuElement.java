@@ -1,6 +1,15 @@
+/*
+PropertyChangeListener:
+https://cr.openjdk.java.net/~iris/se/17/build/latest/api/java.desktop/java/beans/package-summary.html
+https://www.baeldung.com/java-observer-pattern
+ */
+
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 
-public abstract class SudokuElement { //constructor xxx?
+public abstract class SudokuElement implements PropertyChangeListener{ //constructor xxx?
     /**
      * Array of 9 objects SudokuField representing contents of one element
      */
@@ -32,6 +41,10 @@ public abstract class SudokuElement { //constructor xxx?
      */
     public void addField(int index, SudokuField newField) {
         fields[index] = newField;
+    }
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        verify();
     }
 
 }

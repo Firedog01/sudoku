@@ -1,3 +1,5 @@
+import java.beans.PropertyChangeSupport;
+
 public class SudokuField {
     /**
      * value of this field
@@ -9,6 +11,8 @@ public class SudokuField {
     private SudokuRow row;
     private SudokuColumn column;
     private SudokuBox box;
+
+    private PropertyChangeSupport support;
 
     /**
      *
@@ -23,6 +27,9 @@ public class SudokuField {
         row = newRow;
         column = newColumn;
         box = newBox;
+        support.addPropertyChangeListener(row);
+        support.addPropertyChangeListener(column);
+        support.addPropertyChangeListener(box);
     }
 
     public SudokuRow getRow() {
@@ -50,6 +57,8 @@ public class SudokuField {
      * @param value new value of a field
      */
     public void setFieldValue(int value) {
+        support.firePropertyChange("value", this.value, value);
         this.value = value;
     }
+
 }
