@@ -14,30 +14,33 @@ public class SudokuField {
 
     private PropertyChangeSupport support;
 
-    /**
-     *
-     * @param newBoard
-     * @param newRow
-     * @param newColumn
-     * @param newBox
-     */
-    public SudokuField(SudokuBoard newBoard, SudokuRow newRow,
-                       SudokuColumn newColumn, SudokuBox newBox) {
-        board = newBoard;
-        row = newRow;
-        column = newColumn;
-        box = newBox;
+
+    public SudokuField() {
+        value = 0;
+        support = new PropertyChangeSupport(this);
         support.addPropertyChangeListener(row);
         support.addPropertyChangeListener(column);
         support.addPropertyChangeListener(box);
+    }
+
+    public void setRow(SudokuRow _row) {
+        row = _row;
     }
 
     public SudokuRow getRow() {
         return row;
     }
 
+    public void setColumn(SudokuColumn _column) {
+        column = _column;
+    }
+
     public SudokuColumn getColumn() {
         return column;
+    }
+
+    public void setBox(SudokuBox _box) {
+        box = _box;
     }
 
     public SudokuBox getBox() {

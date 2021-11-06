@@ -9,7 +9,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 
-public abstract class SudokuElement implements PropertyChangeListener{ //constructor xxx?
+public abstract class SudokuElement implements PropertyChangeListener {
     /**
      * Array of 9 objects SudokuField representing contents of one element
      */
@@ -33,18 +33,21 @@ public abstract class SudokuElement implements PropertyChangeListener{ //constru
         return true;
     }
 
-    /** xxx setField? maybe obsolete
+    /**
      * Sets value of field at given index
      *
      * @param index position in array.
      * @param newField new value of field.
      */
-    public void addField(int index, SudokuField newField) {
+    public void setField(int index, SudokuField newField) {
         fields[index] = newField;
+    }
+
+    public int get(int x) {
+        return fields[x].getFieldValue();
     }
 
     public void propertyChange(PropertyChangeEvent evt) {
         verify();
     }
-
 }

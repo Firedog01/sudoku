@@ -12,11 +12,11 @@ sources used when writing:
 import java.util.Arrays;
 
 public class SudokuBoard {
-    /**
-     * Array containing sudoku board.
-     * Before calling method fillBoard() every cell in table is set to zero.
-     */
-    private int[][] board = new int[9][9];
+//    /**
+//     * Array containing sudoku board.
+//     * Before calling method fillBoard() every cell in table is set to zero.
+//     */
+//    private int[][] board = new int[9][9];
 
     /**
      * SudokuSolver interface, used to fill board with values.
@@ -27,7 +27,7 @@ public class SudokuBoard {
      * Array containing game board.
      * Stores object instead of just ints.
      */
-    private SudokuField[][] fields;
+    private SudokuField[][] board = new SudokuField[9][9];
 
 
 
@@ -38,22 +38,48 @@ public class SudokuBoard {
     public SudokuBoard(SudokuSolver solver) {
         sudokuSolver = solver;
 
-        for (int[] row: board) {
-            Arrays.fill(row, 0);
-        }
-
         SudokuRow[] newRows = new SudokuRow[9];
         SudokuColumn[] newColumns = new SudokuColumn[9];
-        SudokuBox[] newBoxes = new SudokuBox[9];
+        SudokuBox[][] newBoxes = new SudokuBox[3][3];
+
+        for(int i = 0; i < 9; i++) {
+            newRows[i] = new SudokuRow();
+        }
+        for(int i = 0; i < 9; i++) {
+            newColumns[i] = new SudokuColumn();
+        }
+        for(int i = 0; i < 9; i++) {
+            newBoxes[i / 3][i % 3] = new SudokuBox();
+        }
+
+        /*
+          0 1 2
+        0   |
+        1   |
+        2 - +
+
+        row: 2
+        col: 1
+        board[1][2]
+         */
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                board[i][j] = new SudokuField();
+                board[i][j].setRow(newRows[j]);
+                board[i][j].setColumn(newColumns[i]);
+                board[i][j].setBox(newBoxes[i / 3][j / 3]);
+
+                newRows[i].setField(j, board[i][j]);
+                newColumns[j].setField(i, board[i][j]);
+                newBoxes[i / 3 ][j / 3].setField(i % 3 + (j % 3) * 3, board[i][j]);
+            }
+        }
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                fields[i][j] = new SudokuField(this, newRows[i],
-                        newColumns[j], newBoxes[i / 3 + (j / 3) * 3]);
-                newRows[i].addField(j, fields[i][j]);
-                newColumns[j].addField(i, fields[i][j]);
-                newBoxes[i / 3 + (j / 3) * 3].addField(i % 3 + (j % 3) * 3, fields[i][j]);
+                System.out.print(board[i][j].getRow().get(j));
             }
+            System.out.print("\n");
         }
     }
 
@@ -75,7 +101,7 @@ public class SudokuBoard {
      * @return int of range 0-9 representing value in given cell
      */
     public int get(int x, int y) {
-        return fields[x][y].getFieldValue();
+        return board[x][y].getFieldValue();
     }
 
     /**
@@ -86,7 +112,7 @@ public class SudokuBoard {
      * @param value int of range 1-9
      */
     public void set(int x, int y, int value) {
-        fields[x][y].setFieldValue(value);
+        board[x][y].setFieldValue(value);
     }
 
     /**
@@ -96,7 +122,7 @@ public class SudokuBoard {
      * @return SudokuRow
      */
     public SudokuRow getRow(int y) {
-        return fields[y][0].getRow();
+        return board[0][y].getRow();
     }
 
     /**
@@ -106,7 +132,7 @@ public class SudokuBoard {
      * @return SudokuColumn
      */
     public SudokuColumn getColumn(int x) {
-        return fields[0][x].getColumn();
+        return board[x][0].getColumn();
     }
 
     /**
@@ -117,7 +143,7 @@ public class SudokuBoard {
      * @return SudokuBox
      */
     public SudokuBox getBox(int x, int y) {
-        return fields[x * 3][y * 3].getBox();
+        return board[x * 3][y * 3].getBox();
     }
 
     /**
@@ -126,44 +152,20 @@ public class SudokuBoard {
      * @return true if it is valid.
      */
     public boolean isValid() {
-        for (int i = 0; i < 9; i++) { // Check if out of range
-            for (int j = 0; j < 9; j++) {
-                if (get(i, j) < 1 || get(i, j) > 9) {
-                    return false;
-                }
+        boolean check;
+        for (int i = 0; i < 9; i++) {
+            if (!getRow(i).verify()) {
+                return false;
             }
         }
-
-        for (int i = 0; i < 9; i++) { // Check row and cols
-            boolean[] checkedRow = new boolean[9];
-            boolean[] checkedCol = new boolean[9];
-            Arrays.fill(checkedRow, false);
-            Arrays.fill(checkedCol, false);
-            for (int j = 0; j < 9; j++) {
-                int rowNum = get(i, j);
-                int colNum = get(j, i);
-                if (checkedRow[rowNum - 1] || checkedCol[colNum - 1]) {
-                    return false;
-                } else {
-                    checkedRow[rowNum - 1] = true;
-                    checkedCol[colNum - 1] = true;
-                }
+        for (int i = 0; i < 9; i++) {
+            if (getColumn(i).verify()) {
+                return false;
             }
         }
-
-        for (int n = 0; n < 3; n++) { //Check blocks
-            for (int m = 0; m < 3; m++) {
-                // For each block:
-                boolean[] checked = new boolean[9];
-                Arrays.fill(checked, false);
-                for (int k = 0; k < 9; k++) {
-                    int number = get(n * 3 + k % 3, m * 3 + k / 3);
-                    if (checked[number - 1]) {
-                        return false;
-                    } else {
-                        checked[number - 1] = true;
-                    }
-                }
+        for (int i = 0; i < 9; i++) {
+            if (getBox(i / 3, i % 3).verify()) {
+                return false;
             }
         }
         return true;
