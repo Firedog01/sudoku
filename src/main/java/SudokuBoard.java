@@ -26,18 +26,20 @@ public class SudokuBoard {
      * @param solver instance of SudokuSolver
      */
     public SudokuBoard(SudokuSolver solver) {
+        sudokuSolver = solver;
+
         for (int[] row: board) {
             Arrays.fill(row, 0);
         }
-        sudokuSolver = solver;
 
         SudokuRow[] newRows = new SudokuRow[9];
         SudokuColumn[] newColumns = new SudokuColumn[9];
         SudokuBox[] newBoxes = new SudokuBox[9];
 
-        for(int i=0; i<9; i++) {
-            for(int j=0; j<9; j++) {
-                fields[i][j] = new SudokuField(this, newRows[i], newColumns[j], newBoxes[i / 3 + (j / 3) * 3]);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                fields[i][j] = new SudokuField(this, newRows[i],
+                        newColumns[j], newBoxes[i / 3 + (j / 3) * 3]);
                 newRows[i].addField(j, fields[i][j]);
                 newColumns[j].addField(i, fields[i][j]);
                 newBoxes[i / 3 + (j / 3) * 3].addField(i % 3 + (j % 3) * 3, fields[i][j]);
@@ -77,21 +79,33 @@ public class SudokuBoard {
     }
 
     /**
-     * Checks if board is valid.
-     * If function returns 0 means that board is invalid.
+     * Gets row at given position.
      *
-     * @return boolean
+     * @param y which row to get (0-8)
+     * @return SudokuRow
      */
-
-    public SudokuRow getRow(int y){
+    public SudokuRow getRow(int y) {
         return fields[y][0].getRow();
     }
 
-    public SudokuColumn getColumn(int x){
+    /**
+     * Gets column at given position.
+     *
+     * @param x which column to get (0-8)
+     * @return SudokuColumn
+     */
+    public SudokuColumn getColumn(int x) {
         return fields[0][x].getColumn();
     }
 
-    public SudokuBox getBox(int x, int y){
+    /**
+     * Gets values from one box.
+     *
+     * @param x horizontal coordinate
+     * @param y vertical coordinate
+     * @return SudokuBox
+     */
+    public SudokuBox getBox(int x, int y) {
         return fields[x * 3][y * 3].getBox();
     }
 
