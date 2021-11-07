@@ -2,13 +2,10 @@ import java.beans.PropertyChangeSupport;
 
 public class SudokuField {
     /**
-     * value of this field
+     * value of this field.
      */
     private int value;
 
-    /**
-     *
-     */
     private PropertyChangeSupport support;
 
 

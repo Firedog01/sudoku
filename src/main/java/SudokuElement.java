@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public abstract class SudokuElement implements PropertyChangeListener {
     /**
-     * Array of 9 objects SudokuField representing contents of one element
+     * Array of 9 objects SudokuField representing contents of one element.
      */
     private SudokuField[] fields = new SudokuField[9];
 
@@ -24,11 +24,11 @@ public abstract class SudokuElement implements PropertyChangeListener {
     /**
      * Sets fields, requires array of 9 SudokuFields to initialise correctly.
      *
-     * @throws IllegalArgumentException when array length not equal 9.
      * @param values array of SudokuFields, must be of length 9.
+     * @throws IllegalArgumentException when array length not equal 9.
      */
     protected void setFields(SudokuField[] values) {
-        if(values.length != 9) {
+        if (values.length != 9) {
             throw new IllegalArgumentException("Array must be of length = 9");
         }
 
@@ -66,7 +66,7 @@ public abstract class SudokuElement implements PropertyChangeListener {
     }
 
     /**
-     * Sets value of field at given index
+     * Sets value of field at given index.
      *
      * @param index position in array.
      * @param newField new value of field.

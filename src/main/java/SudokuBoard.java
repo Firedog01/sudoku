@@ -108,8 +108,8 @@ public class SudokuBoard {
     public SudokuBox getBox(int x, int y) {
         SudokuField[] fields = new SudokuField[9];
         int k = 0;
-        for(int i = x * 3; i < x * 3 + 3; i++) {
-            for(int j = y * 3; j < y * 3 + 3; j++) {
+        for (int i = x * 3; i < x * 3 + 3; i++) {
+            for (int j = y * 3; j < y * 3 + 3; j++) {
                 fields[k] = board[i][j];
                 k++;
             }
@@ -168,9 +168,13 @@ public class SudokuBoard {
         StringBuilder ret = new StringBuilder("┌─────────┬─────────┬─────────┐\n");
         String bar = "├─────────┼─────────┼─────────┤\n";
         for (int i = 0; i < 9; i++) {
-            if (i % 3 == 0 && i != 0) ret.append(bar);
+            if (i % 3 == 0 && i != 0) {
+                ret.append(bar);
+            }
             for (int j = 0; j < 9; j++) {
-                if (j % 3 == 0) ret.append("│");
+                if (j % 3 == 0) {
+                    ret.append("│");
+                }
                 ret.append(" ").append(this.get(i, j)).append(" ");
             }
             ret.append("│\n");
