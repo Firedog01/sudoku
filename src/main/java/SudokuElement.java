@@ -35,6 +35,7 @@ public abstract class SudokuElement implements PropertyChangeListener {
         for (int i = 0; i < 9; i++) {
             fields[i] = values[i];
         }
+        verify();
     }
 
     /**
@@ -45,12 +46,17 @@ public abstract class SudokuElement implements PropertyChangeListener {
     public boolean verify() {
         boolean[] checkedFields = new boolean[9];
         Arrays.fill(checkedFields, false);
+
         for (int j = 0; j < 9; j++) {
-            if (checkedFields[j]) {
+            int i = fields[j].getFieldValue() - 1;
+            if (i > 8 || i < 0) {
+                return false; //out of bounds
+            }
+            if (checkedFields[i]) {
                 valid = false;
                 return false;
             } else {
-                checkedFields[j] = true;
+                checkedFields[i] = true;
             }
         }
         valid = true;
@@ -59,20 +65,12 @@ public abstract class SudokuElement implements PropertyChangeListener {
 
     /**
      * Basic getter of valid.
+     * You do not need verify to redo calculations.
+     *
      * @return state of valid.
      */
     public boolean isValid() {
         return valid;
-    }
-
-    /**
-     * Sets value of field at given index.
-     *
-     * @param index position in array.
-     * @param newField new value of field.
-     */
-    public void setField(int index, SudokuField newField) {
-        fields[index] = newField;
     }
 
     /**

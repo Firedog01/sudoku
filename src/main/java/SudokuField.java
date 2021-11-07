@@ -1,3 +1,4 @@
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class SudokuField {
@@ -6,8 +7,7 @@ public class SudokuField {
      */
     private int value;
 
-    private PropertyChangeSupport support;
-
+    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     /**
      * Constructor, by default sets value to one given.
@@ -15,8 +15,15 @@ public class SudokuField {
      */
     public SudokuField(int x) {
         value = x;
-        support = new PropertyChangeSupport(this);
     }
+
+    //    public void addListener(PropertyChangeListener listener) {
+    //        this.pcs.addPropertyChangeListener(listener);
+    //    }
+    //
+    //    public void removeListener(PropertyChangeListener listener) {
+    //        this.pcs.removePropertyChangeListener(listener);
+    //    }
 
     /**
      * Basic getter.
@@ -31,8 +38,11 @@ public class SudokuField {
      * @param value new value of a field
      */
     public void setFieldValue(int value) {
-        support.firePropertyChange("value", this.value, value);
+        pcs.firePropertyChange("value_changed", this.value, value);
         this.value = value;
     }
-
 }
+/*
+source:
+    https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyChangeSupport.html
+ */

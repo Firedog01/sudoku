@@ -68,6 +68,8 @@ public class SudokuBoard {
         board[x][y].setFieldValue(value);
     }
 
+
+
     /**
      * Gets row at given position.
      *
