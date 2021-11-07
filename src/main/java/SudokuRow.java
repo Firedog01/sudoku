@@ -7,12 +7,4 @@ public class SudokuRow extends SudokuElement {
     SudokuRow(SudokuField[] values) {
         setFields(values);
     }
-
-    /**
-     * Standard getter.
-     * @return this object.
-     */
-    public SudokuRow getRow() {
-        return this;
-    }
 }

@@ -7,12 +7,4 @@ public class SudokuBox extends SudokuElement {
     SudokuBox(SudokuField[] values) {
         setFields(values);
     }
-
-    /**
-     * Standard getter.
-     * @return this object.
-     */
-    public SudokuBox getBox() {
-        return this;
-    }
 }

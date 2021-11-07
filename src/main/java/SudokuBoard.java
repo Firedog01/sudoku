@@ -104,7 +104,7 @@ public class SudokuBoard {
             fields[i] = board[i][y];
         }
         SudokuRow row = new SudokuRow(fields);
-        return row.getRow();
+        return row;
     }
 
     /**
@@ -119,7 +119,7 @@ public class SudokuBoard {
             fields[i] = board[x][i];
         }
         SudokuColumn column = new SudokuColumn(fields);
-        return column.getColumn();
+        return column;
     }
 
     /**
@@ -139,7 +139,7 @@ public class SudokuBoard {
             }
         }
         SudokuBox box = new SudokuBox(fields);
-        return box.getBox();
+        return box;
     }
 
     /**

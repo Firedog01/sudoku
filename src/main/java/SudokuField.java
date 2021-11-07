@@ -21,10 +21,6 @@ public class SudokuField {
         this.pcs.addPropertyChangeListener(listener);
     }
 
-    public void removeListener(PropertyChangeListener listener) {
-        this.pcs.removePropertyChangeListener(listener);
-    }
-
     /**
      * Basic getter.
      * @return value of field.

@@ -15,17 +15,18 @@ class SudokuElementTest {
     }
 
     @Test
-    void addRemoveListener() {
-        SudokuField[] fields = new SudokuField[9];
-        for (int i = 1; i < 10; i++) {
-            fields[i - 1] = new SudokuField(1);
+    void incorrect_array_length() {
+        SudokuField[] fields = new SudokuField[8];
+        for (int i = 1; i < 9; i++) {
+            fields[i - 1] = new SudokuField(i);
         }
-        SudokuColumn col = new SudokuColumn(fields);
-        assertFalse(col.isValid());
-        for (int i = 0; i < 9; i++) {
-            fields[i].removeListener(col);
-            fields[i].setFieldValue(i+1);
-        }
-        assertFalse(col.isValid());
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            SudokuColumn column = new SudokuColumn(fields);
+        });
+
+        String expectedMessage = "Array must be of length = 9";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 }
