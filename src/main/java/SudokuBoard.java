@@ -68,7 +68,29 @@ public class SudokuBoard {
         board[x][y].setFieldValue(value);
     }
 
-
+    /**
+     * Verifies if whole board fulfils rules of sudoku game.
+     *
+     * @return true if it is valid.
+     */
+    public boolean checkBoard() {
+        for (int i = 0; i < 9; i++) {
+            if (!getRow(i).isValid()) {
+                return false;
+            }
+        }
+        for (int i = 0; i < 9; i++) {
+            if (!getColumn(i).isValid()) {
+                return false;
+            }
+        }
+        for (int i = 0; i < 9; i++) {
+            if (!getBox(i / 3, i % 3).isValid()) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Gets row at given position.
@@ -118,30 +140,6 @@ public class SudokuBoard {
         }
         SudokuBox box = new SudokuBox(fields);
         return box.getBox();
-    }
-
-    /**
-     * Verifies if whole board fulfils rules of sudoku game.
-     *
-     * @return true if it is valid.
-     */
-    public boolean checkBoard() {
-        for (int i = 0; i < 9; i++) {
-            if (!getRow(i).isValid()) {
-                return false;
-            }
-        }
-        for (int i = 0; i < 9; i++) {
-            if (!getColumn(i).isValid()) {
-                return false;
-            }
-        }
-        for (int i = 0; i < 9; i++) {
-            if (!getBox(i / 3, i % 3).isValid()) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

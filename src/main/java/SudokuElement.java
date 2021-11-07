@@ -34,6 +34,7 @@ public abstract class SudokuElement implements PropertyChangeListener {
 
         for (int i = 0; i < 9; i++) {
             fields[i] = values[i];
+            fields[i].addListener(this);
         }
         verify();
     }

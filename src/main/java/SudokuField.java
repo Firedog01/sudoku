@@ -17,13 +17,13 @@ public class SudokuField {
         value = x;
     }
 
-    //    public void addListener(PropertyChangeListener listener) {
-    //        this.pcs.addPropertyChangeListener(listener);
-    //    }
-    //
-    //    public void removeListener(PropertyChangeListener listener) {
-    //        this.pcs.removePropertyChangeListener(listener);
-    //    }
+    public void addListener(PropertyChangeListener listener) {
+        this.pcs.addPropertyChangeListener(listener);
+    }
+
+    public void removeListener(PropertyChangeListener listener) {
+        this.pcs.removePropertyChangeListener(listener);
+    }
 
     /**
      * Basic getter.
