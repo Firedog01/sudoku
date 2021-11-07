@@ -28,58 +28,57 @@ class SudokuBoardTest {
     @Test
     void testSolveGame() {
         board.solveGame();
-        assertTrue(board.isValid());
+        assertTrue(board.checkBoard());
     }
 
     @Test
-    void isValid_true_Test() {
+    void checkBoard_true_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
         board0.solveGame();
-        System.out.println(board0);
-        assertTrue(board0.isValid());
+        assertTrue(board0.checkBoard());
     }
 
     @Test
-    void isValid_SameRow_Test() {
+    void checkBoard_SameRow_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 board0.set(i, j, i+1);
             }
         }
-        assertFalse(board0.isValid());
+        assertFalse(board0.checkBoard());
     }
 
     @Test
-    void isValid_SameCol_Test() {
+    void checkBoard_SameCol_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 board0.set(i, j, j+1);
             }
         }
-        assertFalse(board0.isValid());
+        assertFalse(board0.checkBoard());
     }
 
     @Test
-    void isValid_SameBlock_Test() {
+    void checkBoard_SameBlock_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 board0.set(i, j, (i + j) % 9 + 1);
             }
         }
-        assertFalse(board0.isValid());
+        assertFalse(board0.checkBoard());
     }
 
     @Test
-    void isValid_OutOfRange_Test() {
+    void checkBoard_OutOfRange_Test() {
         SudokuBoard board0 = new SudokuBoard(solver0);
         board0.solveGame();
         board0.set(0, 0, 10);
-        assertFalse(board0.isValid());
+        assertFalse(board0.checkBoard());
         board0.set(0, 0, -1);
-        assertFalse(board0.isValid());
+        assertFalse(board0.checkBoard());
     }
 
     @Test

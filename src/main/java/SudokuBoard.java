@@ -125,7 +125,7 @@ public class SudokuBoard {
      *
      * @return true if it is valid.
      */
-    public boolean isValid() {
+    public boolean checkBoard() {
         for (int i = 0; i < 9; i++) {
             if (!getRow(i).isValid()) {
                 return false;
