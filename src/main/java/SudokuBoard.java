@@ -23,9 +23,8 @@ public class SudokuBoard {
      */
     private SudokuField[][] board = new SudokuField[9][9];
 
-
     /**
-     * Constructor. Initializes board with zeros
+     * Constructor. Initializes board with zeros and sets valid to false.
      * @param solver instance of SudokuSolver
      */
     public SudokuBoard(SudokuSolver solver) {
@@ -100,7 +99,7 @@ public class SudokuBoard {
     }
 
     /**
-     * Gets values from one box.
+     * Gets values from given box.
      *
      * @param x horizontal coordinate
      * @param y vertical coordinate
@@ -125,19 +124,18 @@ public class SudokuBoard {
      * @return true if it is valid.
      */
     public boolean isValid() {
-        boolean check;
         for (int i = 0; i < 9; i++) {
-            if (!getRow(i).verify()) {
+            if (!getRow(i).isValid()) {
                 return false;
             }
         }
         for (int i = 0; i < 9; i++) {
-            if (getColumn(i).verify()) {
+            if (!getColumn(i).isValid()) {
                 return false;
             }
         }
         for (int i = 0; i < 9; i++) {
-            if (getBox(i / 3, i % 3).verify()) {
+            if (!getBox(i / 3, i % 3).isValid()) {
                 return false;
             }
         }
@@ -167,21 +165,17 @@ public class SudokuBoard {
      * @return neatly formatted board
      */
     public String toString() {
-        String ret = "┌─────────┬─────────┬─────────┐\n";
+        StringBuilder ret = new StringBuilder("┌─────────┬─────────┬─────────┐\n");
         String bar = "├─────────┼─────────┼─────────┤\n";
         for (int i = 0; i < 9; i++) {
-            if (i % 3 == 0 && i != 0) {
-                ret += bar;
-            }
+            if (i % 3 == 0 && i != 0) ret.append(bar);
             for (int j = 0; j < 9; j++) {
-                if (j % 3 == 0) {
-                    ret += "│";
-                }
-                ret += " " + this.get(i, j) + " ";
+                if (j % 3 == 0) ret.append("│");
+                ret.append(" ").append(this.get(i, j)).append(" ");
             }
-            ret += "│\n";
+            ret.append("│\n");
         }
-        ret += "└─────────┴─────────┴─────────┘\n";
-        return ret;
+        ret.append("└─────────┴─────────┴─────────┘\n");
+        return ret.toString();
     }
 }

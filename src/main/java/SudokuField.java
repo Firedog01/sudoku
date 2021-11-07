@@ -7,7 +7,7 @@ public class SudokuField {
     private int value;
 
     /**
-     * Listener.
+     *
      */
     private PropertyChangeSupport support;
 

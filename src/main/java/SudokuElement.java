@@ -7,6 +7,7 @@ https://www.baeldung.com/java-observer-pattern
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 
 public abstract class SudokuElement implements PropertyChangeListener {
@@ -14,6 +15,11 @@ public abstract class SudokuElement implements PropertyChangeListener {
      * Array of 9 objects SudokuField representing contents of one element
      */
     private SudokuField[] fields = new SudokuField[9];
+
+    /**
+     * Contains result of last call of verify method.
+     */
+    private boolean valid;
 
     /**
      * Sets fields, requires array of 9 SudokuFields to initialise correctly.
@@ -41,12 +47,22 @@ public abstract class SudokuElement implements PropertyChangeListener {
         Arrays.fill(checkedFields, false);
         for (int j = 0; j < 9; j++) {
             if (checkedFields[j]) {
+                valid = false;
                 return false;
             } else {
                 checkedFields[j] = true;
             }
         }
+        valid = true;
         return true;
+    }
+
+    /**
+     * Basic getter of valid.
+     * @return state of valid.
+     */
+    public boolean isValid() {
+        return valid;
     }
 
     /**
@@ -63,6 +79,7 @@ public abstract class SudokuElement implements PropertyChangeListener {
      * On field changed. Verifies if values are correct.
      * @param evt event
      */
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         verify();
     }
