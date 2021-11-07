@@ -12,12 +12,6 @@ sources used when writing:
 import java.util.Arrays;
 
 public class SudokuBoard {
-//    /**
-//     * Array containing sudoku board.
-//     * Before calling method fillBoard() every cell in table is set to zero.
-//     */
-//    private int[][] board = new int[9][9];
-
     /**
      * SudokuSolver interface, used to fill board with values.
      */
@@ -30,7 +24,6 @@ public class SudokuBoard {
     private SudokuField[][] board = new SudokuField[9][9];
 
 
-
     /**
      * Constructor. Initializes board with zeros
      * @param solver instance of SudokuSolver
@@ -38,51 +31,12 @@ public class SudokuBoard {
     public SudokuBoard(SudokuSolver solver) {
         sudokuSolver = solver;
 
-        SudokuRow[] newRows = new SudokuRow[9];
-        SudokuColumn[] newColumns = new SudokuColumn[9];
-        SudokuBox[][] newBoxes = new SudokuBox[3][3];
-
-        for(int i = 0; i < 9; i++) {
-            newRows[i] = new SudokuRow();
-        }
-        for(int i = 0; i < 9; i++) {
-            newColumns[i] = new SudokuColumn();
-        }
-        for(int i = 0; i < 9; i++) {
-            newBoxes[i / 3][i % 3] = new SudokuBox();
-        }
-
-        /*
-          0 1 2
-        0   |
-        1   |
-        2 - +
-
-        row: 2
-        col: 1
-        board[1][2]
-         */
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                board[i][j] = new SudokuField();
-                board[i][j].setRow(newRows[j]);
-                board[i][j].setColumn(newColumns[i]);
-                board[i][j].setBox(newBoxes[i / 3][j / 3]);
-
-                newRows[i].setField(j, board[i][j]);
-                newColumns[j].setField(i, board[i][j]);
-                newBoxes[i / 3 ][j / 3].setField(i % 3 + (j % 3) * 3, board[i][j]);
+                board[i][j] = new SudokuField(0);
             }
-        }
-
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                System.out.print(board[i][j].getRow().get(j));
-            }
-            System.out.print("\n");
         }
     }
-
 
 
     /**
@@ -122,7 +76,12 @@ public class SudokuBoard {
      * @return SudokuRow
      */
     public SudokuRow getRow(int y) {
-        return board[0][y].getRow();
+        SudokuField[] fields = new SudokuField[9];
+        for (int i = 0; i < 9; i++) {
+            fields[i] = board[i][y];
+        }
+        SudokuRow row = new SudokuRow(fields);
+        return row.getRow();
     }
 
     /**
@@ -132,7 +91,12 @@ public class SudokuBoard {
      * @return SudokuColumn
      */
     public SudokuColumn getColumn(int x) {
-        return board[x][0].getColumn();
+        SudokuField[] fields = new SudokuField[9];
+        for (int i = 0; i < 9; i++) {
+            fields[i] = board[x][i];
+        }
+        SudokuColumn column = new SudokuColumn(fields);
+        return column.getColumn();
     }
 
     /**
@@ -143,11 +107,20 @@ public class SudokuBoard {
      * @return SudokuBox
      */
     public SudokuBox getBox(int x, int y) {
-        return board[x * 3][y * 3].getBox();
+        SudokuField[] fields = new SudokuField[9];
+        int k = 0;
+        for(int i = x * 3; i < x * 3 + 3; i++) {
+            for(int j = y * 3; j < y * 3 + 3; j++) {
+                fields[k] = board[i][j];
+                k++;
+            }
+        }
+        SudokuBox box = new SudokuBox(fields);
+        return box.getBox();
     }
 
     /**
-     * Verifies if whole board fulfils rules of sudoku game
+     * Verifies if whole board fulfils rules of sudoku game.
      *
      * @return true if it is valid.
      */

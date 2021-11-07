@@ -6,45 +6,19 @@ public class SudokuField {
      */
     private int value;
 
-    //why all this?
-    private SudokuBoard board;
-    private SudokuRow row;
-    private SudokuColumn column;
-    private SudokuBox box;
-
+    /**
+     * Listener.
+     */
     private PropertyChangeSupport support;
 
 
-    public SudokuField() {
-        value = 0;
+    /**
+     * Constructor, by default sets value to one given.
+     * @param x value of a field.
+     */
+    public SudokuField(int x) {
+        value = x;
         support = new PropertyChangeSupport(this);
-        support.addPropertyChangeListener(row);
-        support.addPropertyChangeListener(column);
-        support.addPropertyChangeListener(box);
-    }
-
-    public void setRow(SudokuRow _row) {
-        row = _row;
-    }
-
-    public SudokuRow getRow() {
-        return row;
-    }
-
-    public void setColumn(SudokuColumn _column) {
-        column = _column;
-    }
-
-    public SudokuColumn getColumn() {
-        return column;
-    }
-
-    public void setBox(SudokuBox _box) {
-        box = _box;
-    }
-
-    public SudokuBox getBox() {
-        return box;
     }
 
     /**

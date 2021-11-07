@@ -13,7 +13,23 @@ public abstract class SudokuElement implements PropertyChangeListener {
     /**
      * Array of 9 objects SudokuField representing contents of one element
      */
-    private SudokuField[] fields;
+    private SudokuField[] fields = new SudokuField[9];
+
+    /**
+     * Sets fields, requires array of 9 SudokuFields to initialise correctly.
+     *
+     * @throws IllegalArgumentException when array length not equal 9.
+     * @param values array of SudokuFields, must be of length 9.
+     */
+    protected void setFields(SudokuField[] values) {
+        if(values.length != 9) {
+            throw new IllegalArgumentException("Array must be of length = 9");
+        }
+
+        for (int i = 0; i < 9; i++) {
+            fields[i] = values[i];
+        }
+    }
 
     /**
      * Verifies if one element has unique values in it.
@@ -43,10 +59,10 @@ public abstract class SudokuElement implements PropertyChangeListener {
         fields[index] = newField;
     }
 
-    public int get(int x) {
-        return fields[x].getFieldValue();
-    }
-
+    /**
+     * On field changed. Verifies if values are correct.
+     * @param evt event
+     */
     public void propertyChange(PropertyChangeEvent evt) {
         verify();
     }
