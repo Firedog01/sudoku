@@ -11,6 +11,10 @@ sources used when writing:
 
 //import java.util.Arrays;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SudokuBoard {
     /**
      * SudokuSolver interface, used to fill board with values.
@@ -21,7 +25,7 @@ public class SudokuBoard {
      * Array containing game board.
      * Stores object instead of just ints.
      */
-    private SudokuField[][] board = new SudokuField[9][9];
+    private List<List<SudokuField>> board;
 
     /**
      * Constructor. Initializes board with zeros and sets valid to false.
@@ -29,12 +33,13 @@ public class SudokuBoard {
      */
     public SudokuBoard(SudokuSolver solver) {
         sudokuSolver = solver;
-
+        List<List<SudokuField>> newBoard = new ArrayList<List<SudokuField>>();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                board[i][j] = new SudokuField(0);
+                newBoard.get(i).add(new SudokuField(0));
             }
         }
+        board = List.copyOf(newBoard);
     }
 
 
@@ -54,7 +59,7 @@ public class SudokuBoard {
      * @return int of range 0-9 representing value in given cell
      */
     public int get(int x, int y) {
-        return board[x][y].getFieldValue();
+        return board.get(x).get(y).getFieldValue();
     }
 
     /**
@@ -65,7 +70,7 @@ public class SudokuBoard {
      * @param value int of range 1-9
      */
     public void set(int x, int y, int value) {
-        board[x][y].setFieldValue(value);
+        board.get(x).get(y).setFieldValue(value);
     }
 
     /**
@@ -99,9 +104,9 @@ public class SudokuBoard {
      * @return SudokuRow
      */
     public SudokuRow getRow(int y) {
-        SudokuField[] fields = new SudokuField[9];
+        List<SudokuField> fields = new ArrayList<SudokuField>();
         for (int i = 0; i < 9; i++) {
-            fields[i] = board[i][y];
+            fields.add(board.get(i).get(y));
         }
         SudokuRow row = new SudokuRow(fields);
         return row;
@@ -114,9 +119,9 @@ public class SudokuBoard {
      * @return SudokuColumn
      */
     public SudokuColumn getColumn(int x) {
-        SudokuField[] fields = new SudokuField[9];
+        List<SudokuField> fields = new ArrayList<SudokuField>();
         for (int i = 0; i < 9; i++) {
-            fields[i] = board[x][i];
+            fields.add(board.get(x).get(i));
         }
         SudokuColumn column = new SudokuColumn(fields);
         return column;
@@ -130,12 +135,10 @@ public class SudokuBoard {
      * @return SudokuBox
      */
     public SudokuBox getBox(int x, int y) {
-        SudokuField[] fields = new SudokuField[9];
-        int k = 0;
+        List<SudokuField> fields = new ArrayList<SudokuField>();
         for (int i = x * 3; i < x * 3 + 3; i++) {
             for (int j = y * 3; j < y * 3 + 3; j++) {
-                fields[k] = board[i][j];
-                k++;
+                fields.add(board.get(i).get(j));
             }
         }
         SudokuBox box = new SudokuBox(fields);

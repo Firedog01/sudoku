@@ -8,13 +8,15 @@ https://www.baeldung.com/java-observer-pattern
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 //import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class SudokuElement implements PropertyChangeListener {
     /**
      * Array of 9 objects SudokuField representing contents of one element.
      */
-    private SudokuField[] fields = new SudokuField[9];
+    private List<SudokuField> fields;
 
     /**
      * Contains result of last call of verify method.
@@ -27,14 +29,13 @@ public abstract class SudokuElement implements PropertyChangeListener {
      * @param values array of SudokuFields, must be of length 9.
      * @throws IllegalArgumentException when array length not equal 9.
      */
-    protected void setFields(SudokuField[] values) {
-        if (values.length != 9) {
+    protected void setFields(List<SudokuField> values) {
+        if (values.size() != 9) {
             throw new IllegalArgumentException("Array must be of length = 9");
         }
-
+        fields = List.copyOf(values);
         for (int i = 0; i < 9; i++) {
-            fields[i] = values[i];
-            fields[i].addListener(this);
+            fields.get(i).addListener(this);
         }
         verify();
     }
@@ -49,7 +50,7 @@ public abstract class SudokuElement implements PropertyChangeListener {
         Arrays.fill(checkedFields, false);
 
         for (int j = 0; j < 9; j++) {
-            int i = fields[j].getFieldValue() - 1;
+            int i = fields.get(j).getFieldValue() - 1;
             if (i > 8 || i < 0) {
                 return false; //out of bounds
             }
