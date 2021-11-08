@@ -9,9 +9,6 @@ sources used when writing:
     http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
  */
 
-//import java.util.Arrays;
-
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,8 +106,7 @@ public class SudokuBoard {
         for (int i = 0; i < 9; i++) {
             fields.add(board.get(i).get(y));
         }
-        SudokuRow row = new SudokuRow(fields);
-        return row;
+        return new SudokuRow(fields);
     }
 
     /**
@@ -124,8 +120,7 @@ public class SudokuBoard {
         for (int i = 0; i < 9; i++) {
             fields.add(board.get(x).get(i));
         }
-        SudokuColumn column = new SudokuColumn(fields);
-        return column;
+        return new SudokuColumn(fields);
     }
 
     /**
@@ -142,8 +137,7 @@ public class SudokuBoard {
                 fields.add(board.get(i).get(j));
             }
         }
-        SudokuBox box = new SudokuBox(fields);
-        return box;
+        return new SudokuBox(fields);
     }
 
     /**
