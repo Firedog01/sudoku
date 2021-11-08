@@ -1,14 +1,17 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuElementTest {
 
     @Test
     void verify_false() {
-        SudokuField[] fields = new SudokuField[9];
+        List<SudokuField> fields = new ArrayList<>();
         for (int i = 1; i < 10; i++) {
-            fields[i - 1] = new SudokuField(1);
+            fields.add(new SudokuField(1));
         }
         SudokuColumn col = new SudokuColumn(fields);
         assertFalse(col.isValid());
@@ -16,9 +19,9 @@ class SudokuElementTest {
 
     @Test
     void incorrect_array_length() {
-        SudokuField[] fields = new SudokuField[8];
+        List<SudokuField> fields = new ArrayList<>();
         for (int i = 1; i < 9; i++) {
-            fields[i - 1] = new SudokuField(i);
+            fields.add(new SudokuField(i));
         }
         Exception exception = assertThrows(RuntimeException.class, () -> {
             SudokuColumn column = new SudokuColumn(fields);

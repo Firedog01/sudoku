@@ -33,8 +33,9 @@ public class SudokuBoard {
      */
     public SudokuBoard(SudokuSolver solver) {
         sudokuSolver = solver;
-        List<List<SudokuField>> newBoard = new ArrayList<List<SudokuField>>();
+        List<List<SudokuField>> newBoard = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
+            newBoard.add(new ArrayList<>());
             for (int j = 0; j < 9; j++) {
                 newBoard.get(i).add(new SudokuField(0));
             }
@@ -104,7 +105,7 @@ public class SudokuBoard {
      * @return SudokuRow
      */
     public SudokuRow getRow(int y) {
-        List<SudokuField> fields = new ArrayList<SudokuField>();
+        List<SudokuField> fields = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             fields.add(board.get(i).get(y));
         }
@@ -119,7 +120,7 @@ public class SudokuBoard {
      * @return SudokuColumn
      */
     public SudokuColumn getColumn(int x) {
-        List<SudokuField> fields = new ArrayList<SudokuField>();
+        List<SudokuField> fields = new ArrayList<>();
         for (int i = 0; i < 9; i++) {
             fields.add(board.get(x).get(i));
         }
@@ -135,7 +136,7 @@ public class SudokuBoard {
      * @return SudokuBox
      */
     public SudokuBox getBox(int x, int y) {
-        List<SudokuField> fields = new ArrayList<SudokuField>();
+        List<SudokuField> fields = new ArrayList<>();
         for (int i = x * 3; i < x * 3 + 3; i++) {
             for (int j = y * 3; j < y * 3 + 3; j++) {
                 fields.add(board.get(i).get(j));
