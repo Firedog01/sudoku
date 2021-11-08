@@ -8,6 +8,21 @@
     <artifactId>ProjektBazowy</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <developers>
+        <developer>
+            <id>236641</id>
+            <name>Jan Rubacha</name>
+            <email>236641@edu.p.lodz.pl</email>
+        </developer>
+        <developer>
+            <id>236496</id>
+            <name>Krystian Baraniecki</name>
+            <email>236496@edu.p.lodz.pl</email>
+        </developer>
+    </developers>
+
+    <description>Projekt grupy laboratoryjnej AN_PN_1015_05</description>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
@@ -31,6 +46,16 @@
 
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.15.0</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>

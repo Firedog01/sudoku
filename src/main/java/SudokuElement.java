@@ -7,7 +7,7 @@ https://www.baeldung.com/java-observer-pattern
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+//import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
 
 public abstract class SudokuElement implements PropertyChangeListener {

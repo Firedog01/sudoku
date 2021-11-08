@@ -9,7 +9,7 @@ sources used when writing:
     http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
  */
 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class SudokuBoard {
     /**
