@@ -7,8 +7,6 @@ https://www.baeldung.com/java-observer-pattern
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-//import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,5 +80,20 @@ public abstract class SudokuElement implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         verify();
+    }
+
+    /**
+     * returns element in following form [1, 2, 3, 4, 5].
+     * @return string
+     */
+    public String toString() {
+        String ret = "[";
+        ret += fields.get(0);
+        for (int i = 1; i < 9; i++) {
+            ret += ", ";
+            ret += fields.get(i);
+        }
+        ret += "]\n";
+        return ret;
     }
 }

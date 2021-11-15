@@ -37,6 +37,14 @@ public class SudokuField {
         pcs.firePropertyChange("value_changed", this.value, value);
         this.value = value;
     }
+
+    /**
+     * Returns value of field as string.
+     * @return string
+     */
+    public String toString() {
+        return String.valueOf(value);
+    }
 }
 /*
 source:
