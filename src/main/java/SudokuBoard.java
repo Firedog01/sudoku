@@ -9,6 +9,9 @@ sources used when writing:
     http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
  */
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,23 +144,6 @@ public class SudokuBoard {
     }
 
     /**
-     * Checks if different board has exactly same values.
-     *
-     * @param board another board to check values against this one
-     * @return true if boards are the same.
-     */
-    public boolean equals(SudokuBoard board) {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (this.get(i, j) != board.get(i, j)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
      * Used for displaying board in command line. has lots of unnecessary characters.
      *
      * @return neatly formatted board
@@ -179,5 +165,36 @@ public class SudokuBoard {
         }
         ret.append("└─────────┴─────────┴─────────┘\n");
         return ret.toString();
+    }
+
+    /**
+     * Checks if different board has exactly same values.
+     *
+     * @param obj another board to check values against this one
+     * @return true if boards are the same.
+     */
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == null) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        SudokuBoard rhs = (SudokuBoard) obj;
+        return new EqualsBuilder()
+                .append(sudokuSolver, rhs.sudokuSolver)
+                .append(board, rhs.board)
+                .isEquals();
+    }
+
+    /**
+     * Returns hashcode of SudokuBoard object.
+     *
+     * @return hashcode.
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(sudokuSolver)
+                .append(board)
+                .toHashCode();
     }
 }

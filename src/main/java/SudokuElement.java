@@ -5,6 +5,9 @@ https://www.baeldung.com/java-observer-pattern
  */
 
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Arrays;
@@ -87,13 +90,44 @@ public abstract class SudokuElement implements PropertyChangeListener {
      * @return string
      */
     public String toString() {
-        String ret = "[";
-        ret += fields.get(0);
+        StringBuilder ret = new StringBuilder("[");
+        ret.append(fields.get(0));
         for (int i = 1; i < 9; i++) {
-            ret += ", ";
-            ret += fields.get(i);
+            ret.append(", ");
+            ret.append(fields.get(i));
         }
-        ret += "]\n";
-        return ret;
+        ret.append("]\n");
+        return ret.toString();
+    }
+
+    /**
+     * Checks if different SudokuElement has exactly same values.
+     *
+     * @param obj another SudokuElement to check values against this one
+     * @return true if SudokuElements are the same.
+     */
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == null) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        SudokuElement rhs = (SudokuElement) obj;
+        return new EqualsBuilder()
+                .append(fields, rhs.fields)
+                .append(valid, rhs.valid)
+                .isEquals();
+    }
+
+    /**
+     * Returns hashcode of SudokuElement object.
+     *
+     * @return hashcode.
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(fields)
+                .append(valid)
+                .toHashCode();
     }
 }

@@ -1,3 +1,6 @@
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -44,6 +47,35 @@ public class SudokuField {
      */
     public String toString() {
         return String.valueOf(value);
+    }
+
+    /**
+     * Checks if different SudokuField has exactly same values.
+     *
+     * @param obj another SudokuField to check values against this one
+     * @return true if SudokuField are the same.
+     */
+    public boolean equals(Object obj) {
+        if (obj == null) { return false; }
+        if (obj == null) { return true; }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        SudokuField rhs = (SudokuField) obj;
+        return new EqualsBuilder()
+                .append(value, rhs.value)
+                .isEquals();
+    }
+
+    /**
+     * Returns hashcode of SudokuElement object.
+     *
+     * @return hashcode.
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(value)
+                .toHashCode();
     }
 }
 /*
