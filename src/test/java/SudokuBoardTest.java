@@ -85,7 +85,7 @@ class SudokuBoardTest {
     void toStringTest() {
         SudokuBoard board0 = new SudokuBoard(solver0);
         board0.solveGame();
-        assertFalse(Objects.equals(board0.toString(), ""));
+        assertNotEquals("", board0.toString());
     }
 
     @Test
@@ -94,5 +94,15 @@ class SudokuBoardTest {
         board2.solveGame();
         assertTrue(board.equals(board));
         assertFalse(board.equals(board2));
+        assertFalse(board.equals(null));
+        assertFalse(board.equals(2));
+    }
+
+    @Test
+    void hashCodeTest() {
+        board.solveGame();
+        board2.solveGame();
+
+        assertNotEquals(board.hashCode(), board2.hashCode());
     }
 }

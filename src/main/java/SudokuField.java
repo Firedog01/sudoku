@@ -1,8 +1,7 @@
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class SudokuField {
     /**
@@ -56,8 +55,9 @@ public class SudokuField {
      * @return true if SudokuField are the same.
      */
     public boolean equals(Object obj) {
-        if (obj == null) { return false; }
-        if (obj == null) { return true; }
+        if (obj == null) {
+            return false;
+        }
         if (obj.getClass() != getClass()) {
             return false;
         }

@@ -9,11 +9,10 @@ sources used when writing:
     http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
  */
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class SudokuBoard {
     /**
@@ -174,8 +173,9 @@ public class SudokuBoard {
      * @return true if boards are the same.
      */
     public boolean equals(Object obj) {
-        if (obj == null) { return false; }
-        if (obj == null) { return true; }
+        if (obj == null) {
+            return false;
+        }
         if (obj.getClass() != getClass()) {
             return false;
         }

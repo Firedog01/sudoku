@@ -5,13 +5,12 @@ https://www.baeldung.com/java-observer-pattern
  */
 
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public abstract class SudokuElement implements PropertyChangeListener {
     /**
@@ -107,8 +106,9 @@ public abstract class SudokuElement implements PropertyChangeListener {
      * @return true if SudokuElements are the same.
      */
     public boolean equals(Object obj) {
-        if (obj == null) { return false; }
-        if (obj == null) { return true; }
+        if (obj == null) {
+            return false;
+        }
         if (obj.getClass() != getClass()) {
             return false;
         }
