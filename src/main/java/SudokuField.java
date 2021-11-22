@@ -73,7 +73,7 @@ public class SudokuField {
      * @return hashcode.
      */
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
+        return new HashCodeBuilder(21, 37)
                 .append(value)
                 .toHashCode();
     }

@@ -125,7 +125,7 @@ public abstract class SudokuElement implements PropertyChangeListener {
      * @return hashcode.
      */
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
+        return new HashCodeBuilder(67, 73)
                 .append(fields)
                 .append(valid)
                 .toHashCode();
