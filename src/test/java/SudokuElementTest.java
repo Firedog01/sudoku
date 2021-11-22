@@ -57,11 +57,14 @@ class SudokuElementTest {
         SudokuColumn col_ord = new SudokuColumn(fields_ord);
         SudokuColumn col_ord_another = new SudokuColumn(fields_ord);
         SudokuColumn col_rev_ord = new SudokuColumn(fields_rev_ord);
+        SudokuRow row_rev_ord = new SudokuRow(fields_rev_ord);
+
 
         assertTrue(col_ord.equals(col_ord_another));
         assertFalse(col_ord.equals(col_rev_ord));
         assertFalse(col_ord.equals(null));
         assertFalse(col_ord.equals(fields_ord));
+        assertFalse(col_ord.equals(row_rev_ord));
     }
 
     @Test
