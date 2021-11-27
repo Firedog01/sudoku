@@ -1,9 +1,8 @@
 /*
-PropertyChangeListener:
-https://cr.openjdk.java.net/~iris/se/17/build/latest/api/java.desktop/java/beans/package-summary.html
-https://www.baeldung.com/java-observer-pattern
+sources:
+    https://cr.openjdk.java.net/~iris/se/17/build/latest/api/java.desktop/java/beans/package-summary.html
+    https://www.baeldung.com/java-observer-pattern
  */
-
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -25,7 +24,6 @@ public abstract class SudokuElement implements PropertyChangeListener {
 
     /**
      * Sets fields, requires array of 9 SudokuFields to initialise correctly.
-     *
      * @param values array of SudokuFields, must be of length 9.
      * @throws IllegalArgumentException when array length not equal 9.
      */
@@ -42,7 +40,6 @@ public abstract class SudokuElement implements PropertyChangeListener {
 
     /**
      * Verifies if one element has unique values in it.
-     *
      * @return true if one every value is unique.
      */
     public boolean verify() {
@@ -68,7 +65,6 @@ public abstract class SudokuElement implements PropertyChangeListener {
     /**
      * Basic getter of valid.
      * You do not need verify to redo calculations.
-     *
      * @return state of valid.
      */
     public boolean isValid() {
@@ -101,7 +97,6 @@ public abstract class SudokuElement implements PropertyChangeListener {
 
     /**
      * Checks if different SudokuElement has exactly same values.
-     *
      * @param obj another SudokuElement to check values against this one
      * @return true if SudokuElements are the same.
      */
@@ -121,7 +116,6 @@ public abstract class SudokuElement implements PropertyChangeListener {
 
     /**
      * Returns hashcode of SudokuElement object.
-     *
      * @return hashcode.
      */
     public int hashCode() {

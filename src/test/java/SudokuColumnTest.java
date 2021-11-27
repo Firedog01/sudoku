@@ -1,12 +1,14 @@
-import org.junit.jupiter.api.Test;
+/*
+sources:
+    https://www.baeldung.com/junit-assert-exception
+ */
 
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class SudokuColumnTest {
-
     @Test
     void getColumn_constructorCorrect() {
         List<SudokuField> fields = new ArrayList<>();
@@ -17,7 +19,3 @@ class SudokuColumnTest {
         assertTrue(column.isValid());
     }
 }
-/*
-source:
-    https://www.baeldung.com/junit-assert-exception
- */

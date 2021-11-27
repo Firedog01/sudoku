@@ -1,9 +1,7 @@
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SudokuFieldTest {
-
     @Test
     void getFieldValue() {
         SudokuField field = new SudokuField(3);

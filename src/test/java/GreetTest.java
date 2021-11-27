@@ -1,8 +1,12 @@
-import org.junit.jupiter.api.Test;
+/*
+source:
+    https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
+ */
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class GreetTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -21,8 +25,3 @@ class GreetTest {
         System.setOut(originalOut);
     }
 }
-
-/*
-source:
-    https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
- */

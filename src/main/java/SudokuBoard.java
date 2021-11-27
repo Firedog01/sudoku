@@ -1,5 +1,5 @@
 /*
-sources used when writing:
+sources:
     https://www.w3schools.com/java
     https://www.codegrepper.com/code-examples/java/how+to+fill+a+2d+array+with+0+in+java
     https://github.com/sfuhrm/sudoku
@@ -53,7 +53,6 @@ public class SudokuBoard {
     /**
      * Returns value of a cell in sudoku board.
      * If function returns 0 means that given cell is empty.
-     *
      * @param x first coordinate
      * @param y second coordinate
      * @return int of range 0-9 representing value in given cell
@@ -64,7 +63,6 @@ public class SudokuBoard {
 
     /**
      * Sets value of a cell in sudoku board.
-     *
      * @param x first coordinate
      * @param y second coordinate
      * @param value int of range 1-9
@@ -75,7 +73,6 @@ public class SudokuBoard {
 
     /**
      * Verifies if whole board fulfils rules of sudoku game.
-     *
      * @return true if it is valid.
      */
     public boolean checkBoard() {
@@ -99,7 +96,6 @@ public class SudokuBoard {
 
     /**
      * Gets row at given position.
-     *
      * @param y which row to get (0-8)
      * @return SudokuRow
      */
@@ -113,7 +109,6 @@ public class SudokuBoard {
 
     /**
      * Gets column at given position.
-     *
      * @param x which column to get (0-8)
      * @return SudokuColumn
      */
@@ -127,7 +122,6 @@ public class SudokuBoard {
 
     /**
      * Gets values from given box.
-     *
      * @param x horizontal coordinate
      * @param y vertical coordinate
      * @return SudokuBox
@@ -144,7 +138,6 @@ public class SudokuBoard {
 
     /**
      * Used for displaying board in command line. has lots of unnecessary characters.
-     *
      * @return neatly formatted board
      */
     public String toString() {
@@ -168,7 +161,6 @@ public class SudokuBoard {
 
     /**
      * Checks if different board has exactly same values.
-     *
      * @param obj another board to check values against this one
      * @return true if boards are the same.
      */
@@ -188,7 +180,6 @@ public class SudokuBoard {
 
     /**
      * Returns hashcode of SudokuBoard object.
-     *
      * @return hashcode.
      */
     public int hashCode() {

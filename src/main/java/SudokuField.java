@@ -1,3 +1,8 @@
+/*
+source:
+    https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyChangeSupport.html
+ */
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -78,7 +83,4 @@ public class SudokuField {
                 .toHashCode();
     }
 }
-/*
-source:
-    https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyChangeSupport.html
- */
+

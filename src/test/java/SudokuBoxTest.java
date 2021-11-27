@@ -1,12 +1,9 @@
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 class SudokuBoxTest {
-
     @Test
     void getRow_constructorCorrect() {
         List<SudokuField> fields = new ArrayList<>();
