@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ModelProject" />
+        <module name="JavaFX" />
         <module name="an_pn_1015_05" />
-        <module name="ProjektBazowy" />
       </profile>
     </annotationProcessing>
   </component>
