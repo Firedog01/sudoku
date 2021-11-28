@@ -2,9 +2,8 @@ package pl.comp.model;
 
 import de.sfuhrm.sudoku.Creator;
 import de.sfuhrm.sudoku.GameMatrix;
-import java.io.Serializable;
 
-public class BacktrackingSudokuSolver implements SudokuSolver, Serializable {
+public class BacktrackingSudokuSolver implements SudokuSolver {
     /**
      * Function that generates filled pl.comp.model.SudokuBoard with use of sfuhrm.sudoku library.
      * For more info go to <a href="https://javadoc.io/doc/de.sfuhrm/sudoku/latest/index.html>this location</a>.
