@@ -6,9 +6,8 @@ sources:
  */
 
 import pl.comp.model.SudokuBoard;
-
 import java.io.FileNotFoundException;
 
-public interface SudokuBoardAbstractFactory<T> {
+public interface SudokuBoardDaoAbstractFactory {
     public Dao<SudokuBoard> getFileDao(String fileName) throws FileNotFoundException;
 }
