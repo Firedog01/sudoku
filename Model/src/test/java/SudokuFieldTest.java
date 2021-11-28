@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import pl.comp.model.SudokuField;
 
 class SudokuFieldTest {
     @Test

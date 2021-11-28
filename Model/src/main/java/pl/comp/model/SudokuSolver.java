@@ -1,3 +1,5 @@
+package pl.comp.model;
+
 public interface SudokuSolver {
     /**
      * Function to fill board with values.

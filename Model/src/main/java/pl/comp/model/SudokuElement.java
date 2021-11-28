@@ -1,4 +1,4 @@
-/*
+package pl.comp.model;/*
 sources:
     https://cr.openjdk.java.net/~iris/se/17/build/latest/api/java.desktop/java/beans/package-summary.html
     https://www.baeldung.com/java-observer-pattern
@@ -13,7 +13,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public abstract class SudokuElement implements PropertyChangeListener {
     /**
-     * Array of 9 objects SudokuField representing contents of one element.
+     * Array of 9 objects pl.comp.model.SudokuField representing contents of one element.
      */
     private List<SudokuField> fields;
 
@@ -96,8 +96,8 @@ public abstract class SudokuElement implements PropertyChangeListener {
     }
 
     /**
-     * Checks if different SudokuElement has exactly same values.
-     * @param obj another SudokuElement to check values against this one
+     * Checks if different pl.comp.model.SudokuElement has exactly same values.
+     * @param obj another pl.comp.model.SudokuElement to check values against this one
      * @return true if SudokuElements are the same.
      */
     public boolean equals(Object obj) {
@@ -115,7 +115,7 @@ public abstract class SudokuElement implements PropertyChangeListener {
     }
 
     /**
-     * Returns hashcode of SudokuElement object.
+     * Returns hashcode of pl.comp.model.SudokuElement object.
      * @return hashcode.
      */
     public int hashCode() {

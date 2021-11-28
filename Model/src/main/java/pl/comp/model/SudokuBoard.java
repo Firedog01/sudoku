@@ -1,4 +1,4 @@
-/*
+package pl.comp.model;/*
 sources:
     https://www.w3schools.com/java
     https://www.codegrepper.com/code-examples/java/how+to+fill+a+2d+array+with+0+in+java
@@ -16,7 +16,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class SudokuBoard {
     /**
-     * SudokuSolver interface, used to fill board with values.
+     * pl.comp.model.SudokuSolver interface, used to fill board with values.
      */
     private SudokuSolver sudokuSolver;
 
@@ -28,7 +28,7 @@ public class SudokuBoard {
 
     /**
      * Constructor. Initializes board with zeros and sets valid to false.
-     * @param solver instance of SudokuSolver
+     * @param solver instance of pl.comp.model.SudokuSolver
      */
     public SudokuBoard(SudokuSolver solver) {
         sudokuSolver = solver;
@@ -97,7 +97,7 @@ public class SudokuBoard {
     /**
      * Gets row at given position.
      * @param y which row to get (0-8)
-     * @return SudokuRow
+     * @return pl.comp.model.SudokuRow
      */
     public SudokuRow getRow(int y) {
         List<SudokuField> fields = new ArrayList<>();
@@ -110,7 +110,7 @@ public class SudokuBoard {
     /**
      * Gets column at given position.
      * @param x which column to get (0-8)
-     * @return SudokuColumn
+     * @return pl.comp.model.SudokuColumn
      */
     public SudokuColumn getColumn(int x) {
         List<SudokuField> fields = new ArrayList<>();
@@ -124,7 +124,7 @@ public class SudokuBoard {
      * Gets values from given box.
      * @param x horizontal coordinate
      * @param y vertical coordinate
-     * @return SudokuBox
+     * @return pl.comp.model.SudokuBox
      */
     public SudokuBox getBox(int x, int y) {
         List<SudokuField> fields = new ArrayList<>();
@@ -179,7 +179,7 @@ public class SudokuBoard {
     }
 
     /**
-     * Returns hashcode of SudokuBoard object.
+     * Returns hashcode of pl.comp.model.SudokuBoard object.
      * @return hashcode.
      */
     public int hashCode() {

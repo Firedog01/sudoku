@@ -1,4 +1,4 @@
-/*
+package pl.comp.model;/*
 source:
     https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyChangeSupport.html
  */
@@ -54,10 +54,10 @@ public class SudokuField {
     }
 
     /**
-     * Checks if different SudokuField has exactly same values.
+     * Checks if different pl.comp.model.SudokuField has exactly same values.
      *
-     * @param obj another SudokuField to check values against this one
-     * @return true if SudokuField are the same.
+     * @param obj another pl.comp.model.SudokuField to check values against this one
+     * @return true if pl.comp.model.SudokuField are the same.
      */
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -73,7 +73,7 @@ public class SudokuField {
     }
 
     /**
-     * Returns hashcode of SudokuElement object.
+     * Returns hashcode of pl.comp.model.SudokuElement object.
      *
      * @return hashcode.
      */

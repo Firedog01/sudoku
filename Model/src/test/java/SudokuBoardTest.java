@@ -1,5 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import pl.comp.model.BacktrackingSudokuSolver;
+import pl.comp.model.SudokuBoard;
+import pl.comp.model.SudokuSolver;
 
 class SudokuBoardTest {
     private SudokuSolver solver0 = new BacktrackingSudokuSolver();
