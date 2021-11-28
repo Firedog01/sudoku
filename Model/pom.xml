@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>pl.comp</groupId>
         <artifactId>SudokuGameProject</artifactId>
+        <groupId>pl.comp</groupId>
         <version>2.0-SNAPSHOT</version>
     </parent>
     <artifactId>ModelProject</artifactId>
@@ -47,6 +47,10 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
         </dependency>
     </dependencies>
 

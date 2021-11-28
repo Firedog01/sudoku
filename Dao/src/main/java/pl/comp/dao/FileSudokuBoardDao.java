@@ -19,31 +19,37 @@ import pl.comp.model.SudokuSolver;
 public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
     private final FileInputStream fis;
     private final FileOutputStream fos;
+    private final String fileName;
 
     FileSudokuBoardDao(String fileName) throws FileNotFoundException {
         fis = new FileInputStream(fileName);
         fos = new FileOutputStream(fileName);
+        this.fileName = fileName;
     }
 
     @Override
     public SudokuBoard read() throws IOException {
         SudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(solver);
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                int val = fis.read();
-                board.set(i, j, val);
+        try (FileInputStream fis = new FileInputStream(fileName)) {
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    int val = fis.read();
+                    board.set(i, j, val);
+                }
             }
+            return board;
         }
-        return board;
     }
 
     @Override
     public void write(SudokuBoard obj) throws IOException {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                int current = obj.get(i, j);
-                fos.write(current);
+        try (FileOutputStream fos = new FileOutputStream(fileName)) {
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    int current = obj.get(i, j);
+                    fos.write(current);
+                }
             }
         }
     }

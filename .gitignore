@@ -33,3 +33,4 @@ out/
 *.iml
 *.ipr
 *.iws
+/.idea/runConfigurations.xml

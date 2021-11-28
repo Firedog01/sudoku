@@ -29,6 +29,7 @@ class FileSudokuBoardDaoTest {
     }
 
     @Test
-    void close() {
+    void close() throws IOException {
+
     }
 }
