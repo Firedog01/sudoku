@@ -1,8 +1,7 @@
 package pl.comp.dao;
 
-import pl.comp.model.SudokuBoard;
-
 import java.io.FileNotFoundException;
+import pl.comp.model.SudokuBoard;
 
 public class SudokuBoardDaoFactory implements SudokuBoardDaoAbstractFactory {
 

@@ -4,7 +4,6 @@ sources:
     https://www.codegrepper.com/code-examples/java/how+to+fill+a+2d+array+with+0+in+java
     https://github.com/sfuhrm/sudoku
     https://javadoc.io/doc/de.sfuhrm/sudoku/latest/index.html
-
     https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html
     http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
  */

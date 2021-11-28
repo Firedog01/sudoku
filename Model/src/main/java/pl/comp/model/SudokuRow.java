@@ -8,7 +8,7 @@ public class SudokuRow extends SudokuElement {
      * otherwise will throw IllegalArgumentException.
      * @param values array of length 9.
      */
-    SudokuRow(List<SudokuField> values) {
+    public SudokuRow(List<SudokuField> values) {
         setFields(values);
     }
 }
