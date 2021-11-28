@@ -12,17 +12,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileSudokuBoardDaoTest {
 
     @Test
-    void read_write_correct() throws IOException {
+    void read_write_correct() {
         System.out.println(System.getProperty("user.dir"));
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
-        Dao<SudokuBoard> fileDao = factory.getFileDao("src/test/test");
 
         SudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(solver);
         board.solveGame();
 
-        fileDao.write(board);
-        SudokuBoard boardRead = fileDao.read();
-        assertEquals(board.toString(), boardRead.toString());
+        try (Dao<SudokuBoard> fileDao = factory.getFileDao("src/test/test")) {
+            fileDao.write(board);
+            SudokuBoard boardRead = fileDao.read();
+            assertEquals(board.toString(), boardRead.toString());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
