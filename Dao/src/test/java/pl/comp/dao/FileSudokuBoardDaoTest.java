@@ -20,19 +20,9 @@ class FileSudokuBoardDaoTest {
         SudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(solver);
         board.solveGame();
-        try (Dao<SudokuBoard> fd = factory.getFileDao("src/test/test")) {
-            fileDao.write(board);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
 
-
+        fileDao.write(board);
         SudokuBoard boardRead = fileDao.read();
         assertEquals(board.toString(), boardRead.toString());
-    }
-
-    @Test
-    void close() throws IOException {
-
     }
 }
