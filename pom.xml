@@ -13,6 +13,7 @@
 
     <modules>
         <module>Model</module>
+        <module>Dao</module>
         <module>JavaFX</module>
     </modules>
 
