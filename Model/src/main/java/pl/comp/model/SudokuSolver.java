@@ -1,6 +1,8 @@
 package pl.comp.model;
 
-public interface SudokuSolver {
+import java.io.Serializable;
+
+public interface SudokuSolver extends Serializable {
     /**
      * Function to fill board with values.
      * @param sudokuBoard board to fill.

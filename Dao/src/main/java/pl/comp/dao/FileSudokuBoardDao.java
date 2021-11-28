@@ -12,51 +12,37 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import pl.comp.model.BacktrackingSudokuSolver;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import pl.comp.model.SudokuBoard;
-import pl.comp.model.SudokuSolver;
 
-public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
-    private final FileInputStream fis;
-    private final FileOutputStream fos;
+public class FileSudokuBoardDao implements Dao<SudokuBoard> {
     private final String fileName;
 
     FileSudokuBoardDao(String fileName) throws FileNotFoundException {
-        fis = new FileInputStream(fileName);
-        fos = new FileOutputStream(fileName);
         this.fileName = fileName;
     }
 
     @Override
     public SudokuBoard read() throws IOException {
-        SudokuSolver solver = new BacktrackingSudokuSolver();
-        SudokuBoard board = new SudokuBoard(solver);
-        try (FileInputStream fis = new FileInputStream(fileName)) {
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    int val = fis.read();
-                    board.set(i, j, val);
-                }
-            }
-            return board;
+        SudokuBoard board = null;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+            board = (SudokuBoard) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return board;
     }
 
     @Override
     public void write(SudokuBoard obj) throws IOException {
-        try (FileOutputStream fos = new FileOutputStream(fileName)) {
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    int current = obj.get(i, j);
-                    fos.write(current);
-                }
-            }
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            oos.writeObject(obj);
         }
     }
 
     @Override
-    public void close() throws IOException {
-        fis.close();
-        fos.close();
+    public void close() throws Exception {
+        System.out.println("Closing!");
     }
 }

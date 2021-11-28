@@ -5,10 +5,11 @@ source:
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class SudokuField {
+public class SudokuField implements Serializable {
     /**
      * value of this field.
      */

@@ -8,12 +8,13 @@ sources:
     http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
  */
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class SudokuBoard {
+public class SudokuBoard implements Serializable {
     /**
      * pl.comp.model.SudokuSolver interface, used to fill board with values.
      */
