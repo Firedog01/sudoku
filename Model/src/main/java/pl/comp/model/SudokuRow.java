@@ -1,5 +1,6 @@
 package pl.comp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SudokuRow extends SudokuElement {
@@ -10,5 +11,10 @@ public class SudokuRow extends SudokuElement {
      */
     public SudokuRow(List<SudokuField> values) {
         setFields(values);
+    }
+
+    @Override
+    public SudokuRow clone() throws CloneNotSupportedException {
+        return new SudokuRow(cloneFields());
     }
 }

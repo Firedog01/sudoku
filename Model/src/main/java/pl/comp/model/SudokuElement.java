@@ -6,16 +6,18 @@ sources:
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public abstract class SudokuElement implements PropertyChangeListener {
+public abstract class SudokuElement implements PropertyChangeListener, Serializable, Cloneable {
     /**
      * Array of 9 objects pl.comp.model.SudokuField representing contents of one element.
      */
-    private List<SudokuField> fields;
+    protected List<SudokuField> fields;
 
     /**
      * Contains result of last call of verify method.
@@ -123,5 +125,13 @@ public abstract class SudokuElement implements PropertyChangeListener {
                 .append(fields)
                 .append(valid)
                 .toHashCode();
+    }
+
+    protected List<SudokuField> cloneFields () throws CloneNotSupportedException{
+        List<SudokuField> newList = new ArrayList<SudokuField>();
+        for (SudokuField field : fields) {
+            newList.add(field.clone());
+        }
+        return newList;
     }
 }
