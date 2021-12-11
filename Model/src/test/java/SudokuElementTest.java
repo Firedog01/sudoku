@@ -84,16 +84,4 @@ class SudokuElementTest {
         assertEquals(col_ord.hashCode(), col_ord_another.hashCode());
         assertNotEquals(col_ord.hashCode(), col_rev_ord.hashCode());
     }
-
-    @Test
-    void cloneTest() throws CloneNotSupportedException {
-        List<SudokuField> fields = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            fields.add(new SudokuField(i));
-        }
-        SudokuColumn col = new SudokuColumn(fields);
-        SudokuColumn clone = col.clone();
-
-        assertEquals(col, clone);
-    }
 }

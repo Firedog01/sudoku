@@ -42,10 +42,6 @@ public class SudokuBoard implements Serializable, Cloneable {
         board = List.copyOf(newBoard);
     }
 
-    public String getSolver() {
-        return String.valueOf(sudokuSolver);
-    }
-
     /**
      * Call to sudoku solver. Fills whole board with values
      */

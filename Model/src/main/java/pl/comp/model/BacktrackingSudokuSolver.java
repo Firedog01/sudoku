@@ -3,6 +3,7 @@ package pl.comp.model;
 import de.sfuhrm.sudoku.Creator;
 import de.sfuhrm.sudoku.GameMatrix;
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
     /**
@@ -29,5 +30,11 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         }
         return new EqualsBuilder()
                 .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(13, 47)
+                .toHashCode();
     }
 }

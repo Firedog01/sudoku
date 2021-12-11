@@ -20,4 +20,16 @@ class SudokuColumnTest {
         SudokuColumn column = new SudokuColumn(fields);
         assertTrue(column.isValid());
     }
+
+    @Test
+    void cloneTest() throws CloneNotSupportedException {
+        List<SudokuField> fields = new ArrayList<>();
+        for (int i = 1; i < 10; i++) {
+            fields.add(new SudokuField(i));
+        }
+        SudokuColumn col = new SudokuColumn(fields);
+        SudokuColumn clone = col.clone();
+
+        assertEquals(col, clone);
+    }
 }
