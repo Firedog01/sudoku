@@ -2,6 +2,7 @@ package pl.comp.model;
 
 import de.sfuhrm.sudoku.Creator;
 import de.sfuhrm.sudoku.GameMatrix;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
     /**
@@ -16,5 +17,17 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
                 board.set(i, j, matrix.get(i, j));
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        return new EqualsBuilder()
+                .isEquals();
     }
 }

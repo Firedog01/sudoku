@@ -25,13 +25,13 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
 
     @Override
     public SudokuBoard read() throws IOException {
-        SudokuBoard board = null;
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-            board = (SudokuBoard) ois.readObject();
+            SudokuBoard board = (SudokuBoard) ois.readObject();
+            return board;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return board;
+        return null;
     }
 
     @Override

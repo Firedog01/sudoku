@@ -23,7 +23,8 @@ class FileSudokuBoardDaoTest {
         try (Dao<SudokuBoard> fileDao = factory.getFileDao("src/test/test")) {
             fileDao.write(board);
             SudokuBoard boardRead = fileDao.read();
-            assertEquals(board.toString(), boardRead.toString());
+
+            assertEquals(board, boardRead);
         } catch (Exception e){
             e.printStackTrace();
         }

@@ -42,6 +42,9 @@ public class SudokuBoard implements Serializable {
         board = List.copyOf(newBoard);
     }
 
+    public String getSolver() {
+        return String.valueOf(sudokuSolver);
+    }
 
     /**
      * Call to sudoku solver. Fills whole board with values
