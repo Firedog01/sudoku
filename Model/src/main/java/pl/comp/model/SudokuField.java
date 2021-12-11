@@ -9,7 +9,7 @@ import java.io.Serializable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class SudokuField implements Serializable, Cloneable, Comparable<SudokuField> {
+public class SudokuField implements Serializable, Comparable<SudokuField>, Cloneable {
     /**
      * value of this field.
      */
@@ -84,14 +84,14 @@ public class SudokuField implements Serializable, Cloneable, Comparable<SudokuFi
                 .toHashCode();
     }
 
-    public SudokuField clone() throws CloneNotSupportedException {
-        SudokuField clone = (SudokuField) super.clone();
-        return clone;
+    @Override
+    public int compareTo(SudokuField o) throws NullPointerException {
+        return value - o.value;
     }
 
     @Override
-    public int compareTo(SudokuField o) {
-        return this.value - o.value;
+    public SudokuField clone() throws CloneNotSupportedException {
+        return (SudokuField) super.clone();
     }
 }
 
