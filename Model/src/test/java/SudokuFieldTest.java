@@ -63,6 +63,9 @@ class SudokuFieldTest {
         assertTrue(f1.compareTo(f2) < 0);
         assertTrue(f2.compareTo(f1) > 0);
         assertTrue(f1.compareTo(f3) == 0);
+        assertThrows(NullPointerException.class, () -> {
+            f1.compareTo(null);
+        });
 
     }
 }

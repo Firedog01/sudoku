@@ -127,7 +127,7 @@ public abstract class SudokuElement implements PropertyChangeListener, Serializa
                 .toHashCode();
     }
 
-    protected List<SudokuField> cloneFields() {
+    protected List<SudokuField> cloneFields() throws CloneNotSupportedException {
         List<SudokuField> newList = new ArrayList<SudokuField>();
         for (SudokuField field : fields) {
             newList.add(field.clone());
