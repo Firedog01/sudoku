@@ -45,4 +45,24 @@ class SudokuFieldTest {
         assertEquals(field1.hashCode(), field1_another.hashCode());
         assertNotEquals(field1.hashCode(), field2.hashCode());
     }
+
+    @Test
+    void cloningTest() throws CloneNotSupportedException {
+        SudokuField f1 = new SudokuField(3);
+        SudokuField f2 = f1.clone();
+
+        assertEquals(f1, f2);
+    }
+
+    @Test
+    void comparingTest() {
+        SudokuField f1 = new SudokuField(3);
+        SudokuField f2 = new SudokuField(5);
+        SudokuField f3 = new SudokuField(3);
+
+        assertTrue(f1.compareTo(f2) < 0);
+        assertTrue(f2.compareTo(f1) > 0);
+        assertTrue(f1.compareTo(f3) == 0);
+
+    }
 }

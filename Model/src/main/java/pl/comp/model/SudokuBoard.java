@@ -14,7 +14,7 @@ import java.util.List;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class SudokuBoard implements Serializable {
+public class SudokuBoard implements Serializable, Cloneable {
     /**
      * pl.comp.model.SudokuSolver interface, used to fill board with values.
      */
@@ -190,5 +190,12 @@ public class SudokuBoard implements Serializable {
                 .append(sudokuSolver)
                 .append(board)
                 .toHashCode();
+    }
+
+    public SudokuBoard clone() throws CloneNotSupportedException {
+        SudokuBoard clone = (SudokuBoard) super.clone();
+//        clone.board = (ArrayList<ArrayList<SudokuField>>) this.board.clone();
+        clone.sudokuSolver = this.sudokuSolver;
+        return clone;
     }
 }
