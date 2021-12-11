@@ -5,12 +5,15 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+<VBox alignment="CENTER" spacing="5.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="pl.comp.javafx.HelloController">
+
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Label text="Choose difficulty"/>
+    <Button text="Easy" onAction="#onEasyButtonClick"/>
+    <Button text="Medium" onAction="#onMediumButtonClick"/>
+    <Button text="Hard" onAction="#onHardButtonClick"/>
 </VBox>
