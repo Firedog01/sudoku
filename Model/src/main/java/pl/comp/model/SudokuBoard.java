@@ -192,10 +192,13 @@ public class SudokuBoard implements Serializable, Cloneable {
                 .toHashCode();
     }
 
-    public SudokuBoard clone() throws CloneNotSupportedException {
-        SudokuBoard clone = (SudokuBoard) super.clone();
-//        clone.board = (ArrayList<ArrayList<SudokuField>>) this.board.clone();
-        clone.sudokuSolver = this.sudokuSolver;
+    public SudokuBoard clone() {
+        SudokuBoard clone = new SudokuBoard(sudokuSolver);
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                clone.set(x, y, this.get(x, y));
+            }
+        }
         return clone;
     }
 }

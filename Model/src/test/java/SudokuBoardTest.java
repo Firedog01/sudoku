@@ -105,4 +105,11 @@ class SudokuBoardTest {
 
         assertNotEquals(board.hashCode(), board2.hashCode());
     }
+
+    @Test
+    void cloneTest() {
+        SudokuBoard clone = board.clone();
+
+        assertEquals(board, clone);
+    }
 }
