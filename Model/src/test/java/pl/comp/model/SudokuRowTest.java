@@ -1,10 +1,9 @@
+package pl.comp.model;
+
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-import pl.comp.model.SudokuColumn;
-import pl.comp.model.SudokuField;
-import pl.comp.model.SudokuRow;
 
 class SudokuRowTest {
     @Test

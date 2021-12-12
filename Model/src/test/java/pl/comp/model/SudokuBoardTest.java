@@ -1,3 +1,5 @@
+package pl.comp.model;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static pl.comp.model.Difficulty.*;
 

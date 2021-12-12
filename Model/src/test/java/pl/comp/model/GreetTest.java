@@ -1,4 +1,4 @@
-/*
+package pl.comp.model;/*
 source:
     https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
  */

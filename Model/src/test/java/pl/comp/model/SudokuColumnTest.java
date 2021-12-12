@@ -1,4 +1,4 @@
-/*
+package pl.comp.model;/*
 sources:
     https://www.baeldung.com/junit-assert-exception
  */
