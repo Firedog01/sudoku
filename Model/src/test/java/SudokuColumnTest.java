@@ -29,7 +29,6 @@ class SudokuColumnTest {
         }
         SudokuColumn col = new SudokuColumn(fields);
         SudokuColumn clone = col.clone();
-
         assertEquals(col, clone);
     }
 }

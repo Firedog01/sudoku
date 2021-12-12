@@ -49,6 +49,10 @@ public class SudokuBoard implements Serializable, Cloneable {
         board = List.copyOf(newBoard);
     }
 
+    public void setSolver(SudokuSolver solver) {
+        sudokuSolver = solver;
+    }
+
     /**
      * Call to sudoku solver. Fills whole board with values
      */
@@ -241,7 +245,8 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
 
     public SudokuBoard clone() {
-        SudokuBoard clone = new SudokuBoard(sudokuSolver);
+        SudokuSolver solverClone = sudokuSolver.clone();
+        SudokuBoard clone = new SudokuBoard(solverClone);
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
                 clone.set(x, y, this.get(x, y));

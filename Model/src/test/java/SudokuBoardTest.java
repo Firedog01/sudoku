@@ -123,9 +123,21 @@ class SudokuBoardTest {
 
     @Test
     void cloneTest() {
-        SudokuBoard clone = board.clone();
+        SudokuSolver solver = new BacktrackingSudokuSolver();
+        SudokuBoard originalBoard = new SudokuBoard(solver);
+        SudokuBoard clone = originalBoard.clone();
 
-        assertEquals(board, clone);
+        assertEquals(originalBoard, clone);
+        assertFalse(originalBoard == clone);
+
+        solver = null;
+        originalBoard.setSolver(null);
+        assertThrows(NullPointerException.class, () -> {
+            originalBoard.solveGame();
+        });
+
+        clone.solveGame();
+        assertTrue(clone.checkBoard());
     }
 
     @Test

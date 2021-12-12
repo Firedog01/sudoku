@@ -50,7 +50,6 @@ class SudokuFieldTest {
     void cloningTest() throws CloneNotSupportedException {
         SudokuField f1 = new SudokuField(3);
         SudokuField f2 = f1.clone();
-
         assertEquals(f1, f2);
     }
 

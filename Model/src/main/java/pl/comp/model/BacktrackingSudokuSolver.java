@@ -37,4 +37,13 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         return new HashCodeBuilder(13, 47)
                 .toHashCode();
     }
+
+    @Override
+    public BacktrackingSudokuSolver clone() {
+        BacktrackingSudokuSolver clone = null;
+        try {
+            clone = (BacktrackingSudokuSolver) super.clone();
+        } catch (CloneNotSupportedException ignored) {}
+        return clone;
+    }
 }
