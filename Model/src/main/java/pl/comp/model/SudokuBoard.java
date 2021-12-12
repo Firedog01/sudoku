@@ -8,9 +8,16 @@ sources:
     http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
  */
 
-import java.io.Serializable;
-import java.util.*;
+import static pl.comp.model.Difficulty.Easy;
+import static pl.comp.model.Difficulty.Medium;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -54,27 +61,28 @@ public class SudokuBoard implements Serializable, Cloneable {
      *  Easy - 33
      *  Medium - 25
      *  Hard - 17
+     * @param d enum describing difficulty.
+     * @throws RuntimeException if board is not filled
      */
     public void createPuzzle(Difficulty d) {
         if (!checkBoard()) {
             throw new RuntimeException("Board must be filled before creating puzzle");
         }
-        int n_fields = 0;
-        switch (d) {
-            case Easy:
-                deleteFields(81 - 33);
-                break;
-            case Medium:
-                deleteFields(81 - 25);
-                break;
-            case Hard:
-                deleteFields(81 - 17);
-                break;
+        if (d == Easy) {
+            deleteFields(81 - 33);
+        } else if (d == Medium) {
+            deleteFields(81 - 25);
+        } else {
+            deleteFields(81 - 17);
         }
-
     }
 
-    public void deleteFields(int n) {
+    /**
+     * Deletes (sets to 0) given number of fields in board.
+     * Does not check if value of field before deletion was set.
+     * @param n number of fields to delete
+     */
+    private void deleteFields(int n) {
         Set<List<Integer>> coords = new HashSet<>();
         Random rand = new Random();
         for (int i = 0; i < n; i++) {
@@ -83,7 +91,7 @@ public class SudokuBoard implements Serializable, Cloneable {
                 Integer x = (Integer) rand.nextInt(9);
                 Integer y = (Integer) rand.nextInt(9);
                 newCoord = Arrays.asList(x, y);
-            } while(coords.contains(newCoord));
+            } while (coords.contains(newCoord));
             coords.add(newCoord);
         }
         for (List<Integer> coord: coords) {

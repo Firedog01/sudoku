@@ -2,10 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static pl.comp.model.Difficulty.*;
 
 import org.junit.jupiter.api.Test;
-import pl.comp.model.BacktrackingSudokuSolver;
-import pl.comp.model.Difficulty;
-import pl.comp.model.SudokuBoard;
-import pl.comp.model.SudokuSolver;
+import pl.comp.model.*;
 
 import java.util.List;
 import java.util.Set;
@@ -14,6 +11,18 @@ class SudokuBoardTest {
     private SudokuSolver solver0 = new BacktrackingSudokuSolver();
     private SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
     private SudokuBoard board2 = new SudokuBoard(new BacktrackingSudokuSolver());
+
+    private int countZeros(SudokuBoard board) {
+        int count = 0;
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board.get(i, j) == 0) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
 
     @Test
     void constructorTest() {
@@ -122,8 +131,21 @@ class SudokuBoardTest {
     @Test
     void createPuzzleTest() {
         board.solveGame();
-//        System.out.println(board);
-        board.createPuzzle(Hard);
-//        System.out.println(board);
+        board.createPuzzle(Easy);
+        assertEquals(81 - 33, countZeros(board));
+
+        board2.solveGame();
+        board2.createPuzzle(Medium);
+        assertEquals(81 - 25, countZeros(board2));
+
+        SudokuBoard board3 = new SudokuBoard(new BacktrackingSudokuSolver());
+        board3.solveGame();
+        board3.createPuzzle(Hard);
+        assertEquals(81 - 17, countZeros(board3));
+
+        SudokuBoard board4 = new SudokuBoard(new BacktrackingSudokuSolver());
+        assertThrows(RuntimeException.class, () -> {
+            board4.createPuzzle(Easy);
+        });
     }
 }
