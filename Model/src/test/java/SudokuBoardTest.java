@@ -1,8 +1,14 @@
 import static org.junit.jupiter.api.Assertions.*;
+import static pl.comp.model.Difficulty.*;
+
 import org.junit.jupiter.api.Test;
 import pl.comp.model.BacktrackingSudokuSolver;
+import pl.comp.model.Difficulty;
 import pl.comp.model.SudokuBoard;
 import pl.comp.model.SudokuSolver;
+
+import java.util.List;
+import java.util.Set;
 
 class SudokuBoardTest {
     private SudokuSolver solver0 = new BacktrackingSudokuSolver();
@@ -111,5 +117,13 @@ class SudokuBoardTest {
         SudokuBoard clone = board.clone();
 
         assertEquals(board, clone);
+    }
+
+    @Test
+    void createPuzzleTest() {
+        board.solveGame();
+//        System.out.println(board);
+        board.createPuzzle(Hard);
+//        System.out.println(board);
     }
 }

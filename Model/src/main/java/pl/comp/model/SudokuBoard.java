@@ -9,8 +9,8 @@ sources:
  */
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -47,6 +47,50 @@ public class SudokuBoard implements Serializable, Cloneable {
      */
     public void solveGame() {
         sudokuSolver.solve(this);
+    }
+
+    /**
+     * Cuts some of fields depedning on difficulty.
+     *  Easy - 33
+     *  Medium - 25
+     *  Hard - 17
+     */
+    public void createPuzzle(Difficulty d) {
+        if (!checkBoard()) {
+            throw new RuntimeException("Board must be filled before creating puzzle");
+        }
+        int n_fields = 0;
+        switch (d) {
+            case Easy:
+                deleteFields(81 - 33);
+                break;
+            case Medium:
+                deleteFields(81 - 25);
+                break;
+            case Hard:
+                deleteFields(81 - 17);
+                break;
+        }
+
+    }
+
+    public void deleteFields(int n) {
+        Set<List<Integer>> coords = new HashSet<>();
+        Random rand = new Random();
+        for (int i = 0; i < n; i++) {
+            List<Integer> newCoord;
+            do {
+                Integer x = (Integer) rand.nextInt(9);
+                Integer y = (Integer) rand.nextInt(9);
+                newCoord = Arrays.asList(x, y);
+            } while(coords.contains(newCoord));
+            coords.add(newCoord);
+        }
+        for (List<Integer> coord: coords) {
+            int x = coord.get(0);
+            int y = coord.get(1);
+            set(x, y, 0);
+        }
     }
 
     /**
