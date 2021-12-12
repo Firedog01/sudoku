@@ -1,19 +1,16 @@
 package pl.comp.javafx;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.comp.model.BacktrackingSudokuSolver;
-import pl.comp.model.SudokuBoard;
-
-import java.io.IOException;
 
 public class SudokuApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                SudokuApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
