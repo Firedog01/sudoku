@@ -72,13 +72,7 @@ public class SudokuBoard implements Serializable, Cloneable {
         if (!checkBoard()) {
             throw new RuntimeException("Board must be filled before creating puzzle");
         }
-        if (d == Easy) {
-            deleteFields(81 - 33);
-        } else if (d == Medium) {
-            deleteFields(81 - 25);
-        } else {
-            deleteFields(81 - 17);
-        }
+        deleteFields(81 - d.value);
     }
 
     /**
