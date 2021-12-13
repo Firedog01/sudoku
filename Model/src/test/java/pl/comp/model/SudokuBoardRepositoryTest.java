@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SudokuBoardRepositoryTest {
 
     @Test
-    void mainTest() {
+    void mainTest() throws CloneNotSupportedException {
         SudokuBoardRepository repository = new SudokuBoardRepository(new BacktrackingSudokuSolver());
         SudokuBoard board = repository.createInstance();
         board.solveGame();

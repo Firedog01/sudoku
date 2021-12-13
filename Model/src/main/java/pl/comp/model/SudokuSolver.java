@@ -9,5 +9,5 @@ public interface SudokuSolver extends Serializable, Cloneable {
      */
     void solve(SudokuBoard sudokuBoard);
 
-    SudokuSolver clone();
+    SudokuSolver clone() throws CloneNotSupportedException;
 }

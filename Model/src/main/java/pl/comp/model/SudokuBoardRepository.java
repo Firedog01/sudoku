@@ -8,7 +8,7 @@ public class SudokuBoardRepository {
         mainBoard = new SudokuBoard(solver);
     }
 
-    public SudokuBoard createInstance() {
+    public SudokuBoard createInstance() throws CloneNotSupportedException {
         return mainBoard.clone();
     }
 }

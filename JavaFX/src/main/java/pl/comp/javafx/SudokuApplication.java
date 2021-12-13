@@ -12,7 +12,7 @@ public class SudokuApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 SudokuApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        stage.setTitle("Sudoku");
         stage.setScene(scene);
         stage.show();
     }

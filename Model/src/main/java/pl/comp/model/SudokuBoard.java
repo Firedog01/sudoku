@@ -244,7 +244,7 @@ public class SudokuBoard implements Serializable, Cloneable {
                 .toHashCode();
     }
 
-    public SudokuBoard clone() {
+    public SudokuBoard clone() throws CloneNotSupportedException {
         SudokuSolver solverClone = sudokuSolver.clone();
         SudokuBoard clone = new SudokuBoard(solverClone);
         for (int x = 0; x < 9; x++) {

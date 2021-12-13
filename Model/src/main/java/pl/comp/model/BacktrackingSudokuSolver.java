@@ -39,13 +39,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
     }
 
     @Override
-    public BacktrackingSudokuSolver clone() {
-        BacktrackingSudokuSolver clone = null;
-        try {
-            clone = (BacktrackingSudokuSolver) super.clone();
-        } catch (CloneNotSupportedException ignored) {
-            //nothing
-        }
-        return clone;
+    public BacktrackingSudokuSolver clone() throws CloneNotSupportedException {
+        return (BacktrackingSudokuSolver) super.clone();
     }
 }
