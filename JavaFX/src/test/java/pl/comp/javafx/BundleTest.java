@@ -11,12 +11,10 @@ class BundleTest {
     void getBundleContentsTest() {
         Locale l_pl = new Locale("pl", "PL");
         Locale l_en = new Locale("en", "EN");
-        ResourceBundle b_pl = ResourceBundle.getBundle("Bundle", l_pl);
-        ResourceBundle b_en = ResourceBundle.getBundle("Bundle", l_en);
-        ResourceBundle b_def = ResourceBundle.getBundle("Bundle");
+        ResourceBundle b_pl = ResourceBundle.getBundle("Lang", l_pl);
+        ResourceBundle b_en = ResourceBundle.getBundle("Lang", l_en);
 
-        assertEquals("Zagraj w Sudoku!", b_pl.getString("Title"));
-        assertEquals("Play Sudoku!", b_en.getString("Title"));
-        assertEquals("Sudoku", b_def.getString("Title"));
+        assertEquals("Zagraj w Sudoku!", b_pl.getString("title"));
+        assertEquals("Play Sudoku!", b_en.getString("title"));
     }
 }

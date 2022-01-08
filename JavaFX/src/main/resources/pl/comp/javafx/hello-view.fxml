@@ -10,8 +10,14 @@
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <Label text="Choose difficulty" />
-    <Button fx:id="btn1" onAction="#onButtonClick" text="%easy" />
-    <Button fx:id="btn2" onAction="#onButtonClick" text="%medium" />
-    <Button fx:id="btn3" onAction="#onButtonClick" text="%hard" />
+    <Label text="%menu.choose" />
+    <Button fx:id="btn1" onAction="#onButtonClick" text="%difficulty.easy" />
+    <Button fx:id="btn2" onAction="#onButtonClick" text="%difficulty.medium" />
+    <Button fx:id="btn3" onAction="#onButtonClick" text="%difficulty.hard" />
+   <MenuButton mnemonicParsing="false" text="%language.language">
+     <items>
+       <MenuItem mnemonicParsing="false" text="%language.polish" />
+       <MenuItem mnemonicParsing="false" text="%language.english" />
+     </items>
+   </MenuButton>
 </VBox>

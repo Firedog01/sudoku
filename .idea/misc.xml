@@ -12,4 +12,7 @@
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
+  <component name="PropertiesSeparatorManager">
+    <file url="file://$PROJECT_DIR$/JavaFX/src/main/resources/pl/comp/javafx/Bundle" separator="\u002e" />
+  </component>
 </project>
