@@ -1,4 +1,5 @@
-package pl.comp.model;/*
+package pl.comp.model;
+/*
 sources:
     https://www.w3schools.com/java
     https://www.codegrepper.com/code-examples/java/how+to+fill+a+2d+array+with+0+in+java
@@ -7,9 +8,6 @@ sources:
     https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html
     http://www.java2s.com/Tutorial/Java/0140__Collections/Createanemptycollectionobject.htm
  */
-
-import static pl.comp.model.Difficulty.Easy;
-import static pl.comp.model.Difficulty.Medium;
 
 import java.io.Serializable;
 import java.util.ArrayList;
