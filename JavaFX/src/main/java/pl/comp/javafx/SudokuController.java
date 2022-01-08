@@ -1,14 +1,20 @@
 package pl.comp.javafx;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.Difficulty;
@@ -18,6 +24,8 @@ public class SudokuController implements Initializable {
 
     SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
 
+    ResourceBundle bundle;
+
     @FXML
     private Button btn1;
 
@@ -25,7 +33,22 @@ public class SudokuController implements Initializable {
     private Button btn2;
 
     @FXML
-    protected void onButtonClick(ActionEvent event){
+    private MenuItem polishItem;
+
+    @FXML
+    private HBox GameHBox;
+
+    @FXML
+    protected void onLanguageSelected(ActionEvent event) {
+        if (event.getSource() == polishItem) {
+
+        } else {
+
+        }
+    }
+
+    @FXML
+    protected void onButtonClick(ActionEvent event) throws IOException {
         board.solveGame();
         if (event.getSource() == btn1) {
             board.createPuzzle(Difficulty.Easy);
@@ -34,8 +57,13 @@ public class SudokuController implements Initializable {
         } else {
             board.createPuzzle(Difficulty.Hard);
         }
-        Stage stage;
-        stage = (Stage) btn1.getScene().getWindow();
+        Stage stage = (Stage) btn1.getScene().getWindow();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                SudokuApplication.class.getResource("game-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+
+        System.out.println("aaaaa");
         GridPane grid = new GridPane();
         grid.setGridLinesVisible(true);
         for (int i = 0; i < 9; i++) {
@@ -49,13 +77,14 @@ public class SudokuController implements Initializable {
                 grid.add(textField, i, j);
             }
         }
-        Scene scene = new Scene(grid);
         stage.setScene(scene);
         stage.show();
+        //GameHBox.getChildren().add(grid);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        bundle = resourceBundle;
 
     }
 }
