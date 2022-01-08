@@ -20,4 +20,7 @@
        <MenuItem fx:id="englishItem" mnemonicParsing="false" onAction="#onLanguageSelected" text="%language.english" />
      </items>
    </MenuButton>
+   <Label fx:id="preamble" text="preamble" />
+   <Label fx:id="a1" text="a1" />
+   <Label fx:id="a2" text="a2" />
 </VBox>

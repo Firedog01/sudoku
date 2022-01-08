@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -36,7 +37,25 @@ public class SudokuController implements Initializable {
     private MenuItem polishItem;
 
     @FXML
+    private Label preable;
+
+    @FXML
+    private Label a1;
+
+    @FXML
+    private Label a2;
+
+    @FXML
     private HBox GameHBox;
+
+    @FXML
+    private void initialize() {
+        Locale locale = Locale.getDefault();
+        ResourceBundle authors = ResourceBundle.getBundle("AuthorsBundle", locale);
+        preable.setText(authors.getObject("preamble").toString());
+        a1.setText(authors.getObject("a1").toString());
+        a2.setText(authors.getObject("a2").toString());
+    }
 
     @FXML
     protected void onLanguageSelected(ActionEvent event) {
