@@ -24,5 +24,4 @@
    <Label fx:id="preamble" />
    <Label fx:id="a1" />
    <Label fx:id="a2" />
-   <TextField />
 </VBox>

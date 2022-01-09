@@ -6,7 +6,7 @@
 <HBox fx:id="GameHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/16"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.comp.javafx.GameController">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <VBox fx:id="SideVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
             <Button mnemonicParsing="false" onAction="#load" text="%game.load" />
             <Button mnemonicParsing="false" onAction="#save" text="%game.save" />

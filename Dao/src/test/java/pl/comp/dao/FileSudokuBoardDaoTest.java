@@ -1,6 +1,7 @@
 package pl.comp.dao;
 
 import org.junit.jupiter.api.Test;
+import pl.comp.exceptions.model.NoSolverException;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.SudokuBoard;
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileSudokuBoardDaoTest {
 
     @Test
-    void read_write_correct() throws OutOfRangeCoordsException {
+    void read_write_correct() throws OutOfRangeCoordsException, NoSolverException {
         System.out.println(System.getProperty("user.dir"));
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
 
@@ -24,7 +25,7 @@ class FileSudokuBoardDaoTest {
             SudokuBoard boardRead = fileDao.read();
 
             assertEquals(board, boardRead);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

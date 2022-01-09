@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class SudokuIOException extends IOException {
+public class SudokuIOexception extends IOException {
     private ResourceBundle bundle;
 
-    public SudokuIOException(String message) {
+    public SudokuIOexception(String message) {
         this(message, new CloneNotSupportedException(), Locale.getDefault());
     }
 
-    public SudokuIOException(String message, Throwable cause) {
+    public SudokuIOexception(String message, Throwable cause) {
         this(message, cause, Locale.getDefault());
     }
 
-    public SudokuIOException(String message, Throwable cause, Locale locale) {
+    public SudokuIOexception(String message, Throwable cause, Locale locale) {
         super(message, cause);
         bundle = ResourceBundle.getBundle("Lang", locale);
     }

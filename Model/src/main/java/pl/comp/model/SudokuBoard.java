@@ -10,12 +10,21 @@ sources:
  */
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.Random;
+import java.util.ResourceBundle;
+import java.util.Set;
+
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.comp.exceptions.model.NoSolverException;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.exceptions.model.SudokuCloneException;
 import pl.comp.exceptions.model.UnfilledBoardException;
@@ -57,7 +66,10 @@ public class SudokuBoard implements Serializable, Cloneable {
     /**
      * Call to sudoku solver. Fills whole board with values
      */
-    public void solveGame() throws OutOfRangeCoordsException{
+    public void solveGame() throws OutOfRangeCoordsException, NoSolverException {
+        if (sudokuSolver == null) {
+            throw new NoSolverException("exception.noSolver", new NullPointerException());
+        }
         sudokuSolver.solve(this);
     }
 

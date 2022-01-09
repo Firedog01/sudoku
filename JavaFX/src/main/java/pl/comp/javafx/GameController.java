@@ -1,16 +1,19 @@
 package pl.comp.javafx;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.comp.dao.Dao;
 import pl.comp.dao.SudokuBoardDaoFactory;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
+import pl.comp.model.Greet;
 import pl.comp.model.SudokuBoard;
 
 import java.net.URL;
@@ -22,14 +25,21 @@ import java.util.regex.Pattern;
 //https://developer.android.com/topic/libraries/data-binding/two-way#java
 public class GameController implements Initializable {
 
+    private static Logger logger = LoggerFactory.getLogger(GameController.class);
+
     private SudokuBoard board;
 
     private SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
 
     private TextField[][] fields = new TextField[9][9];
 
+    private ResourceBundle bundle;
+
     @FXML
     private GridPane grid = new GridPane();
+
+    @FXML
+    private VBox SideVBox;
 
     protected void initData(SudokuBoard board) throws OutOfRangeCoordsException {
         this.board = board;
@@ -74,7 +84,9 @@ public class GameController implements Initializable {
             }
             updateBoard();
             if (board.checkBoard()) {
-                //todo fajerwerki
+                Label winLabel = new Label();
+                winLabel.setText(bundle.getString("game.win"));
+                SideVBox.getChildren().add(winLabel);
             }
         }
     }
@@ -110,7 +122,7 @@ public class GameController implements Initializable {
                 try {
                     iNumber = Integer.parseInt(sNumber);
                 } catch (NumberFormatException e) {
-                    //todo logger?
+                    logger.info("log.fx.parse");
                 }
                 board.set(i, j, iNumber);
             }

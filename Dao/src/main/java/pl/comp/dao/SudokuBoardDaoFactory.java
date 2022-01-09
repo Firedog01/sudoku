@@ -1,7 +1,5 @@
 package pl.comp.dao;
 
-import java.io.FileNotFoundException;
-
 import pl.comp.exceptions.model.dao.SudokuFileException;
 import pl.comp.model.SudokuBoard;
 

@@ -9,19 +9,16 @@ sources:
  */
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.comp.exceptions.model.dao.SudokuFileException;
-import pl.comp.exceptions.model.dao.SudokuIOException;
-import pl.comp.model.Greet;
+import pl.comp.exceptions.model.dao.SudokuIOexception;
 import pl.comp.model.SudokuBoard;
 
 public class FileSudokuBoardDao implements Dao<SudokuBoard> {
@@ -40,7 +37,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             return board;
         } catch (IOException e) {
             logger.info(bundle.getString("log.dao.ioEx"));
-            throw new SudokuIOException("exception.io", e);
+            throw new SudokuIOexception("exception.io", e);
         } catch (Exception e) {
             logger.info(bundle.getString("log.ex"));
             e.printStackTrace();
@@ -54,7 +51,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             oos.writeObject(obj);
         } catch (IOException e) {
             logger.info(bundle.getString("log.dao.ioEx"));
-            throw new SudokuIOException("exception.io", e);
+            throw new SudokuIOexception("exception.io", e);
         }
     }
 
