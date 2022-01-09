@@ -28,9 +28,6 @@ public class GameController implements Initializable {
 
     private TextField[][] fields = new TextField[9][9];
 
-    private StringProperty[][] value = new SimpleStringProperty[9][9];
-
-
     @FXML
     private GridPane grid = new GridPane();
 
@@ -68,6 +65,7 @@ public class GameController implements Initializable {
                 String originalText = field.getText();
                 Pattern compiledPattern = Pattern.compile("\\d");
                 Matcher matcher = compiledPattern.matcher(originalText);
+
                 if(matcher.find()) {
                     field.setText(matcher.group());
                 } else {
@@ -75,6 +73,9 @@ public class GameController implements Initializable {
                 }
             }
             updateBoard();
+            if (board.checkBoard()) {
+                //todo fajerwerki
+            }
         }
     }
 
