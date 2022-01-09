@@ -1,21 +1,21 @@
 package pl.comp.javafx;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import pl.comp.dao.Dao;
+import pl.comp.dao.SudokuBoardDaoFactory;
 import pl.comp.model.SudokuBoard;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 //two-way binding
@@ -24,6 +24,8 @@ public class GameController implements Initializable {
 
     private SudokuBoard board;
 
+    private SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+
     private TextField[][] fields = new TextField[9][9];
 
     private StringProperty[][] value = new SimpleStringProperty[9][9];
@@ -31,37 +33,56 @@ public class GameController implements Initializable {
     @FXML
     private HBox GameHBox;
 
+    @FXML
+    private GridPane grid = new GridPane();
+
     protected void initData(SudokuBoard board) {
-        GridPane grid = new GridPane();
+        this.board = board;
+
         grid.setGridLinesVisible(true);
+        updateFields();
+    }
+
+    private void updateFields() {
+        grid.getChildren().removeAll();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 TextField textField = new TextField();
+                textField.setMinSize(40, 40);
+                textField.setMaxSize(40, 40);
+
                 if (board.get(i, j) != 0) {
                     textField.setText(Integer.toString(board.get(i, j)));
                 }
-                //textField.textProperty().bindBidirectional();
-                textField.setMinSize(40, 40);
-                textField.setMaxSize(40, 40);
                 grid.add(textField, i, j);
             }
         }
-        GameHBox.getChildren().add(grid);
     }
 
     @FXML
-    protected void onFieldChanged(ActionEvent event) {
-
+    protected void onFieldChanged(KeyEvent event) {
+        System.out.println(event.getText());
     }
 
     @FXML
     protected void load(ActionEvent event) throws IOException {
-
+        try (Dao<SudokuBoard> fileDao = factory.getFileDao("board")) {
+            board = fileDao.read();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        updateFields();
     }
 
     @FXML
     protected void save(ActionEvent event) throws IOException {
-
+        try (Dao<SudokuBoard> fileDao = factory.getFileDao("board")) {
+            fileDao.write(board);
+            SudokuBoard board2 = fileDao.read();
+            System.out.println(board2);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

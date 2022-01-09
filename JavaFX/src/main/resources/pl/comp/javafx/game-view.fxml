@@ -13,5 +13,5 @@
          </children>
       </VBox>
    </children>
-   <GridPane fx:id="grid" />
+   <GridPane fx:id="grid" onKeyReleased="#onFieldChanged"/>
 </HBox>
