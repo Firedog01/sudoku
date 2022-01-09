@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import pl.comp.dao.Dao;
 import pl.comp.dao.SudokuBoardDaoFactory;
+import pl.comp.exceptions.OutOfRangeCoordsException;
 import pl.comp.model.SudokuBoard;
 
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class GameController implements Initializable {
         updateFields();
     }
 
-    private void updateFields() {
+    private void updateFields() throws OutOfRangeCoordsException {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (board.get(i, j) != 0) {

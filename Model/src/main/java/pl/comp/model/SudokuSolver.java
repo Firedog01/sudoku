@@ -1,5 +1,7 @@
 package pl.comp.model;
 
+import pl.comp.exceptions.OutOfRangeCoordsException;
+
 import java.io.Serializable;
 
 public interface SudokuSolver extends Serializable, Cloneable {
@@ -7,7 +9,7 @@ public interface SudokuSolver extends Serializable, Cloneable {
      * Function to fill board with values.
      * @param sudokuBoard board to fill.
      */
-    void solve(SudokuBoard sudokuBoard);
+    void solve(SudokuBoard sudokuBoard) throws OutOfRangeCoordsException;
 
     SudokuSolver clone() throws CloneNotSupportedException;
 }

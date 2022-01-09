@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import pl.comp.exceptions.SudokuCloneException;
 
 public abstract class SudokuElement implements PropertyChangeListener, Serializable, Cloneable {
     /**
@@ -128,10 +129,14 @@ public abstract class SudokuElement implements PropertyChangeListener, Serializa
     }
 
     protected List<SudokuField> cloneFields() throws CloneNotSupportedException {
-        List<SudokuField> newList = new ArrayList<SudokuField>();
-        for (SudokuField field : fields) {
-            newList.add(field.clone());
+        try {
+            List<SudokuField> newList = new ArrayList<SudokuField>();
+            for (SudokuField field : fields) {
+                newList.add(field.clone());
+            }
+            return newList;
+        } catch (CloneNotSupportedException e) {
+            throw new SudokuCloneException("exception.cloneEx", e);
         }
-        return newList;
     }
 }

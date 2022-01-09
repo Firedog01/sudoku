@@ -10,14 +10,15 @@ sources:
  */
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.comp.exceptions.OutOfRangeCoordsException;
+import pl.comp.exceptions.SudokuCloneException;
+import pl.comp.exceptions.UnfilledBoardException;
 
 public class SudokuBoard implements Serializable, Cloneable {
     /**
@@ -30,6 +31,10 @@ public class SudokuBoard implements Serializable, Cloneable {
      * Stores object instead of just ints.
      */
     private List<List<SudokuField>> board;
+
+    private static Logger logger = LoggerFactory.getLogger(SudokuBoard.class);
+
+    private ResourceBundle bundle = ResourceBundle.getBundle("Lang",Locale.getDefault());
 
     /**
      * Constructor. Initializes board with zeros and sets valid to false.
@@ -54,7 +59,7 @@ public class SudokuBoard implements Serializable, Cloneable {
     /**
      * Call to sudoku solver. Fills whole board with values
      */
-    public void solveGame() {
+    public void solveGame() throws OutOfRangeCoordsException{
         sudokuSolver.solve(this);
     }
 
@@ -66,9 +71,9 @@ public class SudokuBoard implements Serializable, Cloneable {
      * @param d enum describing difficulty.
      * @throws RuntimeException if board is not filled
      */
-    public void createPuzzle(Difficulty d) {
+    public void createPuzzle(Difficulty d) throws UnfilledBoardException, OutOfRangeCoordsException {
         if (!checkBoard()) {
-            throw new RuntimeException("Board must be filled before creating puzzle");
+            throw new UnfilledBoardException("exception.unfilled");
         }
         deleteFields(81 - d.value);
     }
@@ -78,7 +83,7 @@ public class SudokuBoard implements Serializable, Cloneable {
      * Does not check if value of field before deletion was set.
      * @param n number of fields to delete
      */
-    private void deleteFields(int n) {
+    private void deleteFields(int n) throws OutOfRangeCoordsException {
         Set<List<Integer>> coords = new HashSet<>();
         Random rand = new Random();
         for (int i = 0; i < n; i++) {
@@ -104,7 +109,10 @@ public class SudokuBoard implements Serializable, Cloneable {
      * @param y second coordinate
      * @return int of range 0-9 representing value in given cell
      */
-    public int get(int x, int y) {
+    public int get(int x, int y) throws OutOfRangeCoordsException {
+        if (x > 8 || x < 0 || y > 8 || y < 0) {
+            throw new OutOfRangeCoordsException("exception.coord");
+        }
         return board.get(x).get(y).getFieldValue();
     }
 
@@ -114,7 +122,10 @@ public class SudokuBoard implements Serializable, Cloneable {
      * @param y second coordinate
      * @param value int of range 1-9
      */
-    public void set(int x, int y, int value) {
+    public void set(int x, int y, int value) throws OutOfRangeCoordsException{
+        if (x > 8 || x < 0 || y > 8 || y < 0) {
+            throw new OutOfRangeCoordsException("exception.coord");
+        }
         board.get(x).get(y).setFieldValue(value);
     }
 
@@ -198,7 +209,11 @@ public class SudokuBoard implements Serializable, Cloneable {
                 if (j % 3 == 0) {
                     ret.append("│");
                 }
-                ret.append(" ").append(this.get(i, j)).append(" ");
+                try{
+                    ret.append(" ").append(this.get(i, j)).append(" ");
+                } catch (OutOfRangeCoordsException e) {
+                    logger.info(bundle.getString("log.coord"));
+                }
             }
             ret.append("│\n");
         }
@@ -236,14 +251,22 @@ public class SudokuBoard implements Serializable, Cloneable {
                 .toHashCode();
     }
 
-    public SudokuBoard clone() throws CloneNotSupportedException {
-        SudokuSolver solverClone = sudokuSolver.clone();
-        SudokuBoard clone = new SudokuBoard(solverClone);
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                clone.set(x, y, this.get(x, y));
+    public SudokuBoard clone() throws CloneNotSupportedException{
+        try {
+            SudokuSolver solverClone = sudokuSolver.clone();
+            SudokuBoard clone = new SudokuBoard(solverClone);
+            for (int x = 0; x < 9; x++) {
+                for (int y = 0; y < 9; y++) {
+                    clone.set(x, y, this.get(x, y));
+                }
             }
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            logger.info(bundle.getString("log.cloneEx"));
+            throw new SudokuCloneException("exception.clone", e);
+        } catch (OutOfRangeCoordsException e) {
+            logger.info(bundle.getString("exception.coord"));
+            throw new SudokuCloneException("exception.clone", e);
         }
-        return clone;
     }
 }

@@ -8,6 +8,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import pl.comp.exceptions.SudokuCloneException;
 
 public class SudokuField implements Serializable, Comparable<SudokuField>, Cloneable {
     /**
@@ -90,7 +91,11 @@ public class SudokuField implements Serializable, Comparable<SudokuField>, Clone
     }
 
     public SudokuField clone() throws CloneNotSupportedException {
-        return (SudokuField) super.clone();
+        try {
+            return (SudokuField) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new SudokuCloneException("exception.cloneEx", e);
+        }
     }
 }
 

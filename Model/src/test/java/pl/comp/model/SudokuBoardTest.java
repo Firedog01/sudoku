@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static pl.comp.model.Difficulty.*;
 
 import org.junit.jupiter.api.Test;
+import pl.comp.exceptions.OutOfRangeCoordsException;
+import pl.comp.exceptions.SudokuCloneException;
+import pl.comp.exceptions.UnfilledBoardException;
 import pl.comp.model.*;
 
 import java.util.List;
@@ -14,7 +17,7 @@ class SudokuBoardTest {
     private SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
     private SudokuBoard board2 = new SudokuBoard(new BacktrackingSudokuSolver());
 
-    private int countZeros(SudokuBoard board) {
+    private int countZeros(SudokuBoard board) throws OutOfRangeCoordsException {
         int count = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -27,7 +30,7 @@ class SudokuBoardTest {
     }
 
     @Test
-    void constructorTest() {
+    void constructorTest() throws OutOfRangeCoordsException {
         SudokuBoard board0 = new SudokuBoard(solver0);
         for(int i = 0; i < 9; i++) {
             for(int j = 0; j < 9; j++) {
@@ -37,26 +40,26 @@ class SudokuBoardTest {
     }
 
     @Test
-    void setterTest() {
+    void setterTest() throws OutOfRangeCoordsException {
         board.set(0, 0, 5);
         assertEquals(5, board.get(0, 0));
     }
 
     @Test
-    void testSolveGame() {
+    void testSolveGame() throws OutOfRangeCoordsException {
         board.solveGame();
         assertTrue(board.checkBoard());
     }
 
     @Test
-    void checkBoard_true_Test() {
+    void checkBoard_true_Test() throws OutOfRangeCoordsException {
         SudokuBoard board0 = new SudokuBoard(solver0);
         board0.solveGame();
         assertTrue(board0.checkBoard());
     }
 
     @Test
-    void checkBoard_SameRow_Test() {
+    void checkBoard_SameRow_Test() throws OutOfRangeCoordsException {
         SudokuBoard board0 = new SudokuBoard(solver0);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -67,7 +70,7 @@ class SudokuBoardTest {
     }
 
     @Test
-    void checkBoard_SameCol_Test() {
+    void checkBoard_SameCol_Test() throws OutOfRangeCoordsException {
         SudokuBoard board0 = new SudokuBoard(solver0);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -78,7 +81,7 @@ class SudokuBoardTest {
     }
 
     @Test
-    void checkBoard_SameBlock_Test() {
+    void checkBoard_SameBlock_Test() throws OutOfRangeCoordsException {
         SudokuBoard board0 = new SudokuBoard(solver0);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -89,7 +92,7 @@ class SudokuBoardTest {
     }
 
     @Test
-    void checkBoard_OutOfRange_Test() {
+    void checkBoard_OutOfRange_Test() throws OutOfRangeCoordsException {
         SudokuBoard board0 = new SudokuBoard(solver0);
         board0.solveGame();
         board0.set(0, 0, 10);
@@ -99,14 +102,14 @@ class SudokuBoardTest {
     }
 
     @Test
-    void toStringTest() {
+    void toStringTest() throws OutOfRangeCoordsException {
         SudokuBoard board0 = new SudokuBoard(solver0);
         board0.solveGame();
         assertNotEquals("", board0.toString());
     }
 
     @Test
-    void equalsTest() {
+    void equalsTest() throws OutOfRangeCoordsException {
         board.solveGame();
         board2.solveGame();
         assertTrue(board.equals(board));
@@ -116,7 +119,7 @@ class SudokuBoardTest {
     }
 
     @Test
-    void hashCodeTest() {
+    void hashCodeTest() throws OutOfRangeCoordsException {
         board.solveGame();
         board2.solveGame();
 
@@ -124,7 +127,7 @@ class SudokuBoardTest {
     }
 
     @Test
-    void cloneTest() throws CloneNotSupportedException{
+    void cloneTest() throws SudokuCloneException, OutOfRangeCoordsException{
         SudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard originalBoard = new SudokuBoard(solver);
         SudokuBoard clone = originalBoard.clone();
@@ -143,7 +146,7 @@ class SudokuBoardTest {
     }
 
     @Test
-    void createPuzzleTest() {
+    void createPuzzleTest() throws UnfilledBoardException, OutOfRangeCoordsException {
         board.solveGame();
         board.createPuzzle(Easy);
         assertEquals(81 - 33, countZeros(board));
@@ -158,7 +161,7 @@ class SudokuBoardTest {
         assertEquals(81 - 17, countZeros(board3));
 
         SudokuBoard board4 = new SudokuBoard(new BacktrackingSudokuSolver());
-        assertThrows(RuntimeException.class, () -> {
+        assertThrows(UnfilledBoardException.class, () -> {
             board4.createPuzzle(Easy);
         });
     }

@@ -7,4 +7,5 @@ open module ModelProject {
 
     exports pl.comp.model;
     exports pl.i18n.authors;
+    exports pl.comp.exceptions;
 }

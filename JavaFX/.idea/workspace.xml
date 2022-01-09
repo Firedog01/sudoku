@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="df7c6518-e572-4aa8-85c9-e896b4d2855b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Model/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/comp/javafx/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/comp/javafx/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pl/comp/javafx/SudokuApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/comp/javafx/SudokuApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model/src/test/java/GreetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Model/src/test/java/pl/comp/model/GreetTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model/src/test/java/SudokuBoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Model/src/test/java/pl/comp/model/SudokuBoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model/src/test/java/SudokuBoxTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Model/src/test/java/pl/comp/model/SudokuBoxTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model/src/test/java/SudokuColumnTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Model/src/test/java/pl/comp/model/SudokuColumnTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model/src/test/java/SudokuElementTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Model/src/test/java/pl/comp/model/SudokuElementTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model/src/test/java/SudokuFieldTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Model/src/test/java/pl/comp/model/SudokuFieldTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Model/src/test/java/SudokuRowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Model/src/test/java/pl/comp/model/SudokuRowTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="21aaprrOPuzJ2Xr3iHnYrRHBoOO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="df7c6518-e572-4aa8-85c9-e896b4d2855b" name="Changes" comment="" />
+      <created>1638181840913</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1638181840913</updated>
+    </task>
+    <servers />
+  </component>
+</project>

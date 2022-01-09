@@ -14,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import pl.comp.exceptions.OutOfRangeCoordsException;
+import pl.comp.exceptions.UnfilledBoardException;
 import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.Difficulty;
 import pl.comp.model.SudokuBoard;
@@ -93,7 +95,8 @@ public class SudokuController implements Initializable {
     }
 
     @FXML
-    protected void onButtonClick(ActionEvent event) throws IOException {
+    protected void onButtonClick(ActionEvent event)
+            throws IOException, UnfilledBoardException, OutOfRangeCoordsException {
         board.solveGame();
         if (event.getSource() == btn1) {
             board.createPuzzle(Difficulty.Easy);

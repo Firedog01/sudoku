@@ -1,5 +1,7 @@
 package pl.comp.model;
 
+import pl.comp.exceptions.SudokuCloneException;
+
 import java.util.List;
 
 public class SudokuRow extends SudokuElement {
@@ -14,6 +16,10 @@ public class SudokuRow extends SudokuElement {
 
     @Override
     public SudokuRow clone() throws CloneNotSupportedException {
-        return new SudokuRow(cloneFields());
+        try{
+            return new SudokuRow(cloneFields());
+        } catch (CloneNotSupportedException e) {
+            throw new SudokuCloneException("exception.cloneEx", e);
+        }
     }
 }
