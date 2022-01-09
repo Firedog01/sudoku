@@ -25,6 +25,8 @@ public class SudokuController implements Initializable {
 
     SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
 
+    private Locale locale;
+
     @FXML
     private Label labelTitle;
 
@@ -60,10 +62,11 @@ public class SudokuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setText(resourceBundle.getLocale());
+        locale = resourceBundle.getLocale();
+        setText();
     }
 
-    protected void setText(Locale locale) {
+    protected void setText() {
         ResourceBundle labelBundle = ResourceBundle.getBundle("Lang", locale);
         ResourceBundle authorsBundle = ResourceBundle.getBundle("pl.i18n.authors.AuthorsBundle", locale);
 
@@ -81,12 +84,11 @@ public class SudokuController implements Initializable {
     @FXML
     protected void onLanguageSelected(ActionEvent event) {
         if (event.getSource() == polishItem) {
-            Locale pl = new Locale("pl", "PL");
-            setText(pl);
+            locale = new Locale("pl", "PL");
         } else if (event.getSource() == englishItem) {
-            Locale en = new Locale("en", "EN");
-            setText(en);
+            locale = new Locale("en", "EN");
         }
+        setText();
     }
 
     @FXML
@@ -101,11 +103,11 @@ public class SudokuController implements Initializable {
         }
         Stage stage = (Stage) btn1.getScene().getWindow();
 
+        ResourceBundle labelBundle = ResourceBundle.getBundle("Lang", locale);
         FXMLLoader fxmlLoader = new FXMLLoader(
-                SudokuApplication.class.getResource("game-view.fxml"));
+                SudokuApplication.class.getResource("game-view.fxml"), labelBundle);
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
-        System.out.println("aaaaa");
         GridPane grid = new GridPane();
         grid.setGridLinesVisible(true);
         for (int i = 0; i < 9; i++) {
@@ -121,8 +123,5 @@ public class SudokuController implements Initializable {
         }
         stage.setScene(scene);
         stage.show();
-        //GameHBox.getChildren().add(grid);
     }
-
-
 }
