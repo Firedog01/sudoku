@@ -71,6 +71,7 @@ public class SudokuBoard implements Serializable, Cloneable {
             throw new NoSolverException("exception.noSolver", new NullPointerException());
         }
         sudokuSolver.solve(this);
+        logger.info(ResourceBundle.getBundle("Lang", Locale.getDefault()).getString("log.solved"));
     }
 
     /**
@@ -86,6 +87,7 @@ public class SudokuBoard implements Serializable, Cloneable {
             throw new UnfilledBoardException("exception.unfilled");
         }
         deleteFields(81 - d.value);
+        logger.info(ResourceBundle.getBundle("Lang", Locale.getDefault()).getString("log.createdPuzzle"));
     }
 
     /**
