@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
@@ -41,6 +38,9 @@ public class SudokuController implements Initializable {
 
     @FXML
     private Button btn3;
+
+    @FXML
+    private MenuButton langChoose;
 
     @FXML
     private MenuItem polishItem;
@@ -76,6 +76,7 @@ public class SudokuController implements Initializable {
         btn1.setText(labelBundle.getString("difficulty.easy"));
         btn2.setText(labelBundle.getString("difficulty.medium"));
         btn3.setText(labelBundle.getString("difficulty.hard"));
+        langChoose.setText(labelBundle.getString("language.language"));
         preamble.setText(authorsBundle.getString("preamble"));
         a1.setText(authorsBundle.getString("a1"));
         a2.setText(authorsBundle.getString("a2"));

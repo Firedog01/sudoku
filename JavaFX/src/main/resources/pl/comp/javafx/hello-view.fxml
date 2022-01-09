@@ -15,7 +15,7 @@
     <Button fx:id="btn1" onAction="#onButtonClick" text="%difficulty.easy" />
     <Button fx:id="btn2" onAction="#onButtonClick" text="%difficulty.medium" />
     <Button fx:id="btn3" onAction="#onButtonClick" text="%difficulty.hard" />
-   <MenuButton mnemonicParsing="false" text="%language.language">
+   <MenuButton fx:id="langChoose" mnemonicParsing="false" text="%language.language">
      <items>
        <MenuItem fx:id="polishItem" mnemonicParsing="false" onAction="#onLanguageSelected" text="%language.polish" />
        <MenuItem fx:id="englishItem" mnemonicParsing="false" onAction="#onLanguageSelected" text="%language.english" />

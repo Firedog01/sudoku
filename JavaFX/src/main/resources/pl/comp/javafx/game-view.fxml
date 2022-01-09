@@ -8,9 +8,10 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button mnemonicParsing="false" text="%game.load" />
-            <Button mnemonicParsing="false" text="%game.save" />
+            <Button mnemonicParsing="false" onAction="#load" text="%game.load" />
+            <Button mnemonicParsing="false" onAction="#save" text="%game.save" />
          </children>
       </VBox>
    </children>
+   <GridPane fx:id="grid" />
 </HBox>
