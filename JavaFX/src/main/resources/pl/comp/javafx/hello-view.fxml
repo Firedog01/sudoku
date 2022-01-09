@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="5.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.comp.javafx.SudokuController">
+<VBox alignment="CENTER" spacing="5.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.comp.javafx.SudokuController">
 
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
-    <Label fx:id="labelTitle" text="%title" prefHeight="72" />
+    <Label fx:id="labelTitle" prefHeight="72" text="%title" />
 
     <Label fx:id="labelChoose" text="%menu.choose" />
     <Button fx:id="btn1" onAction="#onButtonClick" text="%difficulty.easy" />
@@ -24,4 +24,5 @@
    <Label fx:id="preamble" />
    <Label fx:id="a1" />
    <Label fx:id="a2" />
+   <TextField />
 </VBox>

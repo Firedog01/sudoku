@@ -103,26 +103,13 @@ public class SudokuController implements Initializable {
             board.createPuzzle(Difficulty.Hard);
         }
         Stage stage = (Stage) btn1.getScene().getWindow();
-
         ResourceBundle labelBundle = ResourceBundle.getBundle("Lang", locale);
         FXMLLoader fxmlLoader = new FXMLLoader(
                 SudokuApplication.class.getResource("game-view.fxml"), labelBundle);
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-
-        GridPane grid = new GridPane();
-        grid.setGridLinesVisible(true);
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                TextField textField = new TextField();
-                if (board.get(i, j) != 0) {
-                    textField.setText(Integer.toString(board.get(i, j)));
-                }
-                textField.setMinSize(40, 40);
-                textField.setMaxSize(40, 40);
-                grid.add(textField, i, j);
-            }
-        }
+        Scene scene = new Scene(fxmlLoader.load(), 440, 360);
         stage.setScene(scene);
+        GameController controller = fxmlLoader.getController();
+        controller.initData(board);
         stage.show();
     }
 }
