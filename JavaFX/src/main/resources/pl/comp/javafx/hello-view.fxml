@@ -9,8 +9,9 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
+    <Label fx:id="labelTitle" text="%title" prefHeight="72" />
 
-    <Label text="%menu.choose" />
+    <Label fx:id="labelChoose" text="%menu.choose" />
     <Button fx:id="btn1" onAction="#onButtonClick" text="%difficulty.easy" />
     <Button fx:id="btn2" onAction="#onButtonClick" text="%difficulty.medium" />
     <Button fx:id="btn3" onAction="#onButtonClick" text="%difficulty.hard" />
@@ -20,7 +21,7 @@
        <MenuItem fx:id="englishItem" mnemonicParsing="false" onAction="#onLanguageSelected" text="%language.english" />
      </items>
    </MenuButton>
-   <Label fx:id="preamble" text="preamble" />
-   <Label fx:id="a1" text="a1" />
-   <Label fx:id="a2" text="a2" />
+   <Label fx:id="preamble" />
+   <Label fx:id="a1" />
+   <Label fx:id="a2" />
 </VBox>

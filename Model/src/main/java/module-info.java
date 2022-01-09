@@ -4,4 +4,5 @@ open module ModelProject {
     requires sudoku;
 
     exports pl.comp.model;
+    exports pl.i18n.authors;
 }

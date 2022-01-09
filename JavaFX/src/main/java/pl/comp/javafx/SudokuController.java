@@ -15,7 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.Difficulty;
@@ -25,7 +25,11 @@ public class SudokuController implements Initializable {
 
     SudokuBoard board = new SudokuBoard(new BacktrackingSudokuSolver());
 
-    ResourceBundle bundle;
+    @FXML
+    private Label labelTitle;
+
+    @FXML
+    private Label labelChoose;
 
     @FXML
     private Button btn1;
@@ -34,10 +38,16 @@ public class SudokuController implements Initializable {
     private Button btn2;
 
     @FXML
+    private Button btn3;
+
+    @FXML
     private MenuItem polishItem;
 
     @FXML
-    private Label preable;
+    private MenuItem englishItem;
+
+    @FXML
+    private Label preamble;
 
     @FXML
     private Label a1;
@@ -48,21 +58,34 @@ public class SudokuController implements Initializable {
     @FXML
     private HBox GameHBox;
 
-    @FXML
-    private void initialize() {
-        Locale locale = Locale.getDefault();
-        ResourceBundle authors = ResourceBundle.getBundle("AuthorsBundle", locale);
-        preable.setText(authors.getObject("preamble").toString());
-        a1.setText(authors.getObject("a1").toString());
-        a2.setText(authors.getObject("a2").toString());
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setText(resourceBundle.getLocale());
+    }
+
+    protected void setText(Locale locale) {
+        ResourceBundle labelBundle = ResourceBundle.getBundle("Lang", locale);
+        ResourceBundle authorsBundle = ResourceBundle.getBundle("pl.i18n.authors.AuthorsBundle", locale);
+
+        labelTitle.setFont(new Font("Arial", 30));
+        labelTitle.setText(labelBundle.getString("title"));
+        labelChoose.setText(labelBundle.getString("menu.choose"));
+        btn1.setText(labelBundle.getString("difficulty.easy"));
+        btn2.setText(labelBundle.getString("difficulty.medium"));
+        btn3.setText(labelBundle.getString("difficulty.hard"));
+        preamble.setText(authorsBundle.getString("preamble"));
+        a1.setText(authorsBundle.getString("a1"));
+        a2.setText(authorsBundle.getString("a2"));
     }
 
     @FXML
     protected void onLanguageSelected(ActionEvent event) {
         if (event.getSource() == polishItem) {
-
-        } else {
-
+            Locale pl = new Locale("pl", "PL");
+            setText(pl);
+        } else if (event.getSource() == englishItem) {
+            Locale en = new Locale("en", "EN");
+            setText(en);
         }
     }
 
@@ -101,9 +124,5 @@ public class SudokuController implements Initializable {
         //GameHBox.getChildren().add(grid);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        bundle = resourceBundle;
 
-    }
 }
