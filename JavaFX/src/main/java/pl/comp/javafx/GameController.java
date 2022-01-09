@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //two-way binding
 //https://developer.android.com/topic/libraries/data-binding/two-way#java
@@ -51,7 +53,47 @@ public class GameController implements Initializable {
         updateFields();
     }
 
-    private void updateFields() throws OutOfRangeCoordsException {
+
+
+    @FXML
+    protected void onFieldChanged(KeyEvent event) {
+        TextField field = getFocusedField();
+        int code = event.getCode().getCode();
+        // Backspace - 8
+        //         0 - 48
+        //         9 - 57
+        //    Delete - 127
+        if (field != null) {
+            if (code > 48 && code <= 57) {
+                field.setText(event.getText());
+            } else if (code == 8 || code == 127) {
+                field.setText("");
+            } else {
+                String originalText = field.getText();
+                Pattern compiledPattern = Pattern.compile("\\d");
+                Matcher matcher = compiledPattern.matcher(originalText);
+                if(matcher.find()) {
+                    field.setText(matcher.group());
+                } else {
+                    field.setText("");
+                }
+            }
+            updateBoard();
+        }
+    }
+
+    private TextField getFocusedField() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if(fields[i][j].isFocused()) {
+                    return fields[i][j];
+                }
+            }
+        }
+        return null;
+    }
+
+    private void updateFields() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (board.get(i, j) != 0) {
@@ -63,38 +105,19 @@ public class GameController implements Initializable {
         }
     }
 
-    @FXML
-    protected void onFieldChanged(KeyEvent event) {
-        TextField field = getFocusedField();
-        KeyCode code = event.getCode();
-
-        String inputText = event.getText();
-        int inputNum = -1;
-        try {
-            inputNum = Integer.parseInt(inputText);
-        } catch(NumberFormatException e) {
-            System.out.println(e);
-        }
-
-        System.out.println("key: " + inputText);
-        if (field != null) {
-            if(inputNum > 0 && inputNum < 9) {
-                field.setText(inputText);
-            } else if(inputText == null) {
-                System.out.println("null");
-            }
-        }
-    }
-
-    private TextField getFocusedField() {
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
-                if(fields[i][j].isFocused()) {
-                    return fields[i][j];
+    private void updateBoard() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                String sNumber = fields[i][j].getText();
+                int iNumber = 0;
+                try {
+                    iNumber = Integer.parseInt(sNumber);
+                } catch (NumberFormatException e) {
+                    //todo logger?
                 }
+                board.set(i, j, iNumber);
             }
         }
-        return null;
     }
 
     @FXML
