@@ -38,7 +38,7 @@ public class GameController implements Initializable {
     @FXML
     private GridPane grid = new GridPane();
 
-    protected void initData(SudokuBoard board) {
+    protected void initData(SudokuBoard board) throws OutOfRangeCoordsException {
         this.board = board;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -56,7 +56,7 @@ public class GameController implements Initializable {
 
 
     @FXML
-    protected void onFieldChanged(KeyEvent event) {
+    protected void onFieldChanged(KeyEvent event) throws OutOfRangeCoordsException {
         TextField field = getFocusedField();
         int code = event.getCode().getCode();
         // Backspace - 8
@@ -93,7 +93,7 @@ public class GameController implements Initializable {
         return null;
     }
 
-    private void updateFields() {
+    private void updateFields() throws OutOfRangeCoordsException {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 if (board.get(i, j) != 0) {
@@ -105,7 +105,7 @@ public class GameController implements Initializable {
         }
     }
 
-    private void updateBoard() {
+    private void updateBoard() throws OutOfRangeCoordsException {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 String sNumber = fields[i][j].getText();
@@ -121,7 +121,7 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    protected void load(ActionEvent event) {
+    protected void load(ActionEvent event) throws OutOfRangeCoordsException {
         try (Dao<SudokuBoard> fileDao = factory.getFileDao("board")) {
             board = fileDao.read();
         } catch (Exception e){

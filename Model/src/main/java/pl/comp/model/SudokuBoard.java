@@ -34,8 +34,6 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     private static Logger logger = LoggerFactory.getLogger(SudokuBoard.class);
 
-    private ResourceBundle bundle = ResourceBundle.getBundle("Lang",Locale.getDefault());
-
     /**
      * Constructor. Initializes board with zeros and sets valid to false.
      * @param solver instance of pl.comp.model.SudokuSolver
@@ -212,7 +210,8 @@ public class SudokuBoard implements Serializable, Cloneable {
                 try{
                     ret.append(" ").append(this.get(i, j)).append(" ");
                 } catch (OutOfRangeCoordsException e) {
-                    logger.info(bundle.getString("log.coord"));
+                    logger.info(ResourceBundle.getBundle("Lang", Locale.getDefault())
+                            .getString("log.coord"));
                 }
             }
             ret.append("│\n");
@@ -262,10 +261,12 @@ public class SudokuBoard implements Serializable, Cloneable {
             }
             return clone;
         } catch (CloneNotSupportedException e) {
-            logger.info(bundle.getString("log.cloneEx"));
+            logger.info(ResourceBundle.getBundle("Lang", Locale.getDefault())
+                    .getString("log.cloneEx"));
             throw new SudokuCloneException("exception.clone", e);
         } catch (OutOfRangeCoordsException e) {
-            logger.info(bundle.getString("exception.coord"));
+            logger.info(ResourceBundle.getBundle("Lang", Locale.getDefault())
+                    .getString("exception.coord"));
             throw new SudokuCloneException("exception.clone", e);
         }
     }

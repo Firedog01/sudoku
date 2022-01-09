@@ -127,7 +127,7 @@ class SudokuBoardTest {
     }
 
     @Test
-    void cloneTest() throws SudokuCloneException, OutOfRangeCoordsException{
+    void cloneTest() throws CloneNotSupportedException, OutOfRangeCoordsException{
         SudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard originalBoard = new SudokuBoard(solver);
         SudokuBoard clone = originalBoard.clone();
