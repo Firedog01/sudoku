@@ -14,12 +14,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.comp.exceptions.model.dao.SudokuFileException;
+import pl.comp.exceptions.model.dao.SudokuIOException;
+import pl.comp.model.Greet;
 import pl.comp.model.SudokuBoard;
 
 public class FileSudokuBoardDao implements Dao<SudokuBoard> {
+    private static Logger logger = LoggerFactory.getLogger(FileSudokuBoardDao.class);
+    private final ResourceBundle bundle = ResourceBundle.getBundle("Lang", Locale.getDefault());
     private final String fileName;
 
-    FileSudokuBoardDao(String fileName) throws FileNotFoundException {
+    FileSudokuBoardDao(String fileName) throws SudokuFileException {
         this.fileName = fileName;
     }
 
@@ -28,7 +38,11 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
             SudokuBoard board = (SudokuBoard) ois.readObject();
             return board;
+        } catch (IOException e) {
+            logger.info(bundle.getString("log.dao.ioEx"));
+            throw new SudokuIOException("exception.io", e);
         } catch (Exception e) {
+            logger.info(bundle.getString("log.ex"));
             e.printStackTrace();
         }
         return null;
@@ -38,11 +52,14 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
     public void write(SudokuBoard obj) throws IOException {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(obj);
+        } catch (IOException e) {
+            logger.info(bundle.getString("log.dao.ioEx"));
+            throw new SudokuIOException("exception.io", e);
         }
     }
 
     @Override
-    public void close() throws Exception {
-        System.out.println("Closing!");
+    public void close() {
+        logger.info(bundle.getString("log.dao.closing"));
     }
 }

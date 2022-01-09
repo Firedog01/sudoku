@@ -16,9 +16,9 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.comp.exceptions.OutOfRangeCoordsException;
-import pl.comp.exceptions.SudokuCloneException;
-import pl.comp.exceptions.UnfilledBoardException;
+import pl.comp.exceptions.model.OutOfRangeCoordsException;
+import pl.comp.exceptions.model.SudokuCloneException;
+import pl.comp.exceptions.model.UnfilledBoardException;
 
 public class SudokuBoard implements Serializable, Cloneable {
     /**

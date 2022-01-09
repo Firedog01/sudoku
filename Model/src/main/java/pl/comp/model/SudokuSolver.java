@@ -1,6 +1,6 @@
 package pl.comp.model;
 
-import pl.comp.exceptions.OutOfRangeCoordsException;
+import pl.comp.exceptions.model.OutOfRangeCoordsException;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
 package pl.comp.model;
 
-import pl.comp.exceptions.SudokuCloneException;
+import pl.comp.exceptions.model.SudokuCloneException;
 
 import java.util.List;
 

@@ -4,7 +4,8 @@ import de.sfuhrm.sudoku.Creator;
 import de.sfuhrm.sudoku.GameMatrix;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import pl.comp.exceptions.OutOfRangeCoordsException;
+import pl.comp.exceptions.model.OutOfRangeCoordsException;
+import pl.comp.exceptions.model.SudokuCloneException;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
     /**
@@ -41,6 +42,10 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
 
     @Override
     public BacktrackingSudokuSolver clone() throws CloneNotSupportedException {
-        return (BacktrackingSudokuSolver) super.clone();
+        try {
+            return (BacktrackingSudokuSolver) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new SudokuCloneException("exception.cloneEx", e);
+        }
     }
 }

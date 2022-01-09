@@ -1,12 +1,10 @@
 package pl.comp.dao;
 
 import org.junit.jupiter.api.Test;
-import pl.comp.exceptions.OutOfRangeCoordsException;
+import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.SudokuBoard;
 import pl.comp.model.SudokuSolver;
-
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

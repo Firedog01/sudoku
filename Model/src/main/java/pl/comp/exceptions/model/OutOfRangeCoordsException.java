@@ -1,4 +1,4 @@
-package pl.comp.exceptions;
+package pl.comp.exceptions.model;
 
 import java.util.Locale;
 

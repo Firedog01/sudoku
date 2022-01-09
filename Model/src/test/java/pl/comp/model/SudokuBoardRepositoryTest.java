@@ -1,7 +1,7 @@
 package pl.comp.model;
 
 import org.junit.jupiter.api.Test;
-import pl.comp.exceptions.OutOfRangeCoordsException;
+import pl.comp.exceptions.model.OutOfRangeCoordsException;
 
 import static org.junit.jupiter.api.Assertions.*;
 

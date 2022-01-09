@@ -1,22 +1,22 @@
-package pl.comp.exceptions;
+package pl.comp.exceptions.model.dao;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class SudokuCloneException extends CloneNotSupportedException {
+public class SudokuIOException extends IOException {
     private ResourceBundle bundle;
 
-    public SudokuCloneException(String message) {
+    public SudokuIOException(String message) {
         this(message, new CloneNotSupportedException(), Locale.getDefault());
     }
 
-    public SudokuCloneException(String message, Throwable cause) {
+    public SudokuIOException(String message, Throwable cause) {
         this(message, cause, Locale.getDefault());
     }
 
-    public SudokuCloneException(String message, Throwable cause, Locale locale) {
-        super(message);
-        initCause(cause);
+    public SudokuIOException(String message, Throwable cause, Locale locale) {
+        super(message, cause);
         bundle = ResourceBundle.getBundle("Lang", locale);
     }
 

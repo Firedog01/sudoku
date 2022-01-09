@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import pl.comp.exceptions.SudokuCloneException;
+import pl.comp.exceptions.model.SudokuCloneException;
 
 public abstract class SudokuElement implements PropertyChangeListener, Serializable, Cloneable {
     /**

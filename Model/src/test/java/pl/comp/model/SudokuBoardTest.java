@@ -4,13 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static pl.comp.model.Difficulty.*;
 
 import org.junit.jupiter.api.Test;
-import pl.comp.exceptions.OutOfRangeCoordsException;
-import pl.comp.exceptions.SudokuCloneException;
-import pl.comp.exceptions.UnfilledBoardException;
-import pl.comp.model.*;
-
-import java.util.List;
-import java.util.Set;
+import pl.comp.exceptions.model.OutOfRangeCoordsException;
+import pl.comp.exceptions.model.UnfilledBoardException;
 
 class SudokuBoardTest {
     private SudokuSolver solver0 = new BacktrackingSudokuSolver();
