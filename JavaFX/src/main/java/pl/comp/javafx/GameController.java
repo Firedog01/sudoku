@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -30,42 +31,73 @@ public class GameController implements Initializable {
 
     private StringProperty[][] value = new SimpleStringProperty[9][9];
 
-    @FXML
-    private HBox GameHBox;
 
     @FXML
     private GridPane grid = new GridPane();
 
     protected void initData(SudokuBoard board) {
         this.board = board;
-
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                fields[i][j] = new TextField();
+                fields[i][j].setMinSize(40, 40);
+                fields[i][j].setMaxSize(40, 40);
+                fields[i][j].setText("");
+                grid.add(fields[i][j], i, j);
+            }
+        }
         grid.setGridLinesVisible(true);
         updateFields();
     }
 
     private void updateFields() {
-        grid.getChildren().removeAll();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                TextField textField = new TextField();
-                textField.setMinSize(40, 40);
-                textField.setMaxSize(40, 40);
-
                 if (board.get(i, j) != 0) {
-                    textField.setText(Integer.toString(board.get(i, j)));
+                    fields[i][j].setText(Integer.toString(board.get(i, j)));
+                } else if (board.get(i, j) == 0) {
+                    fields[i][j].setText("");
                 }
-                grid.add(textField, i, j);
             }
         }
     }
 
     @FXML
     protected void onFieldChanged(KeyEvent event) {
-        System.out.println(event.getText());
+        TextField field = getFocusedField();
+        KeyCode code = event.getCode();
+
+        String inputText = event.getText();
+        int inputNum = -1;
+        try {
+            inputNum = Integer.parseInt(inputText);
+        } catch(NumberFormatException e) {
+            System.out.println(e);
+        }
+
+        System.out.println("key: " + inputText);
+        if (field != null) {
+            if(inputNum > 0 && inputNum < 9) {
+                field.setText(inputText);
+            } else if(inputText == null) {
+                System.out.println("null");
+            }
+        }
+    }
+
+    private TextField getFocusedField() {
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                if(fields[i][j].isFocused()) {
+                    return fields[i][j];
+                }
+            }
+        }
+        return null;
     }
 
     @FXML
-    protected void load(ActionEvent event) throws IOException {
+    protected void load(ActionEvent event) {
         try (Dao<SudokuBoard> fileDao = factory.getFileDao("board")) {
             board = fileDao.read();
         } catch (Exception e){
@@ -75,11 +107,9 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    protected void save(ActionEvent event) throws IOException {
+    protected void save(ActionEvent event) {
         try (Dao<SudokuBoard> fileDao = factory.getFileDao("board")) {
             fileDao.write(board);
-            SudokuBoard board2 = fileDao.read();
-            System.out.println(board2);
         } catch (Exception e){
             e.printStackTrace();
         }
