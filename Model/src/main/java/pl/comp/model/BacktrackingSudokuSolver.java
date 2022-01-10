@@ -12,7 +12,7 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
      * Function that generates filled pl.comp.model.SudokuBoard with use of sfuhrm.sudoku library.
      * For more info go to <a href="https://javadoc.io/doc/de.sfuhrm/sudoku/latest/index.html>this location</a>.
      * @param board pl.comp.model.SudokuBoard to solve
-     * @throws OutOfRangeCoordsException
+     * @throws OutOfRangeCoordsException if there is internal error
      */
     public void solve(SudokuBoard board) throws OutOfRangeCoordsException {
         GameMatrix matrix = Creator.createFull();

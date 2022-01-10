@@ -1,8 +1,7 @@
 package pl.comp.model;
 
-import pl.comp.exceptions.model.SudokuCloneException;
-
 import java.util.List;
+import pl.comp.exceptions.model.SudokuCloneException;
 
 public class SudokuColumn extends SudokuElement {
     /**

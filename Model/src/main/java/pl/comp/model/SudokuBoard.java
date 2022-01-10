@@ -10,16 +10,14 @@ sources:
  */
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.Set;
-
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.slf4j.Logger;
@@ -65,6 +63,8 @@ public class SudokuBoard implements Serializable, Cloneable {
 
     /**
      * Call to sudoku solver. Fills whole board with values
+     * @throws OutOfRangeCoordsException if index is out of rane
+     * @throws NoSolverException if solver is null
      */
     public void solveGame() throws OutOfRangeCoordsException, NoSolverException {
         if (sudokuSolver == null) {
@@ -80,14 +80,17 @@ public class SudokuBoard implements Serializable, Cloneable {
      *  Medium - 25
      *  Hard - 17
      * @param d enum describing difficulty.
-     * @throws RuntimeException if board is not filled
+     * @throws UnfilledBoardException if board is not filled
+     * @throws OutOfRangeCoordsException if index is out of range
      */
-    public void createPuzzle(Difficulty d) throws UnfilledBoardException, OutOfRangeCoordsException {
+    public void createPuzzle(Difficulty d) throws UnfilledBoardException,
+            OutOfRangeCoordsException {
         if (!checkBoard()) {
             throw new UnfilledBoardException("exception.unfilled");
         }
         deleteFields(81 - d.value);
-        logger.info(ResourceBundle.getBundle("Lang", Locale.getDefault()).getString("log.createdPuzzle"));
+        logger.info(ResourceBundle.getBundle("Lang",
+                Locale.getDefault()).getString("log.createdPuzzle"));
     }
 
     /**
@@ -120,6 +123,7 @@ public class SudokuBoard implements Serializable, Cloneable {
      * @param x first coordinate
      * @param y second coordinate
      * @return int of range 0-9 representing value in given cell
+     * @throws OutOfRangeCoordsException if index is out of range
      */
     public int get(int x, int y) throws OutOfRangeCoordsException {
         if (x > 8 || x < 0 || y > 8 || y < 0) {
@@ -133,8 +137,9 @@ public class SudokuBoard implements Serializable, Cloneable {
      * @param x first coordinate
      * @param y second coordinate
      * @param value int of range 1-9
+     * @throws OutOfRangeCoordsException if indexes are out of range
      */
-    public void set(int x, int y, int value) throws OutOfRangeCoordsException{
+    public void set(int x, int y, int value) throws OutOfRangeCoordsException {
         if (x > 8 || x < 0 || y > 8 || y < 0) {
             throw new OutOfRangeCoordsException("exception.coord");
         }
@@ -221,7 +226,7 @@ public class SudokuBoard implements Serializable, Cloneable {
                 if (j % 3 == 0) {
                     ret.append("│");
                 }
-                try{
+                try {
                     ret.append(" ").append(this.get(i, j)).append(" ");
                 } catch (OutOfRangeCoordsException e) {
                     logger.info(ResourceBundle.getBundle("Lang", Locale.getDefault())
@@ -264,7 +269,7 @@ public class SudokuBoard implements Serializable, Cloneable {
                 .toHashCode();
     }
 
-    public SudokuBoard clone() throws CloneNotSupportedException{
+    public SudokuBoard clone() throws CloneNotSupportedException {
         try {
             SudokuSolver solverClone = sudokuSolver.clone();
             SudokuBoard clone = new SudokuBoard(solverClone);
