@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import pl.comp.exceptions.model.NoSolverException;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 
-
 public class Greet {
     private static Logger logger = LoggerFactory.getLogger(Greet.class);
 
