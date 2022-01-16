@@ -25,3 +25,29 @@ create table cell_value
 
 czym jest sterownik do bazy danych?
 https://www.jdatalab.com/information_system/2017/02/16/database-driver.html
+
+co robi class.forName()
+https://www.tutorialspoint.com/java/lang/class_forname_loader.htm
+szczerze, nie mam pojęcia
+
+co znaczy ACID
+https://pl.wikipedia.org/wiki/ACID
+niepodzielność, spójność, izolacja, trwałość
+
+co to jest transakcja
+https://mst.mimuw.edu.pl/lecture.php?lecture=bad&part=Ch7
+Transakcje to jedno z podstawowych pojęć współczesnych systemów baz danych.
+Umożliwiają one współbieżny dostęp do zawartości bazy danych, dostarczając niezbędnych mechanizmów synchronizacji.
+Istotą transakcji jest integrowanie kilku operacji w jedną niepodzielną całość.
+    Popatrzmy na przykład wymagającu użycia transakcji.
+    W systemie bankowym jest wykonywany przelew 100 złp z konta bankowego jednego klienta (np. Kangurzycy) na konto innego
+    klienta (np. Tygrysa). W SQL wygląda to zapewne następująco
+    UPDATE Konta SET saldo = saldo - 100.00
+        WHERE klient = 'Kangurzyca';
+    UPDATE Konta SET saldo = saldo + 100.00
+        WHERE klient = 'Tygrys';
+    Co stanie się, jeśli po wykonaniu pierwszego polecenia nastąpi awaria dysku?
+Podobny problem występuje nawet przy pojedynczym poleceniu SQL, jeśli modyfikuje ono wiele wierszy.
+Rozwiązanie takich problemów to transakcyjny system baz danych. Gwarantuje on zapisanie modyfikacji w sposób trwały
+przed zakończeniem transakcji, a jeśli się nie uda to transakcja jest wycofywana.
+
