@@ -2,21 +2,30 @@ package pl.comp.javafx;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.comp.dao.Dao;
+import pl.comp.dao.JdbcSudokuBoardDao;
 import pl.comp.dao.SudokuBoardDaoFactory;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.model.Greet;
 import pl.comp.model.SudokuBoard;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +49,9 @@ public class GameController implements Initializable {
 
     @FXML
     private VBox SideVBox;
+
+    @FXML
+    private TextField boardName;
 
     protected void initData(SudokuBoard board) throws OutOfRangeCoordsException {
         this.board = board;
@@ -141,16 +153,40 @@ public class GameController implements Initializable {
 
     @FXML
     protected void save(ActionEvent event) {
-        try (Dao<SudokuBoard> fileDao = factory.getFileDao("board")) {
-            fileDao.write(board);
+        String name = boardName.getText();
+        try (Dao<SudokuBoard> jdbcDao = new JdbcSudokuBoardDao(name)) {
+            jdbcDao.write(board);
         } catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    @FXML
+    protected void dialog_save(ActionEvent event) throws IOException {
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(grid.getScene().getWindow());
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                SudokuApplication.class.getResource("save-dialog.fxml"), bundle);
+        Scene saveScene = new Scene(fxmlLoader.load());
+        dialog.setScene(saveScene);
+        dialog.show();
+    }
+
+    @FXML
+    protected void dialog_load(ActionEvent event) throws IOException {
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(grid.getScene().getWindow());
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                SudokuApplication.class.getResource("load-dialog.fxml"), bundle);
+        Scene saveScene = new Scene(fxmlLoader.load());
+        dialog.setScene(saveScene);
+        dialog.show();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        bundle = resourceBundle;
     }
 }

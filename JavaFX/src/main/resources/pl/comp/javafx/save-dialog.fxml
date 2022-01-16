@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="220.0" xmlns="http://javafx.com/javafx/11.0.2"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.comp.javafx.GameController">
+   <children>
+      <Label text="%game.save_dialog" />
+      <TextField fx:id="boardName" promptText="%game.board_name" />
+      <Button onAction="#save" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="%game.save" />
+   </children>
+</VBox>
