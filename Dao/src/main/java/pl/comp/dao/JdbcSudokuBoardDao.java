@@ -17,6 +17,7 @@ import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.SudokuBoard;
 import pl.comp.model.SudokuBoardRepository;
 
+//todo wyjątki
 public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
 {
     private static Logger logger = LoggerFactory.getLogger(JdbcSudokuBoardDao.class);
@@ -75,13 +76,24 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
             stmt.execute("set autocommit = 0;");
             stmt.execute("start transaction;");
 
-            String gameQuery = String.format("insert into game (board_name) values ('%s');", saveName);
-            stmt.execute(gameQuery);
-
             String getIdQuery = String.format("select id from game where board_name = '%s' limit 1;", saveName);
             try (ResultSet rs = stmt.executeQuery(getIdQuery)) {
-                rs.next();
-                int id = rs.getInt("id");
+                int id;
+                if (!rs.next()) {
+                    String gameQuery = String.format("insert into game (board_name) values ('%s');", saveName);
+                    stmt.execute(gameQuery);
+                    try (ResultSet rs_ = stmt.executeQuery(getIdQuery)) {
+                        rs_.next();
+                        id = rs_.getInt("id");
+                    }
+
+                } else {
+                    id = rs.getInt("id");
+                }
+
+                logger.debug(String.valueOf(id));
+
+
 
                 String deleteQuery = String.format("delete from cell_value where board_id = %d;", id);
                 stmt.execute(deleteQuery);
