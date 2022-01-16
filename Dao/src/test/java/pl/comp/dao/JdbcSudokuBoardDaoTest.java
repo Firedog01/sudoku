@@ -1,7 +1,6 @@
 package pl.comp.dao;
 
 import org.junit.jupiter.api.Test;
-import pl.comp.exceptions.model.NoSolverException;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.exceptions.model.UnfilledBoardException;
 import pl.comp.exceptions.model.dao.SudokuFileException;
