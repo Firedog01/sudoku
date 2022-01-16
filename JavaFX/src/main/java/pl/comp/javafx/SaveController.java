@@ -27,7 +27,6 @@ public class SaveController implements Initializable {
 
     @FXML
     protected void save(ActionEvent event) {
-        System.out.println(board.toString());
         String name = boardName.getText();
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
         try (Dao<SudokuBoard> jdbcDao = factory.getDbDao(name)) {

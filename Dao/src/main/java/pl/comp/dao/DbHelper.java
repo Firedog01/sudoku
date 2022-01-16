@@ -2,8 +2,7 @@ package pl.comp.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.comp.exceptions.model.OutOfRangeCoordsException;
-import pl.comp.model.SudokuBoard;
+import pl.comp.exceptions.model.dao.SudokuSqlException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,9 +18,10 @@ public class DbHelper {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/baza_kompo", "root", "");
         } catch(ClassNotFoundException e) {
-            //nothing pakujemy
+            e.printStackTrace();
         } catch(SQLException e) {
-            //another nothing
+            SudokuSqlException se = new SudokuSqlException("exception.sql", e);
+            se.printStackTrace();
         }
     }
 
@@ -29,14 +29,14 @@ public class DbHelper {
         List<String> names = new ArrayList<String>();
         try (Statement stmt = con.createStatement()) {
             String getCellsQuery = String.format("select board_name from game;");
-            try (ResultSet rs = stmt.executeQuery(getCellsQuery)) {
-                while (rs.next()) {
-                    names.add(rs.getString("board_name"));
-                }
-                return names;
+            ResultSet rs = stmt.executeQuery(getCellsQuery);
+            while (rs.next()) {
+                names.add(rs.getString("board_name"));
             }
+            return names;
         } catch (SQLException e) {
-            e.printStackTrace();
+            SudokuSqlException se = new SudokuSqlException("exception.sql", e);
+            se.printStackTrace();
         }
 
         return null;
