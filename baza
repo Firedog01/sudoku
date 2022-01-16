@@ -1,0 +1,27 @@
+ustawienia bazy:
+user: root
+hasło:
+sterownik: MariaDB
+
+najpierw prawym na element główny z foką: New->Schema. U mnie bazę nazwałem baza_kompo
+tabele:
+create table game
+(
+	id int auto_increment,
+	board_name tinytext null,
+	constraint game_pk
+		primary key (id)
+);
+create table cell_value
+(
+	board_id int null,
+	value tinyint null,
+	x tinyint null,
+	y tinyint null
+);
+
+
+
+
+czym jest sterownik do bazy danych?
+https://www.jdatalab.com/information_system/2017/02/16/database-driver.html
