@@ -1,6 +1,7 @@
 package pl.comp.dao;
 
 import pl.comp.exceptions.model.dao.SudokuFileException;
+import pl.comp.exceptions.model.dao.SudokuSqlException;
 import pl.comp.model.SudokuBoard;
 
 public class SudokuBoardDaoFactory {
@@ -9,7 +10,7 @@ public class SudokuBoardDaoFactory {
         return dao;
     }
 
-    public Dao<SudokuBoard> getDbDao(String saveName) throws SudokuFileException {
+    public Dao<SudokuBoard> getDbDao(String saveName) throws SudokuFileException, SudokuSqlException {
         Dao<SudokuBoard> dao = new JdbcSudokuBoardDao(saveName);
         return dao;
     }

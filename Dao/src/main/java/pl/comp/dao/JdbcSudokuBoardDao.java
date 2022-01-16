@@ -9,6 +9,10 @@ import java.sql.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
+import pl.comp.exceptions.model.SudokuCloneException;
+import pl.comp.exceptions.model.SudokuException;
+import pl.comp.exceptions.model.dao.SudokuCnfException;
+import pl.comp.exceptions.model.dao.SudokuSqlException;
 import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.SudokuBoard;
 import pl.comp.model.SudokuBoardRepository;
@@ -20,21 +24,21 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
     private String saveName;
     private Connection con = null;
 
-    public JdbcSudokuBoardDao(String saveName) {
+    public JdbcSudokuBoardDao(String saveName) throws SudokuSqlException {
         this.saveName = saveName;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/baza_kompo", "root", "");
         } catch(ClassNotFoundException e) {
-            //nothing pakujemy
+            e.printStackTrace();
         } catch(SQLException e) {
-            //another nothing
+            throw new SudokuSqlException("exception.sql", e);
         }
     }
 
     @Override
-    public SudokuBoard read() throws IOException {
+    public SudokuBoard read() {
         SudokuBoardRepository repository = new SudokuBoardRepository(new BacktrackingSudokuSolver());
         try {
             SudokuBoard retBoard = repository.createInstance();
@@ -54,11 +58,13 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
                     e.printStackTrace();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                SudokuSqlException se = new SudokuSqlException("excepton.sql", e);
+                se.printStackTrace();
             }
 
         } catch(CloneNotSupportedException e) {
-            e.printStackTrace();
+            SudokuCloneException se = new SudokuCloneException("exception.clone", e);
+            se.printStackTrace();
         }
         return null;
     }
@@ -105,17 +111,22 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
             //end transaction
             stmt.execute("commit;");
 
-            } catch (Exception e) {
-                logger.debug(e.toString());
+            } catch (OutOfRangeCoordsException e) {
+                e.printStackTrace();
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            SudokuSqlException se = new SudokuSqlException("exception.sql", e);
+            se.printStackTrace();
         }
     }
 
     @Override
-    public void close() throws Exception {
-        con.close();
+    public void close() throws SudokuSqlException {
+        try {
+            con.close();
+        } catch (SQLException e) {
+            throw new SudokuSqlException("exception.sql", e);
+        }
     }
 }

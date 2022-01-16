@@ -1,37 +1,25 @@
 package pl.comp.javafx;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.comp.dao.Dao;
-import pl.comp.dao.DbHelper;
-import pl.comp.dao.JdbcSudokuBoardDao;
 import pl.comp.dao.SudokuBoardDaoFactory;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
-import pl.comp.model.Greet;
 import pl.comp.model.SudokuBoard;
-import pl.comp.model.SudokuBoardRepository;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -152,8 +140,7 @@ public class GameController implements Initializable {
     }
 
     @FXML
-    protected void dialog_save(ActionEvent event) throws IOException, OutOfRangeCoordsException {
-        SudokuBoard b = board;
+    protected void dialog_save(ActionEvent event) throws IOException {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(grid.getScene().getWindow());
