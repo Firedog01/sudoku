@@ -9,8 +9,10 @@ import java.sql.Statement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.Greet;
 import pl.comp.model.SudokuBoard;
+import pl.comp.model.SudokuBoardRepository;
 
 public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
 {
@@ -33,6 +35,27 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
 
     @Override
     public SudokuBoard read() throws IOException {
+        SudokuBoardRepository repository = new SudokuBoardRepository(new BacktrackingSudokuSolver());
+        try {
+            SudokuBoard ret_board = repository.createInstance();
+            try (Statement stmt = con.createStatement()) {
+                //start transaction
+                String autocommitQuery = "set autocommit = 0;";
+                stmt.execute(autocommitQuery);
+                String beginTransaction = "START TRANSACTION;";
+                stmt.execute(beginTransaction);
+
+                //end transaction
+                String commitTransaction = "commit;";
+                stmt.execute(commitTransaction);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return ret_board;
+        } catch(CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -40,24 +63,37 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
     public void write(SudokuBoard obj)  {
         try (Statement stmt = con.createStatement()) {
             //start transaction
-            String query = String.format("INSERT into game (board_name) values ('%s');", saveName);
-            stmt.execute(query);
-            String getIdQuery = "Select max(id) as id from game limit 1;";
+            String autocommitQuery = "set autocommit = 0;";
+            stmt.execute(autocommitQuery);
+            String beginTransaction = "start transaction;";
+            stmt.execute(beginTransaction);
+
+            String gameQuery = String.format("INSERT into game (board_name) values ('%s');", saveName);
+            stmt.execute(gameQuery);
+
+            String getIdQuery = String.format("Select id from game where board_name = '%s' limit 1;", saveName);
             try (ResultSet rs = stmt.executeQuery(getIdQuery)) {
                 rs.next();
                 int id = rs.getInt("id");
                 logger.debug(String.valueOf(id));
+
+                String deleteQuery = String.format("delete from cell_value where board_id = %d;", id);
+                stmt.execute(deleteQuery);
+
                 for (int i = 0; i < 9; i++) {
                     for (int j = 0; j < 9; j++) {
                         int value = obj.get(i, j);
                         if (value != 0) {
-                            String cellQuery = String.format("Inster into cell_value (board_id, value, x, y) " +
-                                    "values (%d, %d, %d, %d)", id, value, i, j);
+                            String cellQuery = String.format("insert into cell_value (board_id, value, x, y) " +
+                                    "values (%d, %d, %d, %d);", id, value, i, j);
                             stmt.execute(cellQuery);
                         }
                     }
                 }
             //end transaction
+            String commitTransaction = "commit;";
+            stmt.execute(commitTransaction);
+
             } catch (Exception e) {
                 logger.debug(e.toString());
             }
