@@ -1,8 +1,6 @@
 package pl.comp.dao;
 
 import org.junit.jupiter.api.Test;
-import pl.comp.exceptions.model.OutOfRangeCoordsException;
-import pl.comp.exceptions.model.UnfilledBoardException;
 import pl.comp.exceptions.model.dao.SudokuFileException;
 import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.Difficulty;
@@ -22,7 +20,7 @@ class JdbcSudokuBoardDaoTest {
         board.solveGame();
         board.createPuzzle(Difficulty.Easy);
 
-        try (Dao<SudokuBoard> dbDao = factory.getDbDao("testBoard")) {
+        try (Dao<SudokuBoard> dbDao = factory.getDbDao("alzxskfrkjhklaj")) {
             dbDao.write(board);
             SudokuBoard boardRead = dbDao.read();
             assertEquals(board, boardRead);
