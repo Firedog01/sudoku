@@ -227,7 +227,7 @@ public class SudokuBoard implements Serializable, Cloneable {
                     ret.append("│");
                 }
                 try {
-                    ret.append(" ").append(this.get(i, j)).append(" ");
+                    ret.append(" ").append(this.get(j, i)).append(" ");
                 } catch (OutOfRangeCoordsException e) {
                     logger.info(ResourceBundle.getBundle("Lang", Locale.getDefault())
                             .getString("log.coord"));

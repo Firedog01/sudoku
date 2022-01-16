@@ -56,12 +56,6 @@ public class GameController implements Initializable {
     @FXML
     private VBox SideVBox;
 
-    @FXML
-    private TextField boardName;
-
-    @FXML
-    private MenuButton menuBoard;
-
     protected void initData(SudokuBoard board) throws OutOfRangeCoordsException {
         this.board = board;
         for (int i = 0; i < 9; i++) {
@@ -152,32 +146,14 @@ public class GameController implements Initializable {
         }
     }
 
-    @FXML
-    protected void load(ActionEvent event) throws OutOfRangeCoordsException {
-        String name = boardName.getText();
-        SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
-        try (Dao<SudokuBoard> jdbcDao = factory.getDbDao(name)) {
-            board = jdbcDao.read();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+    public void setBoard (SudokuBoard board) throws OutOfRangeCoordsException{
+        this.board = board;
         updateFields();
     }
 
     @FXML
-    protected void save(ActionEvent event) {
-        System.out.println(board.toString());
-        String name = boardName.getText();
-        SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
-        try (Dao<SudokuBoard> jdbcDao = factory.getDbDao(name)) {
-            jdbcDao.write(board);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    protected void dialog_save(ActionEvent event) throws IOException {
+    protected void dialog_save(ActionEvent event) throws IOException, OutOfRangeCoordsException {
+        SudokuBoard b = board;
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(grid.getScene().getWindow());
@@ -185,6 +161,8 @@ public class GameController implements Initializable {
                 SudokuApplication.class.getResource("save-dialog.fxml"), bundle);
         Scene saveScene = new Scene(fxmlLoader.load());
         dialog.setScene(saveScene);
+        SaveController controller = fxmlLoader.getController();
+        controller.initData(board);
         dialog.show();
     }
 
@@ -198,21 +176,8 @@ public class GameController implements Initializable {
         Scene saveScene = new Scene(fxmlLoader.load());
         dialog.setScene(saveScene);
 
-        System.out.println("AAAAAAAA");
-        DbHelper helper = new DbHelper();
-        List<String> boardNames = helper.getBoardNames();
-        for (String name : boardNames) {
-            MenuItem menuItem = new MenuItem();
-            menuItem.setText(name);
-            menuItem.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    menuBoard.setText(menuItem.getText());
-                }
-            });
-            menuBoard.getItems().add(menuItem);
-        }
-        System.out.println("BBBBBBBBBB");
+        LoadController controller = fxmlLoader.getController();
+        controller.initData(board, this);
         dialog.show();
     }
 
