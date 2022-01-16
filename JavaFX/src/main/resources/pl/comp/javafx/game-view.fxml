@@ -8,8 +8,8 @@
    <children>
       <VBox fx:id="SideVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#load" text="%game.load" />
-            <Button mnemonicParsing="false" onAction="#save" text="%game.save" />
+            <Button mnemonicParsing="false" onAction="#dialog_load" text="%game.load" />
+            <Button mnemonicParsing="false" onAction="#dialog_save" text="%game.save" />
          </children>
       </VBox>
    </children>
