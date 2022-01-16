@@ -1,11 +1,14 @@
 package pl.comp.javafx;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -17,14 +20,17 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.comp.dao.Dao;
+import pl.comp.dao.DbHelper;
 import pl.comp.dao.JdbcSudokuBoardDao;
 import pl.comp.dao.SudokuBoardDaoFactory;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.model.Greet;
 import pl.comp.model.SudokuBoard;
+import pl.comp.model.SudokuBoardRepository;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -38,7 +44,7 @@ public class GameController implements Initializable {
 
     private SudokuBoard board;
 
-    private SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+    SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
 
     private TextField[][] fields = new TextField[9][9];
 
@@ -52,6 +58,9 @@ public class GameController implements Initializable {
 
     @FXML
     private TextField boardName;
+
+    @FXML
+    private MenuButton menuBoard;
 
     protected void initData(SudokuBoard board) throws OutOfRangeCoordsException {
         this.board = board;
@@ -131,10 +140,12 @@ public class GameController implements Initializable {
             for (int j = 0; j < 9; j++) {
                 String sNumber = fields[i][j].getText();
                 int iNumber = 0;
-                try {
-                    iNumber = Integer.parseInt(sNumber);
-                } catch (NumberFormatException e) {
-                    logger.info("log.fx.parse");
+                if (sNumber != "") {
+                    try {
+                        iNumber = Integer.parseInt(sNumber);
+                    } catch (NumberFormatException e) {
+                        logger.info("log.fx.parse");
+                    }
                 }
                 board.set(i, j, iNumber);
             }
@@ -143,8 +154,10 @@ public class GameController implements Initializable {
 
     @FXML
     protected void load(ActionEvent event) throws OutOfRangeCoordsException {
-        try (Dao<SudokuBoard> fileDao = factory.getFileDao("board")) {
-            board = fileDao.read();
+        String name = boardName.getText();
+        SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+        try (Dao<SudokuBoard> jdbcDao = factory.getDbDao(name)) {
+            board = jdbcDao.read();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -153,8 +166,10 @@ public class GameController implements Initializable {
 
     @FXML
     protected void save(ActionEvent event) {
+        System.out.println(board.toString());
         String name = boardName.getText();
-        try (Dao<SudokuBoard> jdbcDao = new JdbcSudokuBoardDao(name)) {
+        SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+        try (Dao<SudokuBoard> jdbcDao = factory.getDbDao(name)) {
             jdbcDao.write(board);
         } catch (Exception e){
             e.printStackTrace();
@@ -182,6 +197,22 @@ public class GameController implements Initializable {
                 SudokuApplication.class.getResource("load-dialog.fxml"), bundle);
         Scene saveScene = new Scene(fxmlLoader.load());
         dialog.setScene(saveScene);
+
+        System.out.println("AAAAAAAA");
+        DbHelper helper = new DbHelper();
+        List<String> boardNames = helper.getBoardNames();
+        for (String name : boardNames) {
+            MenuItem menuItem = new MenuItem();
+            menuItem.setText(name);
+            menuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    menuBoard.setText(menuItem.getText());
+                }
+            });
+            menuBoard.getItems().add(menuItem);
+        }
+        System.out.println("BBBBBBBBBB");
         dialog.show();
     }
 

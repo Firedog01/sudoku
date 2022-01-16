@@ -26,7 +26,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/baza_kompo", "root", "");
         } catch(ClassNotFoundException e) {
-            //nothing
+            //nothing pakujemy
         } catch(SQLException e) {
             //another nothing
         }
@@ -63,7 +63,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
     }
 
     @Override
-    public void write(SudokuBoard obj)  {
+    public void write(SudokuBoard obj) {
         try (Statement stmt = con.createStatement()) {
             //start transaction
             stmt.execute("set autocommit = 0;");
