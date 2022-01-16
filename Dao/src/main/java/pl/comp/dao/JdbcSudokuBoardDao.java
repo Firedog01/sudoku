@@ -6,11 +6,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.model.BacktrackingSudokuSolver;
-import pl.comp.model.Greet;
 import pl.comp.model.SudokuBoard;
 import pl.comp.model.SudokuBoardRepository;
 
@@ -37,22 +36,26 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
     public SudokuBoard read() throws IOException {
         SudokuBoardRepository repository = new SudokuBoardRepository(new BacktrackingSudokuSolver());
         try {
-            SudokuBoard ret_board = repository.createInstance();
+            SudokuBoard retBoard = repository.createInstance();
             try (Statement stmt = con.createStatement()) {
-                //start transaction
-                String autocommitQuery = "set autocommit = 0;";
-                stmt.execute(autocommitQuery);
-                String beginTransaction = "START TRANSACTION;";
-                stmt.execute(beginTransaction);
-
-                //end transaction
-                String commitTransaction = "commit;";
-                stmt.execute(commitTransaction);
+                String getCellsQuery = String.format("select value, x, y from cell_value c " +
+                        "inner join game g on c.board_id = g.id " +
+                        "where g.board_name = '%s';", saveName);
+                try (ResultSet rs = stmt.executeQuery(getCellsQuery)) {
+                    while (rs.next()) {
+                        int value = rs.getInt("value");
+                        int x = rs.getInt("x");
+                        int y = rs.getInt("y");
+                        retBoard.set(x, y, value);
+                    }
+                    return retBoard;
+                } catch (OutOfRangeCoordsException e) {
+                    e.printStackTrace();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            return ret_board;
         } catch(CloneNotSupportedException e) {
             e.printStackTrace();
         }
@@ -63,19 +66,16 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
     public void write(SudokuBoard obj)  {
         try (Statement stmt = con.createStatement()) {
             //start transaction
-            String autocommitQuery = "set autocommit = 0;";
-            stmt.execute(autocommitQuery);
-            String beginTransaction = "start transaction;";
-            stmt.execute(beginTransaction);
+            stmt.execute("set autocommit = 0;");
+            stmt.execute("start transaction;");
 
-            String gameQuery = String.format("INSERT into game (board_name) values ('%s');", saveName);
+            String gameQuery = String.format("insert into game (board_name) values ('%s');", saveName);
             stmt.execute(gameQuery);
 
-            String getIdQuery = String.format("Select id from game where board_name = '%s' limit 1;", saveName);
+            String getIdQuery = String.format("select id from game where board_name = '%s' limit 1;", saveName);
             try (ResultSet rs = stmt.executeQuery(getIdQuery)) {
                 rs.next();
                 int id = rs.getInt("id");
-                logger.debug(String.valueOf(id));
 
                 String deleteQuery = String.format("delete from cell_value where board_id = %d;", id);
                 stmt.execute(deleteQuery);
@@ -91,8 +91,7 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
                     }
                 }
             //end transaction
-            String commitTransaction = "commit;";
-            stmt.execute(commitTransaction);
+            stmt.execute("commit;");
 
             } catch (Exception e) {
                 logger.debug(e.toString());

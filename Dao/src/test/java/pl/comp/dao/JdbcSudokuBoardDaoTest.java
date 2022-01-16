@@ -25,8 +25,8 @@ class JdbcSudokuBoardDaoTest {
         try (Dao<SudokuBoard> dbDao = factory.getDbDao("testBoard")) {
             dbDao.write(board);
             SudokuBoard boardRead = dbDao.read();
-
-//            assertEquals(board, boardRead);
+            assertEquals(board, boardRead);
+            assertNotSame(board, boardRead);
         } catch (SudokuFileException | IOException e) {
             e.printStackTrace();
         }
