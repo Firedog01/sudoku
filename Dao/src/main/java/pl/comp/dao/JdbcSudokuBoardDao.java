@@ -50,9 +50,11 @@ public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
                 for (int i = 0; i < 9; i++) {
                     for (int j = 0; j < 9; j++) {
                         int value = obj.get(i, j);
-                        String cellQuery = String.format("Inster into cell_value (board_id, value, x, y) " +
-                                "values (%d, %d, %d, %d)", id, value, i, j);
-                        stmt.execute(cellQuery);
+                        if (value != 0) {
+                            String cellQuery = String.format("Inster into cell_value (board_id, value, x, y) " +
+                                    "values (%d, %d, %d, %d)", id, value, i, j);
+                            stmt.execute(cellQuery);
+                        }
                     }
                 }
             //end transaction
