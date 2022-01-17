@@ -1,5 +1,8 @@
 package pl.comp.javafx;
 
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,10 +15,6 @@ import pl.comp.dao.DbHelper;
 import pl.comp.dao.SudokuBoardDaoFactory;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.model.SudokuBoard;
-
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class LoadController implements Initializable {
 
@@ -37,7 +36,7 @@ public class LoadController implements Initializable {
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
         try (Dao<SudokuBoard> jdbcDao = factory.getDbDao(name)) {
             board = jdbcDao.read();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         gameController.setBoard(board);

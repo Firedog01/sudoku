@@ -1,5 +1,7 @@
 package pl.comp.javafx;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,16 +11,11 @@ import pl.comp.dao.Dao;
 import pl.comp.dao.SudokuBoardDaoFactory;
 import pl.comp.model.SudokuBoard;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class SaveController implements Initializable {
-
-    private ResourceBundle bundle;
 
     private SudokuBoard board;
 
-    protected void initData (SudokuBoard board) {
+    protected void initData(SudokuBoard board) {
         this.board = board;
     }
 
@@ -31,7 +28,7 @@ public class SaveController implements Initializable {
         SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
         try (Dao<SudokuBoard> jdbcDao = factory.getDbDao(name)) {
             jdbcDao.write(board);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Stage stage = (Stage) boardName.getScene().getWindow();
@@ -40,7 +37,7 @@ public class SaveController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        bundle = resourceBundle;
+
     }
 
 }

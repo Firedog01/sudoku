@@ -9,8 +9,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import pl.comp.exceptions.model.NoSolverException;
@@ -59,9 +61,6 @@ public class SudokuController implements Initializable {
     @FXML
     private Label a2;
 
-    @FXML
-    private HBox GameHBox;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         locale = resourceBundle.getLocale();
@@ -70,7 +69,8 @@ public class SudokuController implements Initializable {
 
     protected void setText() {
         ResourceBundle labelBundle = ResourceBundle.getBundle("Lang", locale);
-        ResourceBundle authorsBundle = ResourceBundle.getBundle("pl.i18n.authors.AuthorsBundle", locale);
+        final ResourceBundle authorsBundle =
+                ResourceBundle.getBundle("pl.i18n.authors.AuthorsBundle", locale);
 
         labelTitle.setFont(new Font("Arial", 30));
         labelTitle.setText(labelBundle.getString("title"));
@@ -96,7 +96,8 @@ public class SudokuController implements Initializable {
 
     @FXML
     protected void onButtonClick(ActionEvent event)
-            throws IOException, UnfilledBoardException, OutOfRangeCoordsException, NoSolverException {
+            throws IOException, UnfilledBoardException,
+            OutOfRangeCoordsException, NoSolverException {
         board.solveGame();
         if (event.getSource() == btn1) {
             board.createPuzzle(Difficulty.Easy);

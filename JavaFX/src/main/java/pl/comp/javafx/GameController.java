@@ -1,5 +1,10 @@
 package pl.comp.javafx;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +22,6 @@ import org.slf4j.LoggerFactory;
 import pl.comp.dao.SudokuBoardDaoFactory;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.model.SudokuBoard;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 //two-way binding
 //https://developer.android.com/topic/libraries/data-binding/two-way#java
@@ -42,7 +41,7 @@ public class GameController implements Initializable {
     private GridPane grid = new GridPane();
 
     @FXML
-    private VBox SideVBox;
+    private VBox sideVbox;
 
     protected void initData(SudokuBoard board) throws OutOfRangeCoordsException {
         this.board = board;
@@ -79,7 +78,7 @@ public class GameController implements Initializable {
                 Pattern compiledPattern = Pattern.compile("\\d");
                 Matcher matcher = compiledPattern.matcher(originalText);
 
-                if(matcher.find()) {
+                if (matcher.find()) { 
                     field.setText(matcher.group());
                 } else {
                     field.setText("");
@@ -89,7 +88,7 @@ public class GameController implements Initializable {
             if (board.checkBoard()) {
                 Label winLabel = new Label();
                 winLabel.setText(bundle.getString("game.win"));
-                SideVBox.getChildren().add(winLabel);
+                sideVbox.getChildren().add(winLabel);
             }
         }
     }
@@ -97,7 +96,7 @@ public class GameController implements Initializable {
     private TextField getFocusedField() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if(fields[i][j].isFocused()) {
+                if (fields[i][j].isFocused()) {
                     return fields[i][j];
                 }
             }
@@ -120,21 +119,21 @@ public class GameController implements Initializable {
     private void updateBoard() throws OutOfRangeCoordsException {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                String sNumber = fields[i][j].getText();
-                int iNumber = 0;
-                if (sNumber != "") {
+                String snumber = fields[i][j].getText();
+                int inumber = 0;
+                if (snumber != "") {
                     try {
-                        iNumber = Integer.parseInt(sNumber);
+                        inumber = Integer.parseInt(snumber);
                     } catch (NumberFormatException e) {
                         logger.info("log.fx.parse");
                     }
                 }
-                board.set(i, j, iNumber);
+                board.set(i, j, inumber);
             }
         }
     }
 
-    public void setBoard (SudokuBoard board) throws OutOfRangeCoordsException{
+    public void setBoard(SudokuBoard board) throws OutOfRangeCoordsException {
         this.board = board;
         updateFields();
     }
