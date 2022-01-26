@@ -10,14 +10,8 @@ sources:
  */
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.slf4j.Logger;
@@ -54,7 +48,7 @@ public class SudokuBoard implements Serializable, Cloneable {
                 newBoard.get(i).add(new SudokuField(0));
             }
         }
-        board = List.copyOf(newBoard);
+        board = Collections.unmodifiableList(newBoard);
     }
 
     public void setSolver(SudokuSolver solver) {

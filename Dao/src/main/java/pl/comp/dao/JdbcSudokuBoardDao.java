@@ -1,6 +1,5 @@
 package pl.comp.dao;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,14 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.exceptions.model.SudokuCloneException;
-import pl.comp.exceptions.model.SudokuException;
-import pl.comp.exceptions.model.dao.SudokuCnfException;
 import pl.comp.exceptions.model.dao.SudokuSqlException;
 import pl.comp.model.BacktrackingSudokuSolver;
 import pl.comp.model.SudokuBoard;
 import pl.comp.model.SudokuBoardRepository;
 
-//todo wyjątki
 public class JdbcSudokuBoardDao implements Dao<SudokuBoard>
 {
     private static Logger logger = LoggerFactory.getLogger(JdbcSudokuBoardDao.class);
