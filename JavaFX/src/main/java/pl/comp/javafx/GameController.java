@@ -1,12 +1,15 @@
 package pl.comp.javafx;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,11 +22,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.comp.dao.SudokuBoardDaoFactory;
 import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.model.SudokuBoard;
+import pl.comp.model.SudokuField;
 
 //two-way binding
 //https://developer.android.com/topic/libraries/data-binding/two-way#java
@@ -34,6 +39,8 @@ public class GameController implements Initializable {
     private SudokuBoard board;
 
     SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
+
+    SudokuFieldConverter converter = new SudokuFieldConverter();
 
     private TextField[][] fields = new TextField[9][9];
 
@@ -56,52 +63,62 @@ public class GameController implements Initializable {
                 fields[i][j].setMaxSize(40, 40);
                 fields[i][j].setText("");
                 try {
-                    fieldsProperty[i][j] = JavaBeanStringPropertyBuilder.create().bean(fields[i][j]).name("value").build();
+                    fieldsProperty[i][j] = JavaBeanStringPropertyBuilder.create()
+                            .bean(new SudokuFieldHelper(this.board, i, j)).name("Field").build();
                 } catch (NoSuchMethodException E) {
                     //joe
                 }
+                TextField thisField = fields[i][j];
 
+                thisField.textProperty().bindBidirectional(fieldsProperty[i][j]);
+                thisField.textProperty().addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                        if (!((t1.matches("[1-9]")) || (t1.equals("")))) {
+                            thisField.setText(s);
+                        }
+                    }
+                });
                 grid.add(fields[i][j], i, j);
             }
         }
         grid.setGridLinesVisible(true);
-        updateFields();
     }
 
 
 
-    @FXML
-    protected void onFieldChanged(KeyEvent event) throws OutOfRangeCoordsException {
-        TextField field = getFocusedField();
-        int code = event.getCode().getCode();
-        // Backspace - 8
-        //         0 - 48
-        //         9 - 57
-        //    Delete - 127
-        if (field != null) {
-            if (code > 48 && code <= 57) {
-                field.setText(event.getText());
-            } else if (code == 8 || code == 127) {
-                field.setText("");
-            } else {
-                String originalText = field.getText();
-                Pattern compiledPattern = Pattern.compile("\\d");
-                Matcher matcher = compiledPattern.matcher(originalText);
-
-                if (matcher.find()) { 
-                    field.setText(matcher.group());
-                } else {
-                    field.setText("");
-                }
-            }
-            updateBoard();
-            if (board.checkBoard()) {
-                Label winLabel = new Label();
-                winLabel.setText(bundle.getString("game.win"));
-                sideVbox.getChildren().add(winLabel);
-            }
-        }
-    }
+//    @FXML
+//    protected void onFieldChanged(KeyEvent event) throws OutOfRangeCoordsException {
+//        TextField field = getFocusedField();
+//        int code = event.getCode().getCode();
+//        // Backspace - 8
+//        //         0 - 48
+//        //         9 - 57
+//        //    Delete - 127
+//        if (field != null) {
+//            if (code > 48 && code <= 57) {
+//                field.setText(event.getText());
+//            } else if (code == 8 || code == 127) {
+//                field.setText("");
+//            } else {
+//                String originalText = field.getText();
+//                Pattern compiledPattern = Pattern.compile("\\d");
+//                Matcher matcher = compiledPattern.matcher(originalText);
+//
+//                if (matcher.find()) {
+//                    field.setText(matcher.group());
+//                } else {
+//                    field.setText("");
+//                }
+//            }
+//            updateBoard();
+//            if (board.checkBoard()) {
+//                Label winLabel = new Label();
+//                winLabel.setText(bundle.getString("game.win"));
+//                sideVbox.getChildren().add(winLabel);
+//            }
+//        }
+//    }
 
     private TextField getFocusedField() {
         for (int i = 0; i < 9; i++) {
