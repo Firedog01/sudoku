@@ -39,7 +39,7 @@ public class LoadController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        gameController.setBoard(board);
+        gameController.initData(board);
         Stage stage = (Stage) menuBoard.getScene().getWindow();
         stage.close();
     }

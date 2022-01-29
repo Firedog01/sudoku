@@ -14,10 +14,7 @@ public class SudokuFieldConverter extends StringConverter<Integer> {
 
     @Override
     public Integer fromString(String s) {
-        if(s.isEmpty()) {
-            return 0;
-        }
-        if (s.matches("[1-9]")) {
+        if (s.matches("^[1-9]$")) {
             return Integer.valueOf(s);
         }
         else {

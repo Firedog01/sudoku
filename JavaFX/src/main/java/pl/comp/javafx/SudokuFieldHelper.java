@@ -16,10 +16,17 @@ public class SudokuFieldHelper {
     }
 
     public String getField() throws OutOfRangeCoordsException {
-        return String.valueOf(board.get(rowIdx, colIdx));
+        int ret = board.get(rowIdx, colIdx);
+        if (ret != 0) {
+            return String.valueOf(ret);
+        } else {
+            return "";
+        }
     }
 
     public void setField(String val) throws OutOfRangeCoordsException {
-        board.set(rowIdx, colIdx, Integer.parseInt(val));
+        if(val.matches("^[1-9]$")) {
+            board.set(rowIdx, colIdx, Integer.parseInt(val));
+        }
     }
 }

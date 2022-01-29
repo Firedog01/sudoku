@@ -38,10 +38,6 @@ public class GameController implements Initializable {
 
     private SudokuBoard board;
 
-    SudokuBoardDaoFactory factory = new SudokuBoardDaoFactory();
-
-    SudokuFieldConverter converter = new SudokuFieldConverter();
-
     private TextField[][] fields = new TextField[9][9];
 
     private StringProperty[][] fieldsProperty = new StringProperty[9][9];
@@ -51,10 +47,8 @@ public class GameController implements Initializable {
     @FXML
     private GridPane grid = new GridPane();
 
-    @FXML
-    private VBox sideVbox;
-
-    protected void initData(SudokuBoard board) throws OutOfRangeCoordsException {
+    protected void initData(SudokuBoard board) {
+        grid.getChildren().removeAll();
         this.board = board;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -66,16 +60,16 @@ public class GameController implements Initializable {
                     fieldsProperty[i][j] = JavaBeanStringPropertyBuilder.create()
                             .bean(new SudokuFieldHelper(this.board, i, j)).name("Field").build();
                 } catch (NoSuchMethodException E) {
-                    //joe
+                    //liżme
                 }
                 TextField thisField = fields[i][j];
 
                 thisField.textProperty().bindBidirectional(fieldsProperty[i][j]);
                 thisField.textProperty().addListener(new ChangeListener<String>() {
                     @Override
-                    public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                        if (!((t1.matches("[1-9]")) || (t1.equals("")))) {
-                            thisField.setText(s);
+                    public void changed(ObservableValue<? extends String> observableValue, String old_val, String new_val) {
+                        if (!((new_val.matches("^[1-9]$")) || (new_val.equals("")))) {
+                            thisField.setText(old_val);
                         }
                     }
                 });
@@ -83,86 +77,6 @@ public class GameController implements Initializable {
             }
         }
         grid.setGridLinesVisible(true);
-    }
-
-
-
-//    @FXML
-//    protected void onFieldChanged(KeyEvent event) throws OutOfRangeCoordsException {
-//        TextField field = getFocusedField();
-//        int code = event.getCode().getCode();
-//        // Backspace - 8
-//        //         0 - 48
-//        //         9 - 57
-//        //    Delete - 127
-//        if (field != null) {
-//            if (code > 48 && code <= 57) {
-//                field.setText(event.getText());
-//            } else if (code == 8 || code == 127) {
-//                field.setText("");
-//            } else {
-//                String originalText = field.getText();
-//                Pattern compiledPattern = Pattern.compile("\\d");
-//                Matcher matcher = compiledPattern.matcher(originalText);
-//
-//                if (matcher.find()) {
-//                    field.setText(matcher.group());
-//                } else {
-//                    field.setText("");
-//                }
-//            }
-//            updateBoard();
-//            if (board.checkBoard()) {
-//                Label winLabel = new Label();
-//                winLabel.setText(bundle.getString("game.win"));
-//                sideVbox.getChildren().add(winLabel);
-//            }
-//        }
-//    }
-
-    private TextField getFocusedField() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (fields[i][j].isFocused()) {
-                    return fields[i][j];
-                }
-            }
-        }
-        return null;
-    }
-
-    private void updateFields() throws OutOfRangeCoordsException {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (board.get(i, j) != 0) {
-                    fields[i][j].setText(Integer.toString(board.get(i, j)));
-                } else if (board.get(i, j) == 0) {
-                    fields[i][j].setText("");
-                }
-            }
-        }
-    }
-
-    private void updateBoard() throws OutOfRangeCoordsException {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                String snumber = fields[i][j].getText();
-                int inumber = 0;
-                if (snumber != "") {
-                    try {
-                        inumber = Integer.parseInt(snumber);
-                    } catch (NumberFormatException e) {
-                        logger.info("log.fx.parse");
-                    }
-                }
-                board.set(i, j, inumber);
-            }
-        }
-    }
-
-    public void setBoard(SudokuBoard board) throws OutOfRangeCoordsException {
-        this.board = board;
-        updateFields();
     }
 
     @FXML
