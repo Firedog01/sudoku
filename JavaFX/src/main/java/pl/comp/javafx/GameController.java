@@ -1,11 +1,8 @@
 package pl.comp.javafx;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 import javafx.beans.value.ChangeListener;
@@ -15,26 +12,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import pl.comp.dao.SudokuBoardDaoFactory;
-import pl.comp.exceptions.model.OutOfRangeCoordsException;
 import pl.comp.model.SudokuBoard;
-import pl.comp.model.SudokuField;
 
-//two-way binding
-//https://developer.android.com/topic/libraries/data-binding/two-way#java
 public class GameController implements Initializable {
-
-    private static Logger logger = LoggerFactory.getLogger(GameController.class);
 
     private SudokuBoard board;
 
