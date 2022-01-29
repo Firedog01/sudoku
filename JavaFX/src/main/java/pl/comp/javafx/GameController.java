@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.adapter.JavaBeanStringPropertyBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +37,8 @@ public class GameController implements Initializable {
 
     private TextField[][] fields = new TextField[9][9];
 
+    private StringProperty[][] fieldsProperty = new StringProperty[9][9];
+
     private ResourceBundle bundle;
 
     @FXML
@@ -51,6 +55,12 @@ public class GameController implements Initializable {
                 fields[i][j].setMinSize(40, 40);
                 fields[i][j].setMaxSize(40, 40);
                 fields[i][j].setText("");
+                try {
+                    fieldsProperty[i][j] = JavaBeanStringPropertyBuilder.create().bean(fields[i][j]).name("value").build();
+                } catch (NoSuchMethodException E) {
+                    //joe
+                }
+
                 grid.add(fields[i][j], i, j);
             }
         }
