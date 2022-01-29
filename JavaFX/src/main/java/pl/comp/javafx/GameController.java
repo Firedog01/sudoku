@@ -60,7 +60,7 @@ public class GameController implements Initializable {
                     fieldsProperty[i][j] = JavaBeanStringPropertyBuilder.create()
                             .bean(new SudokuFieldHelper(this.board, i, j)).name("Field").build();
                 } catch (NoSuchMethodException E) {
-                    //liżme
+                    E.printStackTrace();
                 }
                 TextField thisField = fields[i][j];
 
